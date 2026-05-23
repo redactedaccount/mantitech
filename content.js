@@ -682,8 +682,8 @@
     textarea.dataset.mtEmojiSetup = '1';
     if (!settings.emojiPicker) return;
 
-    const sendWrap = textarea.nextElementSibling;
-    const sendBtn  = sendWrap?.querySelector('button');
+    const next    = textarea.nextElementSibling;
+    const sendBtn = next?.tagName === 'BUTTON' ? next : next?.querySelector('button');
     if (!sendBtn) return;
 
     const btn = document.createElement('button');
@@ -737,7 +737,6 @@
     const bh = sendBtn.offsetHeight;
     const bw = sendBtn.offsetWidth;
     if (bh > 0) { btn.style.width = bw + 'px'; btn.style.height = bh + 'px'; }
-    sendWrap.style.gap = '4px';
   }
 
   function setupEmojiPickers() {
