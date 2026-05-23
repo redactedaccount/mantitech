@@ -1,4 +1,105 @@
-/* ── Note display ──────────────────────────────────────────────────────────── */
+/* ── Exchange info box ─────────────────────────────────────────────────────── */
+
+.mt-exchange-info {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 8px 10px;
+  margin: 4px 0 2px;
+  background: #181825;
+  border: 1px solid #313244;
+  border-radius: 6px;
+  font-family: 'Titillium Web', system-ui, sans-serif;
+}
+
+.mt-exchange-prices {
+  display: flex;
+  gap: 18px;
+  align-items: baseline;
+}
+
+.mt-price-stat {
+  display: flex;
+  align-items: baseline;
+  gap: 5px;
+}
+
+.mt-price-label {
+  font-size: 10px;
+  color: #6c7086;
+  text-transform: uppercase;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+}
+
+.mt-price-val {
+  font-size: 13px;
+  color: #cdd6f4;
+}
+
+.mt-exchange-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.mt-exchange-actions {
+  display: flex;
+  gap: 2px;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+.mt-exchange-btn {
+  background: none;
+  border: none;
+  padding: 3px 5px;
+  cursor: pointer;
+  border-radius: 4px;
+  color: #6c7086;
+  line-height: 1;
+  transition: color 0.15s, background 0.15s;
+}
+
+.mt-exchange-btn:hover {
+  color: #cdd6f4;
+  background: #313244;
+}
+
+.mt-exchange-btn.mt-note-btn--active {
+  color: #f9e2af;
+}
+
+.mt-exchange-note {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  cursor: pointer;
+  opacity: 0.9;
+}
+
+.mt-exchange-note:hover {
+  opacity: 1;
+}
+
+.mt-exchange-note-hr {
+  margin: 0;
+  border: none;
+  border-top: 1px solid #45475a;
+  opacity: 1;
+}
+
+.mt-exchange-note-text {
+  color: #f9e2af;
+  font-size: 12px;
+  line-height: 1.5;
+  white-space: pre-wrap;
+  word-break: break-word;
+  font-family: 'Titillium Web', system-ui, sans-serif;
+}
+
+/* ── Note display (legacy standalone, unused after info box refactor) ───────── */
 
 .mt-note-display {
   color: #f9e2af;
@@ -14,6 +115,12 @@
 
 .mt-note-display:hover {
   opacity: 1;
+}
+
+/* ── Price min/max buttons ─────────────────────────────────────────────────── */
+
+.mt-price-btn {
+  border-color: rgba(0, 0, 0, 0.35) !important;
 }
 
 /* ── Note button ───────────────────────────────────────────────────────────── */
@@ -399,6 +506,28 @@ img.mt-chat-img {
   justify-content: center;
   font-size: 1.1em;
   line-height: 1;
+}
+
+/* ── Copy toast ────────────────────────────────────────────────────────────── */
+
+.mt-copy-toast {
+  position: fixed;
+  z-index: 999999;
+  background: #313244;
+  color: #a6e3a1;
+  font-size: 11px;
+  font-family: 'Titillium Web', system-ui, sans-serif;
+  padding: 3px 8px;
+  border-radius: 4px;
+  pointer-events: none;
+  transform: translateX(-50%);
+  animation: mt-fade-up 1.2s ease forwards;
+}
+
+@keyframes mt-fade-up {
+  0%   { opacity: 1; transform: translateX(-50%) translateY(0); }
+  50%  { opacity: 1; transform: translateX(-50%) translateY(-10px); }
+  100% { opacity: 0; transform: translateX(-50%) translateY(-18px); }
 }
 
 /* ── Lightbox ──────────────────────────────────────────────────────────────── */

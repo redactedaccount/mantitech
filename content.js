@@ -9,18 +9,21 @@
   const API_BASE       = 'https://api.g2.galactictycoons.com';
   let activeModal      = null;
   let debounceTimer    = null;
+  let marketPriceCache = null; // { ts: Date, prices: { matName.toLowerCase() → cents } }
 
   // ── Settings ───────────────────────────────────────────────────────────────
 
   const SETTINGS_DEFAULTS = {
-    inlineImages:    true,
-    ytSunoPreviews:  true,
-    gifPicker:       true,
-    emojiPicker:     true,
-    scrollIndicator: true,
-    materialNotes:   true,
-    ledger:          true,
-    guildContent:    true,
+    inlineImages:       true,
+    ytSunoPreviews:     true,
+    gifPicker:          true,
+    emojiPicker:        true,
+    scrollIndicator:    true,
+    materialNotes:      true,
+    ledger:             true,
+    guildContent:       true,
+    wishlistCopy:       true,
+    cheapestIndicator:  true,
   };
 
   let settings = Object.assign({}, SETTINGS_DEFAULTS);
@@ -83,10 +86,11 @@
   // ── Note display ───────────────────────────────────────────────────────────
 
   function updateNoteDisplay(text) {
-    const display = document.querySelector('.mt-note-display');
+    const display = document.querySelector('.mt-exchange-note');
     if (!display) return;
-    display.textContent = text || '';
-    display.style.display = text ? '' : 'none';
+    const textEl = display.querySelector('.mt-exchange-note-text');
+    if (textEl) textEl.textContent = text || '';
+    display.style.display = text ? 'flex' : 'none';
   }
 
   function refreshNoteState(btn) {
@@ -275,57 +279,6 @@
         body.appendChild(makeEl('div', 'mt-ledger-empty', 'Error: ' + String(err)));
       });
     });
-  }
-
-  // ── Button injection ───────────────────────────────────────────────────────
-
-  function injectButtons() {
-    if (!matIdFromUrl()) return;
-
-    const headerRow = document.querySelector('div.row.align-items-center.g-2.lh-xs');
-    const actions   = headerRow?.querySelector('div.col-auto.d-flex.align-items-center.gap-2');
-    if (!actions) return;
-
-    // Note button
-    const existingNote = actions.querySelector('.mt-note-btn');
-    if (existingNote) {
-      refreshNoteState(existingNote);
-    } else if (settings.materialNotes) {
-      document.querySelectorAll('.mt-note-display').forEach(function (el) { el.remove(); });
-
-      const noteBtn = document.createElement('button');
-      noteBtn.type = 'button';
-      noteBtn.className = 'btn btn-sm btn-square btn-secondary mt-note-btn';
-      noteBtn.title = 'MantiTech: material note';
-      noteBtn.innerHTML =
-        '<svg viewBox="0 0 16 16" fill="currentColor" width="14" height="14" aria-hidden="true">' +
-          '<path d="M1 11.5V15h3.5l7-7L8 4.5l-7 7zm13.7-7.2a1 1 0 0 0 0-1.4l-2.6-2.6a1 1 0 0 0-1.4 0L9.2 1.8l4 4 1.5-1.5z"/>' +
-        '</svg>';
-      noteBtn.addEventListener('click', function (e) { e.stopPropagation(); showNoteModal(noteBtn); });
-      actions.appendChild(noteBtn);
-
-      const display = document.createElement('div');
-      display.className = 'mt-note-display';
-      display.style.display = 'none';
-      display.addEventListener('click', function () { showNoteModal(noteBtn); });
-      headerRow.insertAdjacentElement('afterend', display);
-
-      refreshNoteState(noteBtn);
-    }
-
-    // Ledger button
-    if (!actions.querySelector('.mt-ledger-btn') && settings.ledger) {
-      const ledgerBtn = document.createElement('button');
-      ledgerBtn.type = 'button';
-      ledgerBtn.className = 'btn btn-sm btn-square btn-secondary mt-ledger-btn';
-      ledgerBtn.title = 'MantiTech: buy/sell ledger';
-      ledgerBtn.innerHTML =
-        '<svg viewBox="0 0 16 16" fill="currentColor" width="14" height="14" aria-hidden="true">' +
-          '<path d="M2 2h12v1.5H2V2zm0 3.5h12V7H2V5.5zm0 3.5h12v1.5H2V9zm0 3.5h7V14H2v-1.5z"/>' +
-        '</svg>';
-      ledgerBtn.addEventListener('click', function (e) { e.stopPropagation(); showLedgerModal(ledgerBtn); });
-      actions.appendChild(ledgerBtn);
-    }
   }
 
   // ── Chat scroll indicator ─────────────────────────────────────────────────
@@ -518,6 +471,14 @@
   document.addEventListener('keydown', function (e) {
     if (e.key === 'Escape') { closeLightbox(); closeTenorPicker(); closeEmojiPicker(); }
   });
+
+  document.addEventListener('keydown', function (e) {
+    if (e.key !== 'Tab') return;
+    const activeSuggestion = document.querySelector('li[data-suggestion-index].active');
+    if (!activeSuggestion) return;
+    e.preventDefault();
+    activeSuggestion.dispatchEvent(new MouseEvent('mousedown', { bubbles: true, cancelable: true, button: 0 }));
+  }, true);
 
   // ── Image probe ────────────────────────────────────────────────────────────
 
@@ -783,6 +744,337 @@
     document.querySelectorAll('textarea[name="msg"]').forEach(setupEmojiPicker);
   }
 
+  // ── Wishlist copy ──────────────────────────────────────────────────────────
+
+  function setupWishlistCopy() {
+    if (!settings.wishlistCopy) return;
+    const editBtn = document.querySelector('[data-popup-id="editWishlistExchange"]:not([data-mt-wishlist-setup])');
+    if (!editBtn) return;
+    editBtn.dataset.mtWishlistSetup = '1';
+
+    const copyBtn = document.createElement('button');
+    copyBtn.type = 'button';
+    copyBtn.className = editBtn.className;
+    copyBtn.title = 'Copy wishlist to clipboard';
+    copyBtn.innerHTML =
+      '<svg viewBox="0 0 16 16" fill="currentColor" width="14" height="14" aria-hidden="true">' +
+        '<path d="M10 0H3a1 1 0 0 0-1 1v10a1 1 0 0 0 1 1h7a1 1 0 0 0 1-1V1a1 1 0 0 0-1-1zm0 11H3V1h7v10z"/>' +
+        '<path d="M13 3v11H5v1h8a1 1 0 0 0 1-1V3h-1z"/>' +
+      '</svg>';
+
+    copyBtn.addEventListener('click', function () {
+      const container = editBtn.closest('.card') || document.body;
+      const rows = container.querySelectorAll('tr[role="button"]');
+      const lines = [];
+      rows.forEach(function (row) {
+        const cells = row.querySelectorAll('td');
+        if (cells.length < 2) return;
+        const qtyInput = cells[1].querySelector('input[type="number"]');
+        if (!qtyInput) return;
+        const qty = qtyInput.value.trim();
+        const name = Array.from(cells[0].childNodes)
+          .filter(function (n) { return n.nodeType === Node.TEXT_NODE; })
+          .map(function (n) { return n.textContent.trim(); })
+          .filter(Boolean)
+          .join('');
+        if (name && qty) lines.push(':' + name + '; x' + qty);
+      });
+      if (!lines.length) return;
+      const titleEl = container.querySelector('.dropdown-toggle .text-truncate');
+      const title = titleEl ? titleEl.textContent.trim() : '';
+      const text = (title ? title + '\n' : '') + lines.join('\n');
+      navigator.clipboard.writeText(text)
+        .then(function () {
+          const rect = copyBtn.getBoundingClientRect();
+          const toast = document.createElement('div');
+          toast.className = 'mt-copy-toast';
+          toast.textContent = 'Copied!';
+          toast.style.left = (rect.left + rect.width / 2) + 'px';
+          toast.style.top  = (rect.top - 8) + 'px';
+          document.body.appendChild(toast);
+          toast.addEventListener('animationend', function () { toast.remove(); });
+        })
+        .catch(function () {});
+    });
+
+    editBtn.insertAdjacentElement('afterend', copyBtn);
+  }
+
+  // ── My Offers cheapest indicator ──────────────────────────────────────────
+
+  function refreshMarketPrices(table, btn) {
+    chrome.storage.local.get(API_KEY_STORE, function (result) {
+      const apiKey = result[API_KEY_STORE];
+      if (!apiKey) {
+        table.querySelectorAll('.mt-market-cell').forEach(function (td) {
+          td.textContent = 'no key';
+          td.className = 'mt-market-cell text-body-tertiary small';
+        });
+        return;
+      }
+
+      if (btn) btn.disabled = true;
+      table.querySelectorAll('.mt-market-cell').forEach(function (td) {
+        td.textContent = '…';
+        td.className = 'mt-market-cell';
+      });
+      table.querySelectorAll('.mt-lowest-cell').forEach(function (td) { td.textContent = ''; });
+
+      fetch(API_BASE + '/public/exchange/mat-prices', {
+        headers: { 'Authorization': 'Bearer ' + apiKey }
+      })
+      .then(function (r) {
+        if (!r.ok) throw new Error('HTTP ' + r.status);
+        return r.json();
+      })
+      .then(function (data) {
+        if (btn) btn.disabled = false;
+        const arr = Array.isArray(data) ? data : (data.prices || data.materials || []);
+        const priceMap = {};
+        arr.forEach(function (item) {
+          if (item.matName) priceMap[item.matName.toLowerCase()] = item.currentPrice;
+        });
+        marketPriceCache = { ts: new Date(), prices: priceMap };
+
+        table.querySelectorAll('tbody tr').forEach(function (row) {
+          const marketTd = row.querySelector('.mt-market-cell');
+          if (!marketTd) return;
+
+          const matName = (row.querySelector('td span')?.textContent || '').trim().toLowerCase();
+          if (!matName) { marketTd.textContent = '—'; return; }
+
+          const cells = row.querySelectorAll('td');
+          const userPrice = parseFloat((cells[2]?.textContent || '0').replace(/[$,\s]/g, '')) || 0;
+
+          const marketCents = priceMap[matName];
+          if (marketCents === undefined) {
+            marketTd.textContent = '—';
+            marketTd.className = 'mt-market-cell';
+            return;
+          }
+
+          const marketDollars = marketCents / 100;
+          marketTd.textContent = fmtCents(marketCents);
+          marketTd.className = 'mt-market-cell ' + (userPrice <= marketDollars ? 'mt-buy' : 'mt-sell');
+
+          const lowestTd = row.querySelector('.mt-lowest-cell');
+          if (lowestTd) lowestTd.textContent = userPrice === marketDollars ? '✅' : '';
+        });
+      })
+      .catch(function () {
+        if (btn) btn.disabled = false;
+        table.querySelectorAll('.mt-market-cell').forEach(function (td) {
+          td.textContent = '—';
+          td.className = 'mt-market-cell';
+        });
+        table.querySelectorAll('.mt-lowest-cell').forEach(function (td) { td.textContent = ''; });
+      });
+    });
+  }
+
+  function setupMyOffers() {
+    if (!settings.cheapestIndicator) return;
+
+    const myOffersTab = document.querySelector('button[data-tab="myoffers"].active');
+    if (!myOffersTab) return;
+
+    const card = myOffersTab.closest('.card');
+    if (!card) return;
+
+    const table = card.querySelector('table');
+    if (!table || table.dataset.mtOffersSetup) return;
+    table.dataset.mtOffersSetup = '1';
+
+    const priceUnitTh = table.querySelector('thead tr')?.querySelectorAll('th')[2];
+    if (!priceUnitTh) return;
+
+    const marketTh = document.createElement('th');
+    marketTh.className = 'col';
+    marketTh.textContent = 'Market';
+    priceUnitTh.insertAdjacentElement('afterend', marketTh);
+
+    const lowestTh = document.createElement('th');
+    lowestTh.className = 'col';
+    lowestTh.textContent = 'Lowest';
+    marketTh.insertAdjacentElement('afterend', lowestTh);
+
+    table.querySelectorAll('tbody tr').forEach(function (row) {
+      const cells = row.querySelectorAll('td');
+      if (cells.length < 3) return;
+      const marketTd = document.createElement('td');
+      marketTd.className = 'mt-market-cell';
+      marketTd.textContent = '—';
+      cells[2].insertAdjacentElement('afterend', marketTd);
+      const lowestTd = document.createElement('td');
+      lowestTd.className = 'mt-lowest-cell';
+      marketTd.insertAdjacentElement('afterend', lowestTd);
+    });
+
+    const cardBody = card.querySelector('.card-body');
+    const offerHeader = cardBody?.querySelector('.d-flex.justify-content-between');
+    if (!offerHeader) return;
+
+    const refreshBtn = document.createElement('button');
+    refreshBtn.type = 'button';
+    refreshBtn.className = 'btn btn-sm btn-secondary btn-square';
+    refreshBtn.title = 'Refresh exchange prices';
+    refreshBtn.innerHTML =
+      '<svg viewBox="0 0 16 16" fill="currentColor" width="12" height="12" aria-hidden="true">' +
+        '<path d="M8 3a5 5 0 1 0 4.546 2.914.5.5 0 0 1 .908-.417A6 6 0 1 1 8 2v1z"/>' +
+        '<path d="M8 4.466V.534a.25.25 0 0 1 .41-.192l2.36 1.966c.12.1.12.284 0 .384L8.41 4.658A.25.25 0 0 1 8 4.466z"/>' +
+      '</svg>';
+    refreshBtn.addEventListener('click', function () { refreshMarketPrices(table, refreshBtn); });
+
+    offerHeader.appendChild(refreshBtn);
+  }
+
+  // ── Exchange info box ─────────────────────────────────────────────────────
+
+  function setupExchangeInfoBox() {
+    if (!matIdFromUrl()) return;
+
+    const headerRow = document.querySelector('div.row.align-items-center.g-2.lh-xs');
+    if (!headerRow) return;
+    const boxSection = headerRow.closest('.box-section');
+    if (!boxSection) return;
+
+    // ── Phase 1: build box structure once ──
+    if (!boxSection.dataset.mtInfoBoxSetup) {
+      boxSection.dataset.mtInfoBoxSetup = '1';
+
+      const box = document.createElement('div');
+      box.className = 'mt-exchange-info';
+
+      // Top row: price stats left, action buttons right
+      const topRow = document.createElement('div');
+      topRow.className = 'mt-exchange-top';
+
+      const pricesDiv = document.createElement('div');
+      pricesDiv.className = 'mt-exchange-prices';
+      ['Max', 'Min'].forEach(function (label) {
+        const stat = document.createElement('div');
+        stat.className = 'mt-price-stat';
+        const labelEl = document.createElement('span');
+        labelEl.className = 'mt-price-label';
+        labelEl.textContent = label;
+        const valEl = document.createElement('span');
+        valEl.className = 'mt-price-val';
+        valEl.textContent = '—';
+        stat.append(labelEl, valEl);
+        pricesDiv.appendChild(stat);
+      });
+      topRow.appendChild(pricesDiv);
+
+      const actionsDiv = document.createElement('div');
+      actionsDiv.className = 'mt-exchange-actions';
+
+      if (settings.materialNotes) {
+        const noteBtn = document.createElement('button');
+        noteBtn.type = 'button';
+        noteBtn.className = 'mt-exchange-btn mt-note-btn';
+        noteBtn.title = 'Material note';
+        noteBtn.innerHTML =
+          '<svg viewBox="0 0 16 16" fill="currentColor" width="14" height="14" aria-hidden="true">' +
+            '<path d="M1 11.5V15h3.5l7-7L8 4.5l-7 7zm13.7-7.2a1 1 0 0 0 0-1.4l-2.6-2.6a1 1 0 0 0-1.4 0L9.2 1.8l4 4 1.5-1.5z"/>' +
+          '</svg>';
+        noteBtn.addEventListener('click', function (e) { e.stopPropagation(); showNoteModal(noteBtn); });
+        actionsDiv.appendChild(noteBtn);
+        refreshNoteState(noteBtn);
+      }
+
+      if (settings.ledger) {
+        const ledgerBtn = document.createElement('button');
+        ledgerBtn.type = 'button';
+        ledgerBtn.className = 'mt-exchange-btn mt-ledger-btn';
+        ledgerBtn.title = 'Buy/sell ledger';
+        ledgerBtn.innerHTML =
+          '<svg viewBox="0 0 16 16" fill="currentColor" width="14" height="14" aria-hidden="true">' +
+            '<path d="M2 2h12v1.5H2V2zm0 3.5h12V7H2V5.5zm0 3.5h12v1.5H2V9zm0 3.5h7V14H2v-1.5z"/>' +
+          '</svg>';
+        ledgerBtn.addEventListener('click', function (e) { e.stopPropagation(); showLedgerModal(ledgerBtn); });
+        actionsDiv.appendChild(ledgerBtn);
+      }
+
+      topRow.appendChild(actionsDiv);
+      box.appendChild(topRow);
+
+      const noteEl = document.createElement('div');
+      noteEl.className = 'mt-exchange-note';
+      noteEl.style.display = 'none';
+      const noteLabelEl = document.createElement('span');
+      noteLabelEl.className = 'mt-price-label';
+      noteLabelEl.textContent = 'Notes';
+      const noteDivider = document.createElement('hr');
+      noteDivider.className = 'mt-exchange-note-hr';
+      const noteTextEl = document.createElement('div');
+      noteTextEl.className = 'mt-exchange-note-text';
+      noteEl.append(noteLabelEl, noteDivider, noteTextEl);
+      noteEl.addEventListener('click', function () {
+        const btn = box.querySelector('.mt-note-btn');
+        if (btn) showNoteModal(btn);
+      });
+      box.appendChild(noteEl);
+
+      boxSection.insertAdjacentElement('afterend', box);
+    }
+
+    // ── Phase 2: wire price stats once #inputPrice is available ──
+    const inputPrice = document.querySelector('#inputPrice');
+    if (!inputPrice || inputPrice.dataset.mtPriceStatsSetup) return;
+    inputPrice.dataset.mtPriceStatsSetup = '1';
+
+    const box = document.querySelector('.mt-exchange-info');
+    if (!box) return;
+
+    const priceVals = box.querySelectorAll('.mt-price-val');
+    const maxValEl  = priceVals[0] || null;
+    const minValEl  = priceVals[1] || null;
+
+    function formatPriceVal(el, value) {
+      if (!el) return;
+      el.textContent = '';
+      if (isNaN(value)) { el.textContent = '—'; return; }
+      const parts = value.toFixed(2).split('.');
+      el.textContent = parts[0];
+      const dec = document.createElement('small');
+      dec.textContent = '.' + parts[1];
+      const unit = document.createElement('small');
+      unit.className = 'opacity-50';
+      unit.textContent = '$';
+      el.append(dec, unit);
+    }
+
+    function updatePriceStats() {
+      formatPriceVal(maxValEl, parseFloat(inputPrice.getAttribute('max')));
+      formatPriceVal(minValEl, parseFloat(inputPrice.getAttribute('min')));
+    }
+
+    updatePriceStats();
+    new MutationObserver(updatePriceStats).observe(inputPrice, {
+      attributes: true, attributeFilter: ['min', 'max']
+    });
+
+    // Min/Max quick-fill buttons inside the price input-group
+    const inputGroup = inputPrice.closest('.input-group');
+    const inputGroupText = inputGroup?.querySelector('.input-group-text');
+    if (inputGroupText && !inputGroup.querySelector('.mt-price-btns')) {
+      const btnGroup = document.createElement('div');
+      btnGroup.className = 'btn-group btn-group-sm mt-price-btns';
+      [['Min', 'min'], ['Max', 'max']].forEach(function (pair) {
+        const btn = document.createElement('button');
+        btn.type = 'button';
+        btn.className = 'btn btn-primary mt-price-btn';
+        btn.textContent = pair[0];
+        btn.addEventListener('click', function () {
+          const v = parseFloat(inputPrice.getAttribute(pair[1]));
+          if (!isNaN(v)) { inputPrice.value = v; inputPrice.dispatchEvent(new Event('input', { bubbles: true })); inputPrice.focus(); }
+        });
+        btnGroup.appendChild(btn);
+      });
+      inputGroupText.insertAdjacentElement('afterend', btnGroup);
+    }
+  }
+
   // ── MantiTech settings card ────────────────────────────────────────────────
 
   function injectSettingsCard(modalBody) {
@@ -802,6 +1094,8 @@
       ['materialNotes',   'Material notes (exchange)'],
       ['ledger',          'Buy/sell ledger (exchange)'],
       ['guildContent',    'Link previews on guild pages'],
+      ['wishlistCopy',       'Copy wishlist to clipboard'],
+      ['cheapestIndicator',  'Cheapest offer indicator (My Offers)'],
     ];
 
     const table = makeEl('table', 'table table-hover align-middle text-center mb-3');
@@ -904,7 +1198,7 @@
     if (location.href !== lastUrl) {
       lastUrl = location.href;
       closeModal();
-      setTimeout(injectButtons, 400);
+      setTimeout(setupExchangeInfoBox, 400);
     }
   }
 
@@ -928,17 +1222,20 @@
 
     clearTimeout(debounceTimer);
     debounceTimer = setTimeout(function () {
-      injectButtons(); linkifyMessages(); linkifyGuildContent(); setupScrollIndicators();
-      setupTenorInputs(); setupEmojiPickers();
+      setupExchangeInfoBox(); linkifyMessages(); linkifyGuildContent();
+      setupScrollIndicators(); setupTenorInputs(); setupEmojiPickers();
+      setupWishlistCopy(); setupMyOffers();
     }, 250);
   }).observe(document.documentElement, { childList: true, subtree: true });
 
   loadSettings(function () {
-    injectButtons();
+    setupExchangeInfoBox();
     linkifyMessages();
     linkifyGuildContent();
     setupScrollIndicators();
     setupTenorInputs();
     setupEmojiPickers();
+    setupWishlistCopy();
+    setupMyOffers();
   });
 })();
