@@ -2,7 +2,7 @@
 
 A browser extension adding quality-of-life features to [Galactic Tycoons](https://galactictycoons.com).
 
-Available on the [Chrome Web Store](#) and [Firefox Add-ons](#).
+Available on the [Chrome Web Store](https://chromewebstore.google.com/detail/mantitech/igkkhmeegfmbbboldmkefkokbjjfiaok) and [Firefox Add-ons](https://addons.mozilla.org/en-US/firefox/addon/mantitech/).
 
 ---
 
@@ -23,15 +23,33 @@ Available on the [Chrome Web Store](#) and [Firefox Add-ons](#).
 ## Installation
 
 ### Chrome
-1. Download the latest `.zip` from [Releases](../../releases)
-2. Unzip it
-3. Go to `chrome://extensions`, enable **Developer mode**
-4. Click **Load unpacked** and select the unzipped folder
-
-Or install directly from the [Chrome Web Store](#).
+Install from the [Chrome Web Store](https://chromewebstore.google.com/detail/mantitech/igkkhmeegfmbbboldmkefkokbjjfiaok).
 
 ### Firefox
-Install from [Firefox Add-ons](#).
+Install from [Firefox Add-ons](https://addons.mozilla.org/en-US/firefox/addon/mantitech/).
+
+---
+
+## Manual Installation (latest version)
+
+Store approvals can lag behind releases. If you want the most up-to-date version, you can load it directly from this repo.
+
+### Chrome (manual)
+1. Download the latest `.zip` from [Releases](../../releases) and unzip it, or clone this repo
+2. Go to `chrome://extensions`
+3. Enable **Developer mode** (toggle in the top-right)
+4. Click **Load unpacked** and select the folder
+
+To update, click the refresh icon on the extension card after pulling new changes.
+
+### Firefox (manual)
+Firefox requires a signed extension for permanent installation, but you can load it temporarily for testing:
+
+1. Go to `about:debugging#/runtime/this-firefox`
+2. Click **Load Temporary Add-on**
+3. Navigate to the extension folder and select `manifest.json`
+
+Note: temporarily loaded extensions are removed when Firefox restarts. For a persistent manual install, use [Firefox Developer Edition](https://www.mozilla.org/firefox/developer/) or Nightly, which allow unsigned extensions via `about:config` → set `xpinstall.signatures.required` to `false`.
 
 ---
 
