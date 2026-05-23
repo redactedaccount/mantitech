@@ -367,8 +367,19 @@ const list = Array.isArray(data) ? data
         return body.scrollHeight - body.scrollTop - body.clientHeight < 60;
       }
 
+      let showTimer = null;
+
       function update() {
-        bar.hidden = atBottom();
+        if (atBottom()) {
+          clearTimeout(showTimer);
+          showTimer = null;
+          bar.hidden = true;
+        } else if (!showTimer) {
+          showTimer = setTimeout(function () {
+            showTimer = null;
+            if (!atBottom()) bar.hidden = false;
+          }, 750);
+        }
       }
 
       body.addEventListener('scroll', update, { passive: true });
@@ -506,10 +517,16 @@ const list = Array.isArray(data) ? data
     img.className = 'mt-chat-img';
     img.alt = '';
     img.style.display = 'none';
+
+    const scrollBody = a.closest('.card-body.overflow-auto');
+    const wasAtBottom = scrollBody &&
+      (scrollBody.scrollHeight - scrollBody.scrollTop - scrollBody.clientHeight < 60);
+
     img.onload  = function () {
       img.style.display = '';
       img.style.cursor = 'zoom-in';
       img.addEventListener('click', function () { openLightbox(url); });
+      if (wasAtBottom) scrollBody.scrollTo({ top: scrollBody.scrollHeight, behavior: 'smooth' });
     };
     img.onerror = function () { img.remove(); };
     img.src = url;
