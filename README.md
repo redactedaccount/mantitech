@@ -11,12 +11,24 @@ Available on the [Chrome Web Store](https://chromewebstore.google.com/detail/man
 ### Exchange
 - **Material notes** — attach a private note to any material's exchange page, visible next to the header
 - **Buy/sell ledger** — view your full trade history for a material in one click (requires API key)
+- **Min/Max quick-fill** — buttons on the order form instantly fill the price input with the current floor or ceiling
+- **Cheapest offer indicator** — My Offers tab gains a Market Price column showing the current lowest offer, and a Lowest column that marks with ✅ when your price matches it (requires API key)
 
 ### Chat
 - **Link previews** — URLs are automatically linkified; images render inline, YouTube and Suno links show a clickable thumbnail
 - **GIF picker** — type `/tenor <search>` in any chat input to search and insert a GIF
 - **Emoji picker** — an emoji button next to the send button opens a full emoji picker
 - **Scroll indicator** — a "Scroll to latest" bar appears when you're not at the bottom of a chat
+- **Mention autocomplete** — Tab selects the highlighted mention suggestion without needing the mouse
+
+### Guild Pages
+- **Link previews** — same linkify and inline image treatment as chat, applied to guild posts and feeds
+
+### Wishlist
+- **Copy to clipboard** — a copy button next to the wishlist edit button exports your wishlist as plain text
+
+### Settings
+- **Toggle features** — enable or disable individual features from the in-game Settings modal
 
 ---
 
@@ -55,7 +67,7 @@ Note: temporarily loaded extensions are removed when Firefox restarts. For a per
 
 ## API Key (optional)
 
-Some features (the buy/sell ledger) require a GT API key. Get yours from **Settings → API** in-game, then click the ledger button on any exchange page to enter it.
+Some features (the buy/sell ledger and cheapest offer indicator) require a GT API key. Get yours from **Settings → API keys** in-game, then open **Settings** and find the **MantiTech** section to enter it. Only **Limited** access is needed.
 
 ---
 

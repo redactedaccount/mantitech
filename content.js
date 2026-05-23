@@ -855,7 +855,7 @@
 
           const marketDollars = marketCents / 100;
           marketTd.textContent = fmtCents(marketCents);
-          marketTd.className = 'mt-market-cell ' + (userPrice <= marketDollars ? 'mt-buy' : 'mt-sell');
+          marketTd.className = 'mt-market-cell';
 
           const lowestTd = row.querySelector('.mt-lowest-cell');
           if (lowestTd) lowestTd.textContent = userPrice === marketDollars ? '✅' : '';
