@@ -3,11 +3,42 @@
 
   console.log('[MantiTech] content script loaded');
 
-  const NOTE_PREFIX   = 'mt_note__mat_';
-  const API_KEY_STORE = 'mt_api_key';
-  const API_BASE      = 'https://api.g2.galactictycoons.com';
-  let activeModal     = null;
-  let debounceTimer   = null;
+  const NOTE_PREFIX    = 'mt_note__mat_';
+  const API_KEY_STORE  = 'mt_api_key';
+  const SETTINGS_STORE = 'mt_settings';
+  const API_BASE       = 'https://api.g2.galactictycoons.com';
+  let activeModal      = null;
+  let debounceTimer    = null;
+
+  // ── Settings ───────────────────────────────────────────────────────────────
+
+  const SETTINGS_DEFAULTS = {
+    inlineImages:    true,
+    ytSunoPreviews:  true,
+    gifPicker:       true,
+    emojiPicker:     true,
+    scrollIndicator: true,
+    materialNotes:   true,
+    ledger:          true,
+  };
+
+  let settings = Object.assign({}, SETTINGS_DEFAULTS);
+
+  function loadSettings(cb) {
+    chrome.storage.local.get(SETTINGS_STORE, function (result) {
+      settings = Object.assign({}, SETTINGS_DEFAULTS, result[SETTINGS_STORE] || {});
+      if (cb) cb();
+    });
+  }
+
+  function saveSetting(key, value) {
+    settings[key] = value;
+    chrome.storage.local.get(SETTINGS_STORE, function (result) {
+      const s = Object.assign({}, result[SETTINGS_STORE] || {});
+      s[key] = value;
+      chrome.storage.local.set({ [SETTINGS_STORE]: s });
+    });
+  }
 
   // ── Helpers ────────────────────────────────────────────────────────────────
 
@@ -78,8 +109,8 @@
     modal.className = 'mt-modal';
     if (width) modal.style.width = width + 'px';
 
-    const header  = makeEl('div', 'mt-modal-header');
-    const titleEl = makeEl('span', 'mt-modal-title', title);
+    const header   = makeEl('div', 'mt-modal-header');
+    const titleEl  = makeEl('span', 'mt-modal-title', title);
     const closeBtn = makeEl('button', 'mt-modal-close', '✕');
     closeBtn.setAttribute('aria-label', 'Close');
     header.append(titleEl, closeBtn);
@@ -165,7 +196,6 @@
 
   // ── Ledger modal ───────────────────────────────────────────────────────────
 
-
   function showLedgerModal(btn) {
     const matId = matIdFromUrl();
     if (!matId) return;
@@ -173,15 +203,15 @@
 
     chrome.storage.local.get(API_KEY_STORE, function (result) {
       const apiKey = result[API_KEY_STORE];
+      const modal  = makeModal(name + ' — Ledger', 420);
+      positionModal(modal, btn);
+      const body = modal.querySelector('.mt-modal-body');
 
       if (!apiKey) {
-        showApiKeyPrompt(btn, function () { showLedgerModal(btn); });
+        body.appendChild(makeEl('div', 'mt-ledger-empty', 'No API key set. Add one in the MantiTech section of Settings.'));
         return;
       }
 
-      const modal = makeModal(name + ' — Ledger', 420);
-      positionModal(modal, btn);
-      const body = modal.querySelector('.mt-modal-body');
       body.appendChild(makeEl('div', 'mt-ledger-loading', 'Loading…'));
 
       fetch(API_BASE + '/public/company/cash-history', {
@@ -192,35 +222,21 @@
         return r.json();
       })
       .then(function (data) {
-const list = Array.isArray(data) ? data
-                   : Array.isArray(data.items)   ? data.items
-                   : Array.isArray(data.history)  ? data.history
-                   : Array.isArray(data.entries)  ? data.entries
-                   : Array.isArray(data.logs)     ? data.logs
-                   : [];
+        const list = Array.isArray(data) ? data
+                       : Array.isArray(data.items)   ? data.items
+                       : Array.isArray(data.history)  ? data.history
+                       : Array.isArray(data.entries)  ? data.entries
+                       : Array.isArray(data.logs)     ? data.logs
+                       : [];
 
         const entries = list
           .filter(function (e) { return String(e.matId) === matId; })
           .sort(function (a, b) { return b.date > a.date ? 1 : -1; });
 
-        function makeLedgerFooter(onChangeKey) {
-          const footer   = makeEl('div', 'mt-ledger-footer');
-          const changeBtn = makeEl('button', 'mt-ledger-change-key', 'Change API key');
-          changeBtn.type = 'button';
-          changeBtn.onclick = onChangeKey;
-          footer.appendChild(changeBtn);
-          return footer;
-        }
-
-        function onChangeKey() { showApiKeyPrompt(btn, function () { showLedgerModal(btn); }); }
-
         body.textContent = '';
 
         if (!entries.length) {
-          body.append(
-            makeEl('div', 'mt-ledger-empty', 'No buy/sell history for this material.'),
-            makeLedgerFooter(onChangeKey)
-          );
+          body.appendChild(makeEl('div', 'mt-ledger-empty', 'No buy/sell history for this material.'));
           return;
         }
 
@@ -251,48 +267,13 @@ const list = Array.isArray(data) ? data
           addCell(e.otherCompany?.name ?? '—');
         });
 
-        body.append(table, makeLedgerFooter(onChangeKey));
+        body.appendChild(table);
       })
       .catch(function (err) {
-        function onChangeKey() { showApiKeyPrompt(btn, function () { showLedgerModal(btn); }); }
         body.textContent = '';
-        body.append(
-          makeEl('div', 'mt-ledger-empty', 'Error: ' + String(err)),
-          (function () { const f = makeEl('div','mt-ledger-footer'); const b = makeEl('button','mt-ledger-change-key','Change API key'); b.type='button'; b.onclick=onChangeKey; f.appendChild(b); return f; }())
-        );
+        body.appendChild(makeEl('div', 'mt-ledger-empty', 'Error: ' + String(err)));
       });
     });
-  }
-
-  function showApiKeyPrompt(btn, onSet) {
-    const modal = makeModal('MantiTech — API Key', 300);
-    positionModal(modal, btn);
-    const body = modal.querySelector('.mt-modal-body');
-
-    const info  = makeEl('p', 'mt-api-info', 'Enter your GT API key (Settings → API in-game).');
-    const input = document.createElement('input');
-    input.className   = 'mt-api-input';
-    input.type        = 'password';
-    input.placeholder = 'Paste API key…';
-
-    const footer    = makeEl('div', 'mt-modal-footer');
-    const saveBtn   = makeBtn('Save', 'mt-save');
-    const cancelBtn = makeBtn('Cancel', 'mt-cancel');
-    footer.append(saveBtn, cancelBtn);
-
-    body.append(info, input, footer);
-    input.focus();
-
-    saveBtn.onclick = function () {
-      const key = input.value.trim();
-      if (!key) return;
-      chrome.storage.local.set({ [API_KEY_STORE]: key }, function () {
-        closeModal();
-        onSet();
-      });
-    };
-
-    cancelBtn.onclick = closeModal;
   }
 
   // ── Button injection ───────────────────────────────────────────────────────
@@ -300,55 +281,57 @@ const list = Array.isArray(data) ? data
   function injectButtons() {
     if (!matIdFromUrl()) return;
 
-    const existingBtn = document.querySelector('.mt-note-btn');
-    if (existingBtn) {
-      refreshNoteState(existingBtn);
-      return;
-    }
-
     const headerRow = document.querySelector('div.row.align-items-center.g-2.lh-xs');
     const actions   = headerRow?.querySelector('div.col-auto.d-flex.align-items-center.gap-2');
     if (!actions) return;
 
-    document.querySelectorAll('.mt-note-display').forEach(function (el) { el.remove(); });
+    // Note button
+    const existingNote = actions.querySelector('.mt-note-btn');
+    if (existingNote) {
+      refreshNoteState(existingNote);
+    } else if (settings.materialNotes) {
+      document.querySelectorAll('.mt-note-display').forEach(function (el) { el.remove(); });
 
-    // Pencil — note
-    const noteBtn = document.createElement('button');
-    noteBtn.type = 'button';
-    noteBtn.className = 'btn btn-sm btn-square btn-secondary mt-note-btn';
-    noteBtn.title = 'MantiTech: material note';
-    noteBtn.innerHTML =
-      '<svg viewBox="0 0 16 16" fill="currentColor" width="14" height="14" aria-hidden="true">' +
-        '<path d="M1 11.5V15h3.5l7-7L8 4.5l-7 7zm13.7-7.2a1 1 0 0 0 0-1.4l-2.6-2.6a1 1 0 0 0-1.4 0L9.2 1.8l4 4 1.5-1.5z"/>' +
-      '</svg>';
-    noteBtn.addEventListener('click', function (e) { e.stopPropagation(); showNoteModal(noteBtn); });
-    actions.appendChild(noteBtn);
+      const noteBtn = document.createElement('button');
+      noteBtn.type = 'button';
+      noteBtn.className = 'btn btn-sm btn-square btn-secondary mt-note-btn';
+      noteBtn.title = 'MantiTech: material note';
+      noteBtn.innerHTML =
+        '<svg viewBox="0 0 16 16" fill="currentColor" width="14" height="14" aria-hidden="true">' +
+          '<path d="M1 11.5V15h3.5l7-7L8 4.5l-7 7zm13.7-7.2a1 1 0 0 0 0-1.4l-2.6-2.6a1 1 0 0 0-1.4 0L9.2 1.8l4 4 1.5-1.5z"/>' +
+        '</svg>';
+      noteBtn.addEventListener('click', function (e) { e.stopPropagation(); showNoteModal(noteBtn); });
+      actions.appendChild(noteBtn);
 
-    // Ledger — buy/sell history
-    const ledgerBtn = document.createElement('button');
-    ledgerBtn.type = 'button';
-    ledgerBtn.className = 'btn btn-sm btn-square btn-secondary mt-ledger-btn';
-    ledgerBtn.title = 'MantiTech: buy/sell ledger';
-    ledgerBtn.innerHTML =
-      '<svg viewBox="0 0 16 16" fill="currentColor" width="14" height="14" aria-hidden="true">' +
-        '<path d="M2 2h12v1.5H2V2zm0 3.5h12V7H2V5.5zm0 3.5h12v1.5H2V9zm0 3.5h7V14H2v-1.5z"/>' +
-      '</svg>';
-    ledgerBtn.addEventListener('click', function (e) { e.stopPropagation(); showLedgerModal(ledgerBtn); });
-    actions.appendChild(ledgerBtn);
+      const display = document.createElement('div');
+      display.className = 'mt-note-display';
+      display.style.display = 'none';
+      display.addEventListener('click', function () { showNoteModal(noteBtn); });
+      headerRow.insertAdjacentElement('afterend', display);
 
-    // Note display below header
-    const display = document.createElement('div');
-    display.className = 'mt-note-display';
-    display.style.display = 'none';
-    display.addEventListener('click', function () { showNoteModal(noteBtn); });
-    headerRow.insertAdjacentElement('afterend', display);
+      refreshNoteState(noteBtn);
+    }
 
-    refreshNoteState(noteBtn);
+    // Ledger button
+    if (!actions.querySelector('.mt-ledger-btn') && settings.ledger) {
+      const ledgerBtn = document.createElement('button');
+      ledgerBtn.type = 'button';
+      ledgerBtn.className = 'btn btn-sm btn-square btn-secondary mt-ledger-btn';
+      ledgerBtn.title = 'MantiTech: buy/sell ledger';
+      ledgerBtn.innerHTML =
+        '<svg viewBox="0 0 16 16" fill="currentColor" width="14" height="14" aria-hidden="true">' +
+          '<path d="M2 2h12v1.5H2V2zm0 3.5h12V7H2V5.5zm0 3.5h12v1.5H2V9zm0 3.5h7V14H2v-1.5z"/>' +
+        '</svg>';
+      ledgerBtn.addEventListener('click', function (e) { e.stopPropagation(); showLedgerModal(ledgerBtn); });
+      actions.appendChild(ledgerBtn);
+    }
   }
 
   // ── Chat scroll indicator ─────────────────────────────────────────────────
 
   function setupScrollIndicators() {
+    if (!settings.scrollIndicator) return;
+
     document.querySelectorAll('.card-body.overflow-auto').forEach(function (body) {
       if (body.dataset.mtScrollSetup) return;
       body.dataset.mtScrollSetup = '1';
@@ -522,7 +505,7 @@ const list = Array.isArray(data) ? data
     const wasAtBottom = scrollBody &&
       (scrollBody.scrollHeight - scrollBody.scrollTop - scrollBody.clientHeight < 60);
 
-    img.onload  = function () {
+    img.onload = function () {
       img.style.display = '';
       img.style.cursor = 'zoom-in';
       img.addEventListener('click', function () { openLightbox(url); });
@@ -559,14 +542,17 @@ const list = Array.isArray(data) ? data
       a.className = 'mt-chat-link';
       a.textContent = m[0];
       frag.appendChild(a);
-      // probe deferred so <a> is in the DOM first
+
       const _ytId   = youtubeVideoId(m[0]);
       const _sunoId = !_ytId && sunoSongId(m[0]);
-      requestAnimationFrame(_ytId
-        ? (function (id, el) { return function () { insertYouTubePreview(id, el); }; }(_ytId, a))
-        : _sunoId
-          ? (function (id, el) { return function () { insertSunoPreview(id, el); }; }(_sunoId, a))
-          : function () { probeImage(a.href, a); });
+      if (_ytId && settings.ytSunoPreviews) {
+        requestAnimationFrame((function (id, el) { return function () { insertYouTubePreview(id, el); }; }(_ytId, a)));
+      } else if (_sunoId && settings.ytSunoPreviews) {
+        requestAnimationFrame((function (id, el) { return function () { insertSunoPreview(id, el); }; }(_sunoId, a)));
+      } else if (!_ytId && !_sunoId && settings.inlineImages) {
+        requestAnimationFrame(function () { probeImage(a.href, a); });
+      }
+
       last = m.index + m[0].length;
     }
     if (last < text.length) frag.appendChild(document.createTextNode(text.slice(last)));
@@ -583,7 +569,7 @@ const list = Array.isArray(data) ? data
   // ── Tenor slash command ────────────────────────────────────────────────────
 
   const TENOR_KEY = 'LIVDSRZULELA';
-  let tenorPicker  = null;
+  let tenorPicker   = null;
   let tenorDebounce = null;
 
   function closeTenorPicker() {
@@ -592,8 +578,8 @@ const list = Array.isArray(data) ? data
 
   function positionTenorPicker(picker, input) {
     const r = input.getBoundingClientRect();
-    picker.style.left  = r.left + 'px';
-    picker.style.width = r.width + 'px';
+    picker.style.left   = r.left + 'px';
+    picker.style.width  = r.width + 'px';
     picker.style.bottom = (window.innerHeight - r.top + 6) + 'px';
   }
 
@@ -607,9 +593,9 @@ const list = Array.isArray(data) ? data
     tenorPicker = picker;
     positionTenorPicker(picker, input);
 
-    let grid       = null;
-    let nextPos    = '';
-    let isLoading  = false;
+    let grid      = null;
+    let nextPos   = '';
+    let isLoading = false;
 
     function appendResults(results) {
       results.forEach(function (result) {
@@ -670,6 +656,7 @@ const list = Array.isArray(data) ? data
   function setupTenorInput(input) {
     if (input.dataset.mtTenorSetup) return;
     input.dataset.mtTenorSetup = '1';
+    if (!settings.gifPicker) return;
     input.addEventListener('input', function () {
       clearTimeout(tenorDebounce);
       const m = input.value.match(/\/tenor\s+(.+)$/);
@@ -695,6 +682,7 @@ const list = Array.isArray(data) ? data
   function setupEmojiPicker(textarea) {
     if (textarea.dataset.mtEmojiSetup) return;
     textarea.dataset.mtEmojiSetup = '1';
+    if (!settings.emojiPicker) return;
 
     const sendWrap = textarea.nextElementSibling;
     const sendBtn  = sendWrap?.querySelector('button');
@@ -758,6 +746,110 @@ const list = Array.isArray(data) ? data
     document.querySelectorAll('textarea[name="msg"]').forEach(setupEmojiPicker);
   }
 
+  // ── MantiTech settings card ────────────────────────────────────────────────
+
+  function injectSettingsCard(modalBody) {
+    if (modalBody.querySelector('.mt-settings-card')) return;
+
+    const card   = makeEl('div', 'card mb-3 border-0 bg-body mt-settings-card');
+    const header = makeEl('div', 'card-header', 'MantiTech');
+    const body   = makeEl('div', 'card-body');
+
+    // Toggle Features table
+    const features = [
+      ['inlineImages',    'Inline image previews'],
+      ['ytSunoPreviews',  'YouTube & Suno previews'],
+      ['gifPicker',       'GIF picker (/tenor)'],
+      ['emojiPicker',     'Emoji picker'],
+      ['scrollIndicator', 'Scroll to latest indicator'],
+      ['materialNotes',   'Material notes (exchange)'],
+      ['ledger',          'Buy/sell ledger (exchange)'],
+    ];
+
+    const table = makeEl('table', 'table table-hover align-middle text-center mb-3');
+    const thead = table.createTHead();
+    const hrow  = thead.insertRow();
+    const th1   = document.createElement('th');
+    th1.className   = 'col text-start';
+    th1.textContent = 'Toggle Features';
+    const th2   = document.createElement('th');
+    th2.className   = 'col-auto';
+    th2.textContent = 'Enabled';
+    hrow.append(th1, th2);
+
+    const tbody = table.createTBody();
+    features.forEach(function (feat) {
+      const key = feat[0], label = feat[1];
+      const row = tbody.insertRow();
+      const td1 = row.insertCell();
+      td1.className   = 'text-start';
+      td1.textContent = label;
+      const td2 = row.insertCell();
+      const cb  = document.createElement('input');
+      cb.type      = 'checkbox';
+      cb.className = 'form-check-input cursor-pointer';
+      cb.checked   = settings[key];
+      cb.addEventListener('change', function () { saveSetting(key, cb.checked); });
+      td2.appendChild(cb);
+    });
+
+    body.appendChild(table);
+
+    // API Key section
+    const hr = document.createElement('hr');
+    hr.className = 'opacity-20 my-3';
+    body.appendChild(hr);
+
+    body.appendChild(makeEl('div', 'fw-semibold small mb-1', 'API Key'));
+
+    const apiInfo = makeEl('p', 'text-body-tertiary small mb-2', '');
+    apiInfo.innerHTML = 'Required for the buy/sell ledger. Only needs <strong>Limited</strong> access — generate one in Settings → API keys.';
+    body.appendChild(apiInfo);
+
+    const inputGroup = makeEl('div', 'input-group input-group-sm');
+    const apiInput   = document.createElement('input');
+    apiInput.type        = 'password';
+    apiInput.className   = 'form-control';
+    apiInput.placeholder = 'Paste API key…';
+
+    const saveBtn  = makeEl('button', 'btn btn-primary btn-sm', 'Save');
+    saveBtn.type   = 'button';
+    const clearBtn = makeEl('button', 'btn btn-outline-secondary btn-sm', 'Clear');
+    clearBtn.type  = 'button';
+
+    chrome.storage.local.get(API_KEY_STORE, function (result) {
+      if (result[API_KEY_STORE]) apiInput.placeholder = '(key saved)';
+    });
+
+    saveBtn.addEventListener('click', function () {
+      const key = apiInput.value.trim();
+      if (!key) return;
+      chrome.storage.local.set({ [API_KEY_STORE]: key }, function () {
+        apiInput.value       = '';
+        apiInput.placeholder = '(key saved)';
+      });
+    });
+
+    clearBtn.addEventListener('click', function () {
+      chrome.storage.local.remove(API_KEY_STORE, function () {
+        apiInput.placeholder = 'Paste API key…';
+      });
+    });
+
+    inputGroup.append(apiInput, saveBtn, clearBtn);
+    body.appendChild(inputGroup);
+
+    body.appendChild(makeEl('p', 'text-body-tertiary small mt-3 mb-0', 'Some changes apply after navigating to a new page.'));
+
+    card.append(header, body);
+
+    // Insert before the last card (Reset company stays at the bottom)
+    const cards = modalBody.querySelectorAll(':scope > .card');
+    const lastCard = cards[cards.length - 1];
+    if (lastCard) modalBody.insertBefore(card, lastCard);
+    else modalBody.appendChild(card);
+  }
+
   // ── Dismiss on outside click ───────────────────────────────────────────────
 
   document.addEventListener('mousedown', function (e) {
@@ -781,14 +873,32 @@ const list = Array.isArray(data) ? data
   window.addEventListener('popstate',   onPossibleNavigation);
   window.addEventListener('hashchange', onPossibleNavigation);
 
-  new MutationObserver(function () {
+  new MutationObserver(function (mutations) {
     onPossibleNavigation();
+
+    // Detect the game's settings modal opening and inject our card
+    mutations.forEach(function (mutation) {
+      mutation.addedNodes.forEach(function (node) {
+        if (node.nodeType !== Node.ELEMENT_NODE) return;
+        const title = node.querySelector && node.querySelector('.modal-title');
+        if (title && title.textContent.trim() === 'Settings') {
+          const body = node.querySelector('.modal-body');
+          if (body) injectSettingsCard(body);
+        }
+      });
+    });
+
     clearTimeout(debounceTimer);
-    debounceTimer = setTimeout(function () { injectButtons(); linkifyMessages(); setupScrollIndicators(); setupTenorInputs(); setupEmojiPickers(); }, 250);
+    debounceTimer = setTimeout(function () {
+      injectButtons(); linkifyMessages(); setupScrollIndicators();
+      setupTenorInputs(); setupEmojiPickers();
+    }, 250);
   }).observe(document.documentElement, { childList: true, subtree: true });
 
-  injectButtons();
-  setupScrollIndicators();
-  setupTenorInputs();
-  setupEmojiPickers();
+  loadSettings(function () {
+    injectButtons();
+    setupScrollIndicators();
+    setupTenorInputs();
+    setupEmojiPickers();
+  });
 })();
