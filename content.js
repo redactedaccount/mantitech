@@ -25,10 +25,6 @@
     return NOTE_PREFIX + (matIdFromUrl() ?? 'x');
   }
 
-  function escHtml(str) {
-    return str.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
-  }
-
   function fmtCents(cents) {
     return (cents / 100).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + '$';
   }
