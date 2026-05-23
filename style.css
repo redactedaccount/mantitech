@@ -366,6 +366,30 @@ img.mt-chat-img {
   border-radius: 6px;
 }
 
+/* ── Suno placeholder ──────────────────────────────────────────────────────── */
+
+.mt-suno-placeholder {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 6px;
+  padding: 0 16px;
+  width: min(100%, 400px);
+  height: 80px;
+  background: #181825;
+  border-radius: 6px;
+  color: #cdd6f4;
+  text-decoration: none;
+  font-family: 'Titillium Web', system-ui, sans-serif;
+  font-size: 13px;
+  box-sizing: border-box;
+}
+
+.mt-suno-placeholder:hover {
+  background: #313244;
+  color: #cdd6f4;
+}
+
 /* ── Emoji picker button ───────────────────────────────────────────────────── */
 
 .mt-emoji-btn {

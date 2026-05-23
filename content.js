@@ -404,6 +404,17 @@
     return null;
   }
 
+  function sunoShortUrl(url) {
+    try {
+      const u = new URL(url);
+      if (u.hostname === 'suno.com' || u.hostname === 'www.suno.com') {
+        const m = u.pathname.match(/^\/s\/([^/?#]+)/);
+        if (m) return true;
+      }
+    } catch (e) {}
+    return false;
+  }
+
   function insertSunoPreview(songId, a) {
     const wrap = document.createElement('div');
     wrap.className = 'mt-suno-preview';
@@ -435,6 +446,20 @@
       wrap.replaceWith(iframe);
     });
 
+    a.insertAdjacentElement('afterend', wrap);
+  }
+
+  function insertSunoPlaceholder(url, a) {
+    const wrap = document.createElement('a');
+    wrap.href      = url;
+    wrap.target    = '_blank';
+    wrap.rel       = 'noopener noreferrer';
+    wrap.className = 'mt-suno-placeholder';
+    wrap.innerHTML =
+      '<svg viewBox="0 0 24 24" width="28" height="28" fill="currentColor" aria-hidden="true">' +
+        '<path d="M12 3v10.55A4 4 0 1 0 14 17V7h4V3h-6z"/>' +
+      '</svg>' +
+      '<span>Suno share link — cannot embed. Click to open song.</span>';
     a.insertAdjacentElement('afterend', wrap);
   }
 
@@ -543,13 +568,16 @@
       a.textContent = m[0];
       frag.appendChild(a);
 
-      const _ytId   = youtubeVideoId(m[0]);
-      const _sunoId = !_ytId && sunoSongId(m[0]);
+      const _ytId      = youtubeVideoId(m[0]);
+      const _sunoId    = !_ytId && sunoSongId(m[0]);
+      const _sunoShort = !_ytId && !_sunoId && sunoShortUrl(m[0]);
       if (_ytId && settings.ytSunoPreviews) {
         requestAnimationFrame((function (id, el) { return function () { insertYouTubePreview(id, el); }; }(_ytId, a)));
       } else if (_sunoId && settings.ytSunoPreviews) {
         requestAnimationFrame((function (id, el) { return function () { insertSunoPreview(id, el); }; }(_sunoId, a)));
-      } else if (!_ytId && !_sunoId && settings.inlineImages) {
+      } else if (_sunoShort && settings.ytSunoPreviews) {
+        requestAnimationFrame((function (url, el) { return function () { insertSunoPlaceholder(url, el); }; }(m[0], a)));
+      } else if (!_ytId && !_sunoId && !_sunoShort && settings.inlineImages) {
         requestAnimationFrame(function () { probeImage(a.href, a); });
       }
 
