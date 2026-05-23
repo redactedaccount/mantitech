@@ -20,6 +20,7 @@
     scrollIndicator: true,
     materialNotes:   true,
     ledger:          true,
+    guildContent:    true,
   };
 
   let settings = Object.assign({}, SETTINGS_DEFAULTS);
@@ -594,6 +595,14 @@
     });
   }
 
+  function linkifyGuildContent() {
+    if (!settings.guildContent) return;
+    document.querySelectorAll('.text-break.text-body-tertiary-solid:not([data-mt-linked])').forEach(function (el) {
+      el.dataset.mtLinked = '1';
+      linkifyEl(el);
+    });
+  }
+
   // ── Tenor slash command ────────────────────────────────────────────────────
 
   const TENOR_KEY = 'LIVDSRZULELA';
@@ -792,6 +801,7 @@
       ['scrollIndicator', 'Scroll to latest indicator'],
       ['materialNotes',   'Material notes (exchange)'],
       ['ledger',          'Buy/sell ledger (exchange)'],
+      ['guildContent',    'Link previews on guild pages'],
     ];
 
     const table = makeEl('table', 'table table-hover align-middle text-center mb-3');
@@ -918,13 +928,15 @@
 
     clearTimeout(debounceTimer);
     debounceTimer = setTimeout(function () {
-      injectButtons(); linkifyMessages(); setupScrollIndicators();
+      injectButtons(); linkifyMessages(); linkifyGuildContent(); setupScrollIndicators();
       setupTenorInputs(); setupEmojiPickers();
     }, 250);
   }).observe(document.documentElement, { childList: true, subtree: true });
 
   loadSettings(function () {
     injectButtons();
+    linkifyMessages();
+    linkifyGuildContent();
     setupScrollIndicators();
     setupTenorInputs();
     setupEmojiPickers();
