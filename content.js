@@ -516,6 +516,16 @@ const list = Array.isArray(data) ? data
     a.insertAdjacentElement('afterend', img);
   }
 
+  function linkifyEl(el) {
+    Array.from(el.childNodes).forEach(function (node) {
+      if (node.nodeType === Node.TEXT_NODE) {
+        linkifyNode(node);
+      } else if (node.nodeType === Node.ELEMENT_NODE && node.tagName !== 'A' && node.getAttribute('role') !== 'button') {
+        linkifyEl(node);
+      }
+    });
+  }
+
   function linkifyNode(textNode) {
     const text = textNode.nodeValue;
     if (!URL_RE.test(text)) return;
@@ -547,12 +557,9 @@ const list = Array.isArray(data) ? data
   }
 
   function linkifyMessages() {
-    document.querySelectorAll('.com-msg span:not([role])').forEach(function (span) {
-      if (span.dataset.mtLinked) return;
-      span.dataset.mtLinked = '1';
-      Array.from(span.childNodes).forEach(function (node) {
-        if (node.nodeType === Node.TEXT_NODE) linkifyNode(node);
-      });
+    document.querySelectorAll('.com-msg:not([data-mt-linked])').forEach(function (msg) {
+      msg.dataset.mtLinked = '1';
+      linkifyEl(msg);
     });
   }
 
