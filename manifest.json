@@ -3,6 +3,7 @@
   "name": "MantiTech",
   "version": "0.3.0",
   "description": "QOL features for Galactic Tycoons players.",
+  "homepage_url": "https://github.com/redactedaccount/mantitech",
   "permissions": [
     "storage"
   ],
