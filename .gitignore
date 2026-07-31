@@ -1,2 +1,4 @@
 web-ext-artifacts/
 .claude/
+.mcp.json
+.playwright-mcp/

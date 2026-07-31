@@ -1570,8 +1570,13 @@
       const wrap = makeEl('div', 'mb-2');
       wrap.appendChild(makeEl('div', 'small mb-1', title));
 
-      const info = makeEl('p', 'text-body-tertiary small mb-1', '');
-      info.innerHTML = 'Get a free key at <a href="' + linkUrl + '" target="_blank" rel="noopener noreferrer">' + linkLabel + '</a>.';
+      const info = makeEl('p', 'text-body-tertiary small mb-1', 'Get a free key at ');
+      const link = document.createElement('a');
+      link.href = linkUrl;
+      link.target = '_blank';
+      link.rel = 'noopener noreferrer';
+      link.textContent = linkLabel;
+      info.append(link, document.createTextNode('.'));
       wrap.appendChild(info);
 
       const group = makeEl('div', 'input-group input-group-sm');
