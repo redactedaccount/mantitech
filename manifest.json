@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "MantiTech",
-  "version": "0.3.1",
+  "version": "0.4.0",
   "description": "QOL features for Galactic Tycoons players.",
   "homepage_url": "https://github.com/redactedaccount/mantitech",
   "permissions": [
@@ -28,6 +28,12 @@
       "js": ["content.js"],
       "css": ["style.css"],
       "run_at": "document_start"
+    }
+  ],
+  "web_accessible_resources": [
+    {
+      "resources": ["fonts/*.woff2", "update-message.txt"],
+      "matches": ["*://*.galactictycoons.com/*"]
     }
   ],
   "browser_specific_settings": {

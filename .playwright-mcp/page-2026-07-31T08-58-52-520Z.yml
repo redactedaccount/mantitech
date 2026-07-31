@@ -1,0 +1,105 @@
+- generic [ref=f2e2]:
+  - banner [ref=f2e3]:
+    - link "Galactic Tycoons Galactic Tycoons Space Economy Game" [ref=f2e4] [cursor=pointer]:
+      - /url: /
+      - img "Galactic Tycoons" [ref=f2e5]
+      - generic [ref=f2e6]:
+        - generic [ref=f2e7]: Galactic Tycoons
+        - generic [ref=f2e8]: Space Economy Game
+    - paragraph [ref=f2e9]: BUILD. PRODUCE. TRADE. PROSPER.
+  - main [ref=f2e10]:
+    - generic [ref=f2e11]:
+      - link "PLAY FOR FREE" [ref=f2e13] [cursor=pointer]:
+        - /url: /login
+      - generic [ref=f2e14]: Begin your cosmic journey and transform a single planetary outpost into an industrial empire. Mine resources, manufacture goods, and trade your way to dominance in a dynamic, player-driven economy. Forge your legacy among the stars!
+    - generic [ref=f2e16]:
+      - generic [ref=f2e18]:
+        - generic [ref=f2e21]: "928"
+        - generic [ref=f2e22]: Active players
+      - generic [ref=f2e24]:
+        - generic [ref=f2e27]: $ 14.1T
+        - generic [ref=f2e28]: Goods traded
+      - generic [ref=f2e30]:
+        - generic [ref=f2e33]: 123.3B
+        - generic [ref=f2e34]: Goods produced
+      - generic [ref=f2e36]:
+        - generic [ref=f2e39]: 72.2B t
+        - generic [ref=f2e40]: Cargo hauled
+    - generic [ref=f2e42]:
+      - generic [ref=f2e43]:
+        - generic [ref=f2e44]:
+          - heading "Business Simulation Browser MMO" [level=1] [ref=f2e45]
+          - paragraph [ref=f2e46]: Galactic Tycoons is a free multiplayer browser game where you command your own industrial empire. Build bases across the galaxy, master complex production chains, and compete in a persistent, player-driven economy. Specialize, trade, and cooperate with other players to transform a single outpost into a thriving galactic enterprise.
+        - generic [ref=f2e48]:
+          - generic [ref=f2e50]:
+            - heading "BUILD" [level=3] [ref=f2e51]
+            - text: Construct bases, factories, and infrastructure across multiple planets.
+          - generic [ref=f2e55]:
+            - heading "PRODUCE" [level=3] [ref=f2e56]
+            - text: Produce goods and manage interstellar logistics.
+          - generic [ref=f2e60]:
+            - heading "TRADE" [level=3] [ref=f2e61]
+            - text: Trade goods in a dynamic, player-driven market.
+          - generic [ref=f2e65]:
+            - heading "PROSPER" [level=3] [ref=f2e66]
+            - text: Grow your wealth and dominate the galactic economy.
+      - generic [ref=f2e69]:
+        - link [ref=f2e70] [cursor=pointer]:
+          - /url: /img/galactic-tycoons-screenshot-base.png
+          - img "Galactic Tycoons - Base" [ref=f2e71]
+        - link [ref=f2e72] [cursor=pointer]:
+          - /url: /img/galactic-tycoons-screenshot-galaxy.png
+          - img "Galactic Tycoons - Galaxy" [ref=f2e73]
+        - link [ref=f2e74] [cursor=pointer]:
+          - /url: /img/galactic-tycoons-screenshot-production.png
+          - img "Galactic Tycoons - Production" [ref=f2e75]
+        - link [ref=f2e76] [cursor=pointer]:
+          - /url: /img/galactic-tycoons-screenshot-encyclopedia.png
+          - img "Galactic Tycoons - Encyclopedia" [ref=f2e77]
+        - link [ref=f2e78] [cursor=pointer]:
+          - /url: /img/galactic-tycoons-screenshot-building.png
+          - img "Galactic Tycoons - Building" [ref=f2e79]
+        - link [ref=f2e80] [cursor=pointer]:
+          - /url: /img/galactic-tycoons-screenshot-exchange.png
+          - img "Galactic Tycoons - Exchange" [ref=f2e81]
+    - generic [ref=f2e84]:
+      - heading "Become a Galactic Business Tycoon" [level=2] [ref=f2e85]
+      - text: Your entrepreneur journey begins with a single base on a strategically chosen planet – your first foothold in a vast galaxy brimming with opportunity. From this modest foundation, you'll expand your operations, carefully planning each step as you build, produce, and strategize your way to the top. Colonize new worlds, increase your industrial output, and optimize your production processes. With each successful venture, your wealth and influence will grow, transforming both yourself and your fledgling outpost – from a small-time operator into a true galactic business tycoon.
+    - generic [ref=f2e88]:
+      - heading "Production Chains and Manufacturing" [level=2] [ref=f2e89]
+      - text: Craft a complex industrial network spanning multiple specialized industries. Mine raw ores, refine them into valuable metals, and manufacture everything from essential tools to advanced starship components. The interconnected production chains offer endless opportunities for optimization and strategic planning. No single player can master every industry in this space tycoon game. Choose your specializations wisely, focusing on key areas to become a dominant force in your chosen field. Will you control the flow of vital resources, become a manufacturing powerhouse, or a pioneer of cutting-edge technology?
+    - generic [ref=f2e92]:
+      - heading "Colonization and Resource Management" [level=2] [ref=f2e93]
+      - text: Explore a vast and diverse galaxy, teeming with planets, each possessing unique resource distributions and environmental challenges. Strategically colonize new worlds, balancing the potential rewards with the logistical hurdles. The further you venture, the greater the riches - and the greater the risks. Colonization is a crucial strategic element. Carefully analyze resource yields, calculate transport routes, and optimize the layout of your bases. The right location can be the cornerstone of a thriving empire.
+    - generic [ref=f2e96]:
+      - heading "Player-Driven Market Economy" [level=2] [ref=f2e97]
+      - text: The Galactic Exchange is the beating heart of the galaxy's economy. Here, you'll trade resources, components, and finished goods with other players, setting your own prices and reacting to the ever-shifting forces of supply and demand. Become a master of the market. Anticipate trends, negotiate profitable deals, and outmaneuver your competitors to amass wealth and power. Every transaction you make shapes the economic landscape of the galaxy.
+    - generic [ref=f2e100]:
+      - heading "Fleet and Logistics Management" [level=2] [ref=f2e101]
+      - text: Your empire's success hinges on a robust and efficient interstellar logistics network. Build and upgrade a fleet of transport ships to move goods between your bases and the central Galactic Exchange. Invest in larger cargo capacities and advanced engines to maximize profits and extend your reach. Mastering the flow of goods is paramount. A well-optimized logistics system will keep your factories humming, your workforce supplied, and your treasury overflowing. Neglect it, and your empire will face stagnation.
+    - generic [ref=f2e104]:
+      - heading "Business Alliances and Competition" [level=2] [ref=f2e105]
+      - text: Galactic Tycoons is a universe of both cooperation and competition. Forge alliances with other players by joining or creating powerful Guilds. Collaborate on large-scale projects, share resources, and unlock exclusive guild benefits. But remember, the galaxy is also a place of fierce competition. Rivalries will emerge, and only the most cunning and adaptable tycoons will rise to the top.
+    - generic [ref=f2e108]:
+      - heading "Research and Technology" [level=2] [ref=f2e109]
+      - text: The path to galactic dominance is paved with technological innovation. Invest in research to unlock new buildings, more efficient production methods, and access to previously unreachable corners of the galaxy. Stay ahead of the technological curve to gain a decisive advantage. Discover rare resources, develop advanced technologies, and secure your place at the forefront of galactic progress.
+  - generic [ref=f2e111]:
+    - generic [ref=f2e112]:
+      - text: This site uses cookies for analytics to improve your experience.
+      - link "Cookie Policy" [ref=f2e115] [cursor=pointer]:
+        - /url: /privacy#cookies
+    - generic [ref=f2e116]:
+      - button "Decline" [ref=f2e117] [cursor=pointer]
+      - button "Accept" [ref=f2e118] [cursor=pointer]
+  - contentinfo [ref=f2e119]:
+    - generic [ref=f2e120]:
+      - generic [ref=f2e121]: © 2026 RYNEDA
+      - generic [ref=f2e122]:
+        - link "Wiki" [ref=f2e123] [cursor=pointer]:
+          - /url: https://wiki.galactictycoons.com
+        - link "Presskit" [ref=f2e124] [cursor=pointer]:
+          - /url: /presskit
+        - link "Privacy Policy" [ref=f2e125] [cursor=pointer]:
+          - /url: /privacy
+        - link "Terms & Conditions" [ref=f2e126] [cursor=pointer]:
+          - /url: /terms

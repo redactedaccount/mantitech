@@ -1,0 +1,196 @@
+- generic [ref=f3e2]:
+  - navigation [ref=f3e3]:
+    - generic [ref=f3e4]:
+      - generic [ref=f3e6]:
+        - generic [ref=f3e7] [cursor=pointer]: Base
+        - generic [ref=f3e10] [cursor=pointer]: Exchange
+        - generic [ref=f3e14] [cursor=pointer]: Galaxy
+      - group [ref=f3e33]:
+        - button "30,767,565" [ref=f3e34] [cursor=pointer]
+        - button "8" [ref=f3e37] [cursor=pointer]
+        - button "77" [ref=f3e40] [cursor=pointer]
+  - main [ref=f3e2739]:
+    - generic [ref=f3e2740]:
+      - generic [ref=f3e2741]:
+        - generic [ref=f3e2742]:
+          - generic [ref=f3e2743]:
+            - text: Channels
+            - button [ref=f3e2744] [cursor=pointer]
+          - generic [ref=f3e2747]:
+            - button [ref=f3e2748] [cursor=pointer]
+            - button "Trade 837" [ref=f3e2752] [cursor=pointer]:
+              - generic [ref=f3e2753]: Trade
+              - generic [ref=f3e2756]: "837"
+            - button "Help 999" [ref=f3e2757] [cursor=pointer]:
+              - generic [ref=f3e2758]: Help
+              - generic [ref=f3e2761]: "999"
+            - button "Deutsch 32" [ref=f3e2762] [cursor=pointer]:
+              - generic [ref=f3e2763]: Deutsch
+              - generic [ref=f3e2766]: "32"
+            - button [ref=f3e2767] [cursor=pointer]
+            - button "中文 78" [ref=f3e2771] [cursor=pointer]:
+              - generic [ref=f3e2772]: 中文
+              - generic [ref=f3e2775]: "78"
+            - button [ref=f3e2776] [cursor=pointer]
+            - button [ref=f3e2780] [cursor=pointer]
+            - button "Kentaurus 2 101" [ref=f3e2784] [cursor=pointer]:
+              - generic [ref=f3e2785]: Kentaurus 2
+              - generic [ref=f3e2788]: "101"
+            - button "Paladin 5 Antimatter" [ref=f3e2789] [cursor=pointer]:
+              - generic [ref=f3e2790]: Paladin 5
+              - generic [ref=f3e2793]: Antimatter
+            - 'button "Tidal 1 Antimatter : Tidal 4" [ref=f3e2794] [cursor=pointer]':
+              - generic [ref=f3e2795]: Tidal 1
+              - generic [ref=f3e2798]: "Antimatter : Tidal"
+              - generic [ref=f3e2799]: "4"
+            - button [ref=f3e2800] [cursor=pointer]
+            - button [ref=f3e2804] [cursor=pointer]
+        - generic [ref=f3e2808]:
+          - generic [ref=f3e2809]:
+            - text: Contacts
+            - button [ref=f3e2810] [cursor=pointer]
+          - generic [ref=f3e2813]:
+            - button [ref=f3e2814] [cursor=pointer]
+            - button [ref=f3e2818] [cursor=pointer]
+            - button [ref=f3e2822] [cursor=pointer]
+            - button [ref=f3e2826] [cursor=pointer]
+            - button [ref=f3e2830] [cursor=pointer]
+            - button "Show older" [ref=f3e2834] [cursor=pointer]
+        - button "Add contact" [ref=f3e2838] [cursor=pointer]
+        - generic [ref=f3e2843]:
+          - button [ref=f3e2844] [cursor=pointer]
+          - button [ref=f3e2848] [cursor=pointer]
+          - button "Discord" [ref=f3e2852] [cursor=pointer]
+      - generic [ref=f3e2858]:
+        - generic [ref=f3e2859]:
+          - generic [ref=f3e2862]: General
+          - generic [ref=f3e2863]:
+            - generic [ref=f3e2864]: "?"
+            - button [ref=f3e2865] [cursor=pointer]
+        - generic [ref=f3e2868]:
+          - generic [ref=f3e2869]:
+            - button [ref=f3e2870] [cursor=pointer]
+            - generic [ref=f3e2872]:
+              - generic [ref=f3e2873]:
+                - button "[DSP]" [ref=f3e2874] [cursor=pointer]
+                - button "Kentaurus Ballistics" [ref=f3e2875] [cursor=pointer]
+                - generic [ref=f3e2876]: 15:47
+              - generic [ref=f3e2877]: where the ⁎⁎⁎⁎ is scooter and abe
+          - generic [ref=f3e2878]:
+            - button [ref=f3e2879] [cursor=pointer]
+            - generic [ref=f3e2881]:
+              - generic [ref=f3e2882]:
+                - button "[F4T]" [ref=f3e2883] [cursor=pointer]
+                - button "Berlin food distributions" [ref=f3e2884] [cursor=pointer]
+                - generic [ref=f3e2885]: 15:47
+              - generic [ref=f3e2886]: woah
+          - generic [ref=f3e2887]:
+            - button [ref=f3e2888] [cursor=pointer]
+            - generic [ref=f3e2890]:
+              - generic [ref=f3e2891]:
+                - button "[DSP]" [ref=f3e2892] [cursor=pointer]
+                - button "Kentaurus Ballistics" [ref=f3e2893] [cursor=pointer]
+                - generic [ref=f3e2894]: 15:47
+              - generic [ref=f3e2895]: abe is in jail for attempting to shoot his neighbour after a knife fight on the weekend
+              - generic [ref=f3e2896]: scooter was recounting the tale and slipped off a legbone
+          - generic [ref=f3e2897]:
+            - button [ref=f3e2898] [cursor=pointer]
+            - generic [ref=f3e2900]:
+              - generic [ref=f3e2901]:
+                - button "[F4T]" [ref=f3e2902] [cursor=pointer]
+                - button "Berlin food distributions" [ref=f3e2903] [cursor=pointer]
+                - generic [ref=f3e2904]: 15:48
+              - generic [ref=f3e2905]: tf is happeneing over there?
+          - generic [ref=f3e2906]:
+            - button [ref=f3e2907] [cursor=pointer]
+            - generic [ref=f3e2909]:
+              - generic [ref=f3e2910]:
+                - button "[DSP]" [ref=f3e2911] [cursor=pointer]
+                - button "Kentaurus Ballistics" [ref=f3e2912] [cursor=pointer]
+                - generic [ref=f3e2913]: 15:48
+              - generic [ref=f3e2914]: best tuesday ever /s
+              - generic [ref=f3e2915]: welcome to the meat industry
+              - generic [ref=f3e2916]: (working with methheads half the time)
+              - generic [ref=f3e2917]: or coked out butchers
+              - generic [ref=f3e2918]: they're fun
+              - generic [ref=f3e2919]: /s
+              - generic [ref=f3e2920]: anyway I'm rambling lol I should sleep but too early
+          - generic [ref=f3e2921]:
+            - button [ref=f3e2922] [cursor=pointer]
+            - generic [ref=f3e2924]:
+              - generic [ref=f3e2925]:
+                - button "[F4T]" [ref=f3e2926] [cursor=pointer]
+                - button "Berlin food distributions" [ref=f3e2927] [cursor=pointer]
+                - generic [ref=f3e2928]: 15:50
+              - generic [ref=f3e2930]:
+                - text: do you
+                - emphasis [ref=f3e2931]: want
+                - text: to get out of there?
+          - generic [ref=f3e2932]:
+            - button [ref=f3e2933] [cursor=pointer]
+            - generic [ref=f3e2935]:
+              - generic [ref=f3e2936]:
+                - button "[DSP]" [ref=f3e2937] [cursor=pointer]
+                - button "Kentaurus Ballistics" [ref=f3e2938] [cursor=pointer]
+                - generic [ref=f3e2939]: 15:51
+              - generic [ref=f3e2940]: I left that side behind years ago. went back to lamb boning during covid for money, then back to filleting.
+              - generic [ref=f3e2941]: no more wild days for me
+              - generic [ref=f3e2942]: good money but hard work
+          - generic [ref=f3e2943]:
+            - button [ref=f3e2944] [cursor=pointer]
+            - generic [ref=f3e2946]:
+              - generic [ref=f3e2947]:
+                - button "[F4T]" [ref=f3e2948] [cursor=pointer]
+                - button "Berlin food distributions" [ref=f3e2949] [cursor=pointer]
+                - generic [ref=f3e2950]: 15:54
+              - generic [ref=f3e2951]: good
+          - generic [ref=f3e2952]:
+            - button [ref=f3e2953] [cursor=pointer]
+            - generic [ref=f3e2955]:
+              - generic [ref=f3e2956]:
+                - button "[DSP]" [ref=f3e2957] [cursor=pointer]
+                - button "Kentaurus Ballistics" [ref=f3e2958] [cursor=pointer]
+                - generic [ref=f3e2959]: 15:55
+              - generic [ref=f3e2961]:
+                - text: I'd likely be dead or in jail if I'd stayed in the meat industry. the substance abuse is
+                - emphasis [ref=f3e2962]: rampant
+                - text: .
+              - generic [ref=f3e2963]: not so much because of the work but because it's an industry where people of disadvantaged backgrounds who are more susceptible to substance abuse can easily find employment because of the low education standards required
+          - generic [ref=f3e2964]:
+            - button [ref=f3e2965] [cursor=pointer]
+            - generic [ref=f3e2967]:
+              - generic [ref=f3e2968]:
+                - button "[F4T]" [ref=f3e2969] [cursor=pointer]
+                - button "Berlin food distributions" [ref=f3e2970] [cursor=pointer]
+                - generic [ref=f3e2971]: 15:59
+              - generic [ref=f3e2972]: hmm
+          - generic [ref=f3e2973]:
+            - button [ref=f3e2974] [cursor=pointer]
+            - generic [ref=f3e2976]:
+              - generic [ref=f3e2977]:
+                - button "[DSP]" [ref=f3e2978] [cursor=pointer]
+                - button "Kentaurus Ballistics" [ref=f3e2979] [cursor=pointer]
+                - generic [ref=f3e2980]: 15:59
+              - generic [ref=f3e2981]: what happens when you put a whole bunch of these people with a large disposable income into a situation where they're not expected to be professional, we just expect them to show up capable of working? oh right
+              - generic [ref=f3e2982]: nek minnit
+              - generic [ref=f3e2983]: anyhoo
+              - generic [ref=f3e2984]: today your kids learned these fun facts! lol
+          - generic [ref=f3e2985]:
+            - button [ref=f3e2986] [cursor=pointer]
+            - generic [ref=f3e2988]:
+              - generic [ref=f3e2989]:
+                - button "[F4T]" [ref=f3e2990] [cursor=pointer]
+                - button "Berlin food distributions" [ref=f3e2991] [cursor=pointer]
+                - generic [ref=f3e2992]: 16:01
+              - generic [ref=f3e2993]: fun!
+          - generic [ref=f3e2994]:
+            - button [ref=f3e2995] [cursor=pointer]
+            - generic [ref=f3e2997]:
+              - generic [ref=f3e2998]:
+                - button "[DSP]" [ref=f3e2999] [cursor=pointer]
+                - button "Kentaurus Ballistics" [ref=f3e3000] [cursor=pointer]
+                - generic [ref=f3e3001]: 16:03
+              - generic [ref=f3e3002]: humor me, I've had 4 hrs sleep and have been up for 15 hours
+        - generic [ref=f3e3003]:
+          - textbox "Type a message..." [ref=f3e3004]
+          - button [ref=f3e3005] [cursor=pointer]

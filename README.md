@@ -16,7 +16,7 @@ Available on the [Chrome Web Store](https://chromewebstore.google.com/detail/man
 
 ### Chat
 - **Link previews** — URLs are automatically linkified; images render inline, YouTube and Suno links show a clickable thumbnail
-- **GIF picker** — type `/tenor <search>` in any chat input to search and insert a GIF
+- **GIF picker** — type `/giphy <search>` or `/klipy <search>` in any chat input to search and insert a GIF (requires a free API key, see below). `/tenor` is deprecated
 - **Emoji picker** — an emoji button next to the send button opens a full emoji picker
 - **Scroll indicator** — a "Scroll to latest" bar appears when you're not at the bottom of a chat
 - **Mention autocomplete** — Tab selects the highlighted mention suggestion without needing the mouse
@@ -29,6 +29,7 @@ Available on the [Chrome Web Store](https://chromewebstore.google.com/detail/man
 
 ### Settings
 - **Toggle features** — enable or disable individual features from the in-game Settings modal
+- **Themes & fonts** — pick a built-in theme (Mocha, Amberdark) or build a custom one with a live color editor and JSON import/export; choose from several custom fonts
 
 ---
 
@@ -65,9 +66,11 @@ Note: temporarily loaded extensions are removed when Firefox restarts. For a per
 
 ---
 
-## API Key (optional)
+## API Keys (optional)
 
 Some features (the buy/sell ledger and cheapest offer indicator) require a GT API key. Get yours from **Settings → API keys** in-game, then open **Settings** and find the **MantiTech** section to enter it. Only **Limited** access is needed.
+
+The GIF picker (`/giphy`, `/klipy`) needs its own free API key per provider — get one from [developers.giphy.com](https://developers.giphy.com/dashboard/) or [klipy.com/developers](https://klipy.com/developers), then add it under **Settings → MantiTech → GIF Providers**.
 
 ---
 

@@ -1,0 +1,1089 @@
+- generic [ref=f3e2]:
+  - navigation [ref=f3e3]:
+    - generic [ref=f3e4]:
+      - generic [ref=f3e6]:
+        - generic [ref=f3e7] [cursor=pointer]: Base
+        - generic [ref=f3e10] [cursor=pointer]: Exchange
+        - generic [ref=f3e14] [cursor=pointer]: Galaxy
+      - group [ref=f3e33]:
+        - button "30,767,565" [ref=f3e34] [cursor=pointer]
+        - button "8" [ref=f3e37] [cursor=pointer]
+        - button "77" [ref=f3e40] [cursor=pointer]
+  - main [ref=f3e337]:
+    - generic [ref=f3e338]:
+      - generic [ref=f3e339]:
+        - list [ref=f3e341]:
+          - listitem [ref=f3e342]:
+            - tab "Exchange" [ref=f3e343] [cursor=pointer]
+          - listitem [ref=f3e346]:
+            - tab "My Offers" [ref=f3e347] [cursor=pointer]
+          - listitem [ref=f3e350]:
+            - tab [ref=f3e351] [cursor=pointer]
+        - generic [ref=f3e356]:
+          - generic [ref=f3e357]:
+            - generic [ref=f3e358]: Exchange Warehouse
+            - generic [ref=f3e359]:
+              - generic [ref=f3e360]: Exchange Warehouse
+              - generic [ref=f3e361]:
+                - generic [ref=f3e362]: 305,000
+                - generic [ref=f3e363]: / 3,873,000t
+                - button [ref=f3e364] [cursor=pointer]
+            - table [ref=f3e369]:
+              - rowgroup [ref=f3e370]:
+                - row [ref=f3e371] [cursor=pointer]:
+                  - columnheader "Material" [ref=f3e372]
+                  - columnheader "Quantity" [ref=f3e373]
+                  - columnheader "Weight" [ref=f3e374]
+                  - columnheader [ref=f3e375]:
+                    - button "T" [ref=f3e377]
+              - rowgroup [ref=f3e380]:
+                - row [ref=f3e381]:
+                  - cell [ref=f3e382]:
+                    - button "Kryon" [ref=f3e383] [cursor=pointer]
+                  - cell "400,000" [ref=f3e386]
+                  - cell "300,000t" [ref=f3e387]
+                  - cell [ref=f3e388]:
+                    - group [ref=f3e389]:
+                      - button [ref=f3e390] [cursor=pointer]
+                      - button [ref=f3e394] [cursor=pointer]
+                - row [ref=f3e397]:
+                  - cell [ref=f3e398]:
+                    - button "Gourmet Rations" [ref=f3e399] [cursor=pointer]
+                  - cell "20,000" [ref=f3e402]
+                  - cell "5,000t" [ref=f3e403]
+                  - cell [ref=f3e404]:
+                    - group [ref=f3e405]:
+                      - button [ref=f3e406] [cursor=pointer]
+                      - button [ref=f3e410] [cursor=pointer]
+          - generic [ref=f3e413]:
+            - group [ref=f3e414]:
+              - radio "Deluxe Hopper Alpha"
+              - generic [ref=f3e415] [cursor=pointer]: Deluxe Hopper Alpha
+              - radio "Deluxe Hopper Beta"
+              - generic [ref=f3e418] [cursor=pointer]: Deluxe Hopper Beta
+              - radio "LRMH - Alpha"
+              - generic [ref=f3e421] [cursor=pointer]: LRMH - Alpha
+              - radio "LRMH - Beta"
+              - generic [ref=f3e424] [cursor=pointer]: LRMH - Beta
+              - radio "LRMH - Delta" [checked]
+              - generic [ref=f3e427] [cursor=pointer]: LRMH - Delta
+              - radio "LRMH - Epsilon"
+              - generic [ref=f3e428] [cursor=pointer]: LRMH - Epsilon
+              - radio "LRMH - Foxtrot"
+              - generic [ref=f3e429] [cursor=pointer]: LRMH - Foxtrot
+              - radio "Short Hopper Zeta"
+              - generic [ref=f3e430] [cursor=pointer]: Short Hopper Zeta
+            - generic [ref=f3e431]:
+              - generic [ref=f3e432]:
+                - button "LRMH - Delta" [ref=f3e433] [cursor=pointer]
+                - generic [ref=f3e434]: Exchange Station
+              - generic [ref=f3e437]:
+                - generic [ref=f3e438]: "0"
+                - generic [ref=f3e439]: / 260,000t
+                - button [disabled]
+            - table [ref=f3e441]:
+              - rowgroup [ref=f3e442]:
+                - row [ref=f3e443] [cursor=pointer]:
+                  - columnheader "Material" [ref=f3e444]
+                  - columnheader "Quantity" [ref=f3e445]
+                  - columnheader "Weight" [ref=f3e446]
+                  - columnheader [ref=f3e447]:
+                    - button "T" [ref=f3e449]
+              - rowgroup [ref=f3e452]:
+                - row [ref=f3e453]:
+                  - cell "Empty" [ref=f3e454]
+      - generic [ref=f3e455]:
+        - generic [ref=f3e2345]:
+          - generic [ref=f3e2347]:
+            - generic [ref=f3e2348]: Kryon
+            - list [ref=f3e2351]:
+              - listitem [ref=f3e2352]:
+                - tab "Buy" [ref=f3e2353] [cursor=pointer]
+              - listitem [ref=f3e2356]:
+                - tab "Sell" [ref=f3e2357] [cursor=pointer]
+          - generic [ref=f3e2360]:
+            - generic [ref=f3e2362]:
+              - generic [ref=f3e2366]:
+                - generic [ref=f3e2367]: In Warehouse
+                - generic [ref=f3e2368] [cursor=pointer]: 400,000
+              - generic [ref=f3e2369]:
+                - generic [ref=f3e2370]: Average Price
+                - generic [ref=f3e2371] [cursor=pointer]: 220.47$
+              - button [ref=f3e2375] [cursor=pointer]
+            - generic [ref=f3e2379]:
+              - generic [ref=f3e2380]:
+                - generic [ref=f3e2381]: Quantity
+                - spinbutton [ref=f3e2384]: "1"
+              - generic [ref=f3e2385]:
+                - generic [ref=f3e2386]: Price
+                - generic [ref=f3e2388]:
+                  - generic [ref=f3e2389]: 200$
+                  - text: (200$/unit)
+              - generic [ref=f3e2390]:
+                - generic [ref=f3e2391]: Weight
+                - generic [ref=f3e2392]: 0.8t
+              - generic [ref=f3e2394]:
+                - generic [ref=f3e2395]:
+                  - button [disabled]
+                  - button [ref=f3e2396] [cursor=pointer]
+                - button "Buy" [ref=f3e2399] [cursor=pointer]
+            - table [ref=f3e2404]:
+              - rowgroup [ref=f3e2405]:
+                - row [ref=f3e2406]:
+                  - columnheader "Offers" [ref=f3e2407]
+                  - columnheader "Quantity" [ref=f3e2408]
+                  - columnheader "Price" [ref=f3e2409]
+                  - columnheader [ref=f3e2410]
+              - rowgroup [ref=f3e2411]:
+                - row [ref=f3e2412] [cursor=pointer]:
+                  - cell [ref=f3e2413]:
+                    - button "GP Deutsche Metalle AG" [ref=f3e2414]:
+                      - generic [ref=f3e2417]: GP
+                      - text: Deutsche Metalle AG
+                  - cell "26,589" [ref=f3e2418]
+                  - cell "200$" [ref=f3e2419]
+                  - cell [ref=f3e2420]
+                - row [ref=f3e2421] [cursor=pointer]:
+                  - cell [ref=f3e2422]:
+                    - button "ATS Awaitafar" [ref=f3e2423]:
+                      - generic [ref=f3e2426]: ATS
+                      - text: Awaitafar
+                  - cell "187,000" [ref=f3e2427]
+                  - cell "205$" [ref=f3e2428]
+                  - cell [ref=f3e2429]
+                - row [ref=f3e2430] [cursor=pointer]:
+                  - cell [ref=f3e2431]:
+                    - button "TiT Cracklor Logistics." [ref=f3e2432]:
+                      - generic [ref=f3e2435]: TiT
+                      - text: Cracklor Logistics.
+                  - cell "1,947" [ref=f3e2436]
+                  - cell "210$" [ref=f3e2437]
+                  - cell [ref=f3e2438]
+                - row [ref=f3e2439] [cursor=pointer]:
+                  - cell [ref=f3e2440]:
+                    - button "RNK Höllm" [ref=f3e2441]:
+                      - generic [ref=f3e2444]: RNK
+                      - text: Höllm
+                  - cell "53,006" [ref=f3e2445]
+                  - cell "210$" [ref=f3e2446]
+                  - cell [ref=f3e2447]
+                - row [ref=f3e2448] [cursor=pointer]:
+                  - cell [ref=f3e2449]:
+                    - button "GR Infinite Margin" [ref=f3e2450]:
+                      - generic [ref=f3e2453]: GR
+                      - text: Infinite Margin
+                  - cell "178,851" [ref=f3e2454]
+                  - cell "215$" [ref=f3e2455]
+                  - cell [ref=f3e2456]
+                - row [ref=f3e2457] [cursor=pointer]:
+                  - cell [ref=f3e2458]:
+                    - button "TiT Foooooooooooood" [ref=f3e2459]:
+                      - generic [ref=f3e2461]: TiT
+                      - text: Foooooooooooood
+                  - cell "207,201" [ref=f3e2462]
+                  - cell "220$" [ref=f3e2463]
+                  - cell [ref=f3e2464]
+                - row [ref=f3e2465] [cursor=pointer]:
+                  - cell [ref=f3e2466]:
+                    - button "FD Die Schmiede" [ref=f3e2467]:
+                      - generic [ref=f3e2470]: FD
+                      - text: Die Schmiede
+                  - cell "17,090" [ref=f3e2471]
+                  - cell "220$" [ref=f3e2472]
+                  - cell [ref=f3e2473]
+                - row [ref=f3e2474] [cursor=pointer]:
+                  - cell [ref=f3e2475]:
+                    - button "TiT Potatoes" [ref=f3e2476]:
+                      - generic [ref=f3e2479]: TiT
+                      - text: Potatoes
+                  - cell "67,898" [ref=f3e2480]
+                  - cell "225$" [ref=f3e2481]
+                  - cell [ref=f3e2482]
+                - row [ref=f3e2483] [cursor=pointer]:
+                  - cell [ref=f3e2484]:
+                    - button "SRS Kentaurus Company" [ref=f3e2485]:
+                      - generic [ref=f3e2488]: SRS
+                      - text: Kentaurus Company
+                  - cell "1,504,131" [ref=f3e2489]
+                  - cell "225$" [ref=f3e2490]
+                  - cell [ref=f3e2491]
+                - row [ref=f3e2492] [cursor=pointer]:
+                  - cell [ref=f3e2493]:
+                    - button "GR NDG" [ref=f3e2494]:
+                      - generic [ref=f3e2497]: GR
+                      - text: NDG
+                  - cell "108,279" [ref=f3e2498]
+                  - cell "250$" [ref=f3e2499]
+                  - cell [ref=f3e2500]
+                - row [ref=f3e2501] [cursor=pointer]:
+                  - cell [ref=f3e2502]:
+                    - button "FTU ABC Farben" [ref=f3e2503]:
+                      - generic [ref=f3e2506]: FTU
+                      - text: ABC Farben
+                  - cell "100" [ref=f3e2507]
+                  - cell "255$" [ref=f3e2508]
+                  - cell [ref=f3e2509]
+                - row [ref=f3e2510] [cursor=pointer]:
+                  - cell [ref=f3e2511]:
+                    - button "GP MUX Heavy Industry" [ref=f3e2512]:
+                      - generic [ref=f3e2515]: GP
+                      - text: MUX Heavy Industry
+                  - cell "570,000" [ref=f3e2516]
+                  - cell "255$" [ref=f3e2517]
+                  - cell [ref=f3e2518]
+                - row [ref=f3e2519] [cursor=pointer]:
+                  - cell [ref=f3e2520]:
+                    - button "FTU ABC Farben" [ref=f3e2521]:
+                      - generic [ref=f3e2524]: FTU
+                      - text: ABC Farben
+                  - cell "100" [ref=f3e2525]
+                  - cell "265$" [ref=f3e2526]
+                  - cell [ref=f3e2527]
+                - row [ref=f3e2528] [cursor=pointer]:
+                  - cell [ref=f3e2529]:
+                    - button "RNK Höllm" [ref=f3e2530]:
+                      - generic [ref=f3e2533]: RNK
+                      - text: Höllm
+                  - cell "122,267" [ref=f3e2534]
+                  - cell "265$" [ref=f3e2535]
+                  - cell [ref=f3e2536]
+                - row [ref=f3e2537] [cursor=pointer]:
+                  - cell [ref=f3e2538]:
+                    - button "FA Penguin Refinery" [ref=f3e2539]:
+                      - generic [ref=f3e2542]: FA
+                      - text: Penguin Refinery
+                  - cell "500" [ref=f3e2543]
+                  - cell "270$" [ref=f3e2544]
+                  - cell [ref=f3e2545]
+                - row [ref=f3e2546] [cursor=pointer]:
+                  - cell [ref=f3e2547]:
+                    - button "TiT Potatoes" [ref=f3e2548]:
+                      - generic [ref=f3e2551]: TiT
+                      - text: Potatoes
+                  - cell "79,800" [ref=f3e2552]
+                  - cell "280$" [ref=f3e2553]
+                  - cell [ref=f3e2554]
+                - row [ref=f3e2555] [cursor=pointer]:
+                  - cell [ref=f3e2556]:
+                    - button "TiT Drowne" [ref=f3e2557]:
+                      - generic [ref=f3e2560]: TiT
+                      - text: Drowne
+                  - cell "139,998" [ref=f3e2561]
+                  - cell "300$" [ref=f3e2562]
+                  - cell [ref=f3e2563]
+                - row [ref=f3e2564] [cursor=pointer]:
+                  - cell [ref=f3e2565]:
+                    - button "DSP R4m" [ref=f3e2566]:
+                      - generic [ref=f3e2569]: DSP
+                      - text: R4m
+                  - cell "161,204" [ref=f3e2570]
+                  - cell "425$" [ref=f3e2571]
+                  - cell [ref=f3e2572]
+                - row [ref=f3e2573] [cursor=pointer]:
+                  - cell [ref=f3e2574]:
+                    - button "R&D Pevilot SA" [ref=f3e2575]:
+                      - generic [ref=f3e2578]: R&D
+                      - text: Pevilot SA
+                  - cell "20,000" [ref=f3e2579]
+                  - cell "425$" [ref=f3e2580]
+                  - cell [ref=f3e2581]
+                - row [ref=f3e2582] [cursor=pointer]:
+                  - cell [ref=f3e2583]:
+                    - button "RNK StarkyDog Enterprise" [ref=f3e2584]:
+                      - generic [ref=f3e2587]: RNK
+                      - text: StarkyDog Enterprise
+                  - cell "6,099,518" [ref=f3e2588]
+                  - cell "430$" [ref=f3e2589]
+                  - cell [ref=f3e2590]
+                - row [ref=f3e2591] [cursor=pointer]:
+                  - cell [ref=f3e2592]:
+                    - button "DSP R4m" [ref=f3e2593]:
+                      - generic [ref=f3e2596]: DSP
+                      - text: R4m
+                  - cell "254,452" [ref=f3e2597]
+                  - cell "440$" [ref=f3e2598]
+                  - cell [ref=f3e2599]
+                - row [ref=f3e2600] [cursor=pointer]:
+                  - cell [ref=f3e2601]:
+                    - button "R&D Pevilot SA" [ref=f3e2602]:
+                      - generic [ref=f3e2605]: R&D
+                      - text: Pevilot SA
+                  - cell "58,624" [ref=f3e2606]
+                  - cell "445$" [ref=f3e2607]
+                  - cell [ref=f3e2608]
+                - row [ref=f3e2609] [cursor=pointer]:
+                  - cell [ref=f3e2610]:
+                    - button "GP GodfreLord" [ref=f3e2611]:
+                      - generic [ref=f3e2614]: GP
+                      - text: GodfreLord
+                  - cell "1,054,784" [ref=f3e2615]
+                  - cell "445$" [ref=f3e2616]
+                  - cell [ref=f3e2617]
+                - row [ref=f3e2618] [cursor=pointer]:
+                  - cell [ref=f3e2619]:
+                    - button "FD ConstructorSupreme" [ref=f3e2620]:
+                      - generic [ref=f3e2623]: FD
+                      - text: ConstructorSupreme
+                  - cell "48,653" [ref=f3e2624]
+                  - cell "455$" [ref=f3e2625]
+                  - cell [ref=f3e2626]
+                - row [ref=f3e2627] [cursor=pointer]:
+                  - cell [ref=f3e2628]:
+                    - button "ATS Bob Corp" [ref=f3e2629]:
+                      - generic [ref=f3e2632]: ATS
+                      - text: Bob Corp
+                  - cell "412,504" [ref=f3e2633]
+                  - cell "500$" [ref=f3e2634]
+                  - cell [ref=f3e2635]
+                - row [ref=f3e2636] [cursor=pointer]:
+                  - cell [ref=f3e2637]:
+                    - button "ATS KeefCorp" [ref=f3e2638]:
+                      - generic [ref=f3e2641]: ATS
+                      - text: KeefCorp
+                  - cell "523,701" [ref=f3e2642]
+                  - cell "620$" [ref=f3e2643]
+                  - cell [ref=f3e2644]
+                - row [ref=f3e2645] [cursor=pointer]:
+                  - cell [ref=f3e2646]:
+                    - button "DU Karton Inc" [ref=f3e2647]:
+                      - generic [ref=f3e2650]: DU
+                      - text: Karton Inc
+                  - cell "500,000" [ref=f3e2651]
+                  - cell "650$" [ref=f3e2652]
+                  - cell [ref=f3e2653]
+                - row [ref=f3e2654] [cursor=pointer]:
+                  - cell [ref=f3e2655]:
+                    - button "SRS Crimson Refining" [ref=f3e2656]:
+                      - generic [ref=f3e2659]: SRS
+                      - text: Crimson Refining
+                  - cell "1" [ref=f3e2660]
+                  - cell "690$" [ref=f3e2661]
+                  - cell [ref=f3e2662]
+        - generic [ref=f3e457]:
+          - list [ref=f3e459]:
+            - listitem [ref=f3e460]:
+              - tab "Materials" [ref=f3e461] [cursor=pointer]
+            - listitem [ref=f3e464]:
+              - tab "Wishlist" [ref=f3e465] [cursor=pointer]
+          - generic [ref=f3e468]:
+            - generic [ref=f3e469]:
+              - searchbox [ref=f3e473]
+              - combobox [ref=f3e477] [cursor=pointer]:
+                - option "All" [selected]
+                - option "Gases and Liquids"
+                - option "Minerals"
+                - option "Metals"
+                - option "Chemicals"
+                - option "Plastics"
+                - option "Materials"
+                - option "Electronics"
+                - option "Machinery"
+                - option "Ship Parts"
+                - option "Science"
+                - option "Construction Materials"
+                - option "Agricultural Products"
+                - option "Consumables"
+              - button [ref=f3e478] [cursor=pointer]
+            - table [ref=f3e481]:
+              - rowgroup [ref=f3e482]:
+                - row [ref=f3e483]:
+                  - columnheader "Material" [ref=f3e484]
+                  - columnheader "Selling" [ref=f3e485]
+                  - columnheader "Price" [ref=f3e486]
+              - rowgroup [ref=f3e487]:
+                - button [ref=f3e488] [cursor=pointer]:
+                  - cell "Hydrogen" [ref=f3e489]
+                  - cell "271,080" [ref=f3e494]
+                  - cell "22.50$" [ref=f3e495]
+                - button [ref=f3e497] [cursor=pointer]:
+                  - cell "Kryon" [ref=f3e498]
+                  - cell [ref=f3e503]
+                  - cell "200.00$" [ref=f3e504]
+                - button [ref=f3e506] [cursor=pointer]:
+                  - cell "Fertilizer" [ref=f3e507]
+                  - cell [ref=f3e512]
+                  - cell "44.50$" [ref=f3e513]
+                - button [ref=f3e515] [cursor=pointer]:
+                  - cell "Quadranium" [ref=f3e516]
+                  - cell [ref=f3e521]
+                  - cell "2,450.00$" [ref=f3e522]
+                - button [ref=f3e524] [cursor=pointer]:
+                  - cell "Superconducting Coil" [ref=f3e525]
+                  - cell [ref=f3e530]
+                  - cell "3,850.00$" [ref=f3e531]
+                - button [ref=f3e533] [cursor=pointer]:
+                  - cell "Antimatter Containment" [ref=f3e534]
+                  - cell [ref=f3e539]
+                  - cell "11,500.00$" [ref=f3e540]
+                - button [ref=f3e542] [cursor=pointer]:
+                  - cell "Antimatter" [ref=f3e543]
+                  - cell [ref=f3e548]
+                  - cell "31,500.00$" [ref=f3e549]
+                - button [ref=f3e551] [cursor=pointer]:
+                  - cell "Chickens" [ref=f3e552]
+                  - cell "563,281" [ref=f3e557]
+                  - cell "130.00$" [ref=f3e558]
+                - button [ref=f3e560] [cursor=pointer]:
+                  - cell "Pie" [ref=f3e561]
+                  - cell [ref=f3e566]
+                  - cell "405.00$" [ref=f3e567]
+                - button [ref=f3e569] [cursor=pointer]:
+                  - cell "Oxygen" [ref=f3e570]
+                  - cell [ref=f3e573]
+                  - cell "12.00$" [ref=f3e574]
+                - button [ref=f3e576] [cursor=pointer]:
+                  - cell "Water" [ref=f3e577]
+                  - cell [ref=f3e580]
+                  - cell "25.50$" [ref=f3e581]
+                - button [ref=f3e583] [cursor=pointer]:
+                  - cell "Nitrogen" [ref=f3e584]
+                  - cell [ref=f3e587]
+                  - cell "41.50$" [ref=f3e588]
+                - button [ref=f3e590] [cursor=pointer]:
+                  - cell "Argon" [ref=f3e591]
+                  - cell [ref=f3e594]
+                  - cell "83.00$" [ref=f3e595]
+                - button [ref=f3e597] [cursor=pointer]:
+                  - cell "Bioxene" [ref=f3e598]
+                  - cell [ref=f3e601]
+                  - cell "475.00$" [ref=f3e602]
+                - button [ref=f3e604] [cursor=pointer]:
+                  - cell "Carbon" [ref=f3e605]
+                  - cell [ref=f3e608]
+                  - cell "210.00$" [ref=f3e609]
+                - button [ref=f3e611] [cursor=pointer]:
+                  - cell "Iron Ore" [ref=f3e612]
+                  - cell [ref=f3e615]
+                  - cell "21.50$" [ref=f3e616]
+                - button [ref=f3e618] [cursor=pointer]:
+                  - cell "Limestone" [ref=f3e619]
+                  - cell [ref=f3e622]
+                  - cell "36.50$" [ref=f3e623]
+                - button [ref=f3e625] [cursor=pointer]:
+                  - cell "Silica" [ref=f3e626]
+                  - cell [ref=f3e629]
+                  - cell "19.50$" [ref=f3e630]
+                - button [ref=f3e632] [cursor=pointer]:
+                  - cell "Aluminium Ore" [ref=f3e633]
+                  - cell [ref=f3e636]
+                  - cell "77.00$" [ref=f3e637]
+                - button [ref=f3e639] [cursor=pointer]:
+                  - cell "Copper Ore" [ref=f3e640]
+                  - cell [ref=f3e643]
+                  - cell "47.00$" [ref=f3e644]
+                - button [ref=f3e646] [cursor=pointer]:
+                  - cell "Titanium Ore" [ref=f3e647]
+                  - cell [ref=f3e650]
+                  - cell "330.00$" [ref=f3e651]
+                - button [ref=f3e653] [cursor=pointer]:
+                  - cell "Uranium Ore" [ref=f3e654]
+                  - cell "1,139,755" [ref=f3e657]
+                  - cell "205.00$" [ref=f3e658]
+                - button [ref=f3e660] [cursor=pointer]:
+                  - cell "Platinum Ore" [ref=f3e661]
+                  - cell [ref=f3e664]
+                  - cell "310.00$" [ref=f3e665]
+                - button [ref=f3e667] [cursor=pointer]:
+                  - cell "Aeridium Ore" [ref=f3e668]
+                  - cell [ref=f3e671]
+                  - cell "410.00$" [ref=f3e672]
+                - button [ref=f3e674] [cursor=pointer]:
+                  - cell "Tesserite" [ref=f3e675]
+                  - cell [ref=f3e678]
+                  - cell "395.00$" [ref=f3e679]
+                - button [ref=f3e681] [cursor=pointer]:
+                  - cell "Iron" [ref=f3e682]
+                  - cell [ref=f3e685]
+                  - cell "210.00$" [ref=f3e686]
+                - button [ref=f3e688] [cursor=pointer]:
+                  - cell "Steel" [ref=f3e689]
+                  - cell [ref=f3e692]
+                  - cell "700.00$" [ref=f3e693]
+                - button [ref=f3e695] [cursor=pointer]:
+                  - cell "Aluminium" [ref=f3e696]
+                  - cell [ref=f3e699]
+                  - cell "610.00$" [ref=f3e700]
+                - button [ref=f3e702] [cursor=pointer]:
+                  - cell "Copper" [ref=f3e703]
+                  - cell [ref=f3e706]
+                  - cell "440.00$" [ref=f3e707]
+                - button [ref=f3e709] [cursor=pointer]:
+                  - cell "Lithium" [ref=f3e710]
+                  - cell [ref=f3e713]
+                  - cell "365.00$" [ref=f3e714]
+                - button [ref=f3e716] [cursor=pointer]:
+                  - cell "Titanium" [ref=f3e717]
+                  - cell [ref=f3e720]
+                  - cell "3,350.00$" [ref=f3e721]
+                - button [ref=f3e723] [cursor=pointer]:
+                  - cell "Platinum" [ref=f3e724]
+                  - cell [ref=f3e727]
+                  - cell "3,300.00$" [ref=f3e728]
+                - button [ref=f3e730] [cursor=pointer]:
+                  - cell "Aeridium" [ref=f3e731]
+                  - cell [ref=f3e734]
+                  - cell "1,300.00$" [ref=f3e735]
+                - button [ref=f3e737] [cursor=pointer]:
+                  - cell "Tiridium Alloy" [ref=f3e738]
+                  - cell [ref=f3e741]
+                  - cell "6,400.00$" [ref=f3e742]
+                - button [ref=f3e744] [cursor=pointer]:
+                  - cell "Ethanol" [ref=f3e745]
+                  - cell [ref=f3e748]
+                  - cell "37.00$" [ref=f3e749]
+                - button [ref=f3e751] [cursor=pointer]:
+                  - cell "Flux" [ref=f3e752]
+                  - cell [ref=f3e755]
+                  - cell "62.00$" [ref=f3e756]
+                - button [ref=f3e758] [cursor=pointer]:
+                  - cell "Color Compound" [ref=f3e759]
+                  - cell [ref=f3e762]
+                  - cell "80.00$" [ref=f3e763]
+                - button [ref=f3e2336] [cursor=pointer]:
+                  - cell "Lubricant" [ref=f3e766]
+                  - cell [ref=f3e769]
+                  - cell "32.50$" [ref=f3e2337]
+                - button [ref=f3e772] [cursor=pointer]:
+                  - cell "Sulfuric Acid" [ref=f3e773]
+                  - cell [ref=f3e776]
+                  - cell "81.00$" [ref=f3e777]
+                - button [ref=f3e779] [cursor=pointer]:
+                  - cell "Coolant" [ref=f3e780]
+                  - cell [ref=f3e783]
+                  - cell "33.50$" [ref=f3e784]
+                - button [ref=f3e786] [cursor=pointer]:
+                  - cell "Aerogel" [ref=f3e787]
+                  - cell [ref=f3e790]
+                  - cell "125.00$" [ref=f3e791]
+                - button [ref=f3e793] [cursor=pointer]:
+                  - cell "Epoxy" [ref=f3e794]
+                  - cell [ref=f3e797]
+                  - cell "74.00$" [ref=f3e798]
+                - button [ref=f3e800] [cursor=pointer]:
+                  - cell "Bio-Nutrient Blend" [ref=f3e801]
+                  - cell [ref=f3e804]
+                  - cell "120.00$" [ref=f3e805]
+                - button [ref=f3e807] [cursor=pointer]:
+                  - cell "Fabric" [ref=f3e808]
+                  - cell [ref=f3e811]
+                  - cell "80.00$" [ref=f3e812]
+                - button [ref=f3e814] [cursor=pointer]:
+                  - cell "Polyethylene" [ref=f3e815]
+                  - cell [ref=f3e818]
+                  - cell "16.50$" [ref=f3e819]
+                - button [ref=f3e821] [cursor=pointer]:
+                  - cell "Rubber" [ref=f3e822]
+                  - cell [ref=f3e825]
+                  - cell "28.00$" [ref=f3e826]
+                - button [ref=f3e828] [cursor=pointer]:
+                  - cell "Kevlar" [ref=f3e829]
+                  - cell [ref=f3e832]
+                  - cell "790.00$" [ref=f3e833]
+                - button [ref=f3e835] [cursor=pointer]:
+                  - cell "Neoplast" [ref=f3e836]
+                  - cell [ref=f3e839]
+                  - cell "52.00$" [ref=f3e840]
+                - button [ref=f3e842] [cursor=pointer]:
+                  - cell "Neoplast Sheet" [ref=f3e843]
+                  - cell [ref=f3e846]
+                  - cell "810.00$" [ref=f3e847]
+                - button [ref=f3e849] [cursor=pointer]:
+                  - cell "Nanopolyne" [ref=f3e850]
+                  - cell [ref=f3e853]
+                  - cell "345.00$" [ref=f3e854]
+                - button [ref=f3e856] [cursor=pointer]:
+                  - cell "Nanoweave" [ref=f3e857]
+                  - cell [ref=f3e860]
+                  - cell "590.00$" [ref=f3e861]
+                - button [ref=f3e863] [cursor=pointer]:
+                  - cell "Biopolyne" [ref=f3e864]
+                  - cell [ref=f3e867]
+                  - cell "1,300.00$" [ref=f3e868]
+                - button [ref=f3e1724] [cursor=pointer]:
+                  - cell "Concrete" [ref=f3e871]
+                  - cell [ref=f3e874]
+                  - cell "58.00$" [ref=f3e1725]
+                - button [ref=f3e877] [cursor=pointer]:
+                  - cell "Glass" [ref=f3e878]
+                  - cell [ref=f3e881]
+                  - cell "66.00$" [ref=f3e882]
+                - button [ref=f3e884] [cursor=pointer]:
+                  - cell "Office Supplies" [ref=f3e885]
+                  - cell [ref=f3e888]
+                  - cell "77.00$" [ref=f3e889]
+                - button [ref=f3e891] [cursor=pointer]:
+                  - cell "Pipes" [ref=f3e892]
+                  - cell [ref=f3e895]
+                  - cell "170.00$" [ref=f3e896]
+                - button [ref=f3e898] [cursor=pointer]:
+                  - cell "Furniture" [ref=f3e899]
+                  - cell [ref=f3e902]
+                  - cell "330.00$" [ref=f3e903]
+                - button [ref=f3e905] [cursor=pointer]:
+                  - cell "Truss" [ref=f3e906]
+                  - cell [ref=f3e909]
+                  - cell "485.00$" [ref=f3e910]
+                - button [ref=f3e912] [cursor=pointer]:
+                  - cell "Durablend" [ref=f3e913]
+                  - cell [ref=f3e916]
+                  - cell "185.00$" [ref=f3e917]
+                - button [ref=f3e919] [cursor=pointer]:
+                  - cell "Reinforced Glass" [ref=f3e920]
+                  - cell [ref=f3e923]
+                  - cell "290.00$" [ref=f3e924]
+                - button [ref=f3e926] [cursor=pointer]:
+                  - cell "Insulation Panels" [ref=f3e927]
+                  - cell [ref=f3e930]
+                  - cell "930.00$" [ref=f3e931]
+                - button [ref=f3e933] [cursor=pointer]:
+                  - cell "Composite Truss" [ref=f3e934]
+                  - cell [ref=f3e937]
+                  - cell "1,450.00$" [ref=f3e938]
+                - button [ref=f3e940] [cursor=pointer]:
+                  - cell "Graphene" [ref=f3e941]
+                  - cell [ref=f3e944]
+                  - cell "400.00$" [ref=f3e945]
+                - button [ref=f3e947] [cursor=pointer]:
+                  - cell "Carbon Nanotubes" [ref=f3e948]
+                  - cell [ref=f3e951]
+                  - cell "1,250.00$" [ref=f3e952]
+                - button [ref=f3e954] [cursor=pointer]:
+                  - cell "Cohesilite" [ref=f3e955]
+                  - cell [ref=f3e958]
+                  - cell "620.00$" [ref=f3e959]
+                - button [ref=f3e961] [cursor=pointer]:
+                  - cell "Graphenium" [ref=f3e962]
+                  - cell [ref=f3e965]
+                  - cell "5,500.00$" [ref=f3e966]
+                - button [ref=f3e968] [cursor=pointer]:
+                  - cell "Starglass" [ref=f3e969]
+                  - cell [ref=f3e972]
+                  - cell "6,900.00$" [ref=f3e973]
+                - button [ref=f3e975] [cursor=pointer]:
+                  - cell "Electronic Circuit" [ref=f3e976]
+                  - cell [ref=f3e979]
+                  - cell "370.00$" [ref=f3e980]
+                - button [ref=f3e982] [cursor=pointer]:
+                  - cell "Transistor" [ref=f3e983]
+                  - cell [ref=f3e986]
+                  - cell "57.00$" [ref=f3e987]
+                - button [ref=f3e989] [cursor=pointer]:
+                  - cell "Consumer Electronics" [ref=f3e990]
+                  - cell [ref=f3e993]
+                  - cell "910.00$" [ref=f3e994]
+                - button [ref=f3e996] [cursor=pointer]:
+                  - cell "Battery" [ref=f3e997]
+                  - cell [ref=f3e1000]
+                  - cell "390.00$" [ref=f3e1001]
+                - button [ref=f3e1003] [cursor=pointer]:
+                  - cell "Chip" [ref=f3e1004]
+                  - cell [ref=f3e1007]
+                  - cell "920.00$" [ref=f3e1008]
+                - button [ref=f3e1010] [cursor=pointer]:
+                  - cell "Advanced Circuit Board" [ref=f3e1011]
+                  - cell [ref=f3e1014]
+                  - cell "1,550.00$" [ref=f3e1015]
+                - button [ref=f3e1017] [cursor=pointer]:
+                  - cell "Copper Wire" [ref=f3e1018]
+                  - cell [ref=f3e1021]
+                  - cell "42.50$" [ref=f3e1022]
+                - button [ref=f3e1024] [cursor=pointer]:
+                  - cell "Silicon Wafer" [ref=f3e1025]
+                  - cell [ref=f3e1028]
+                  - cell "385.00$" [ref=f3e1029]
+                - button [ref=f3e1031] [cursor=pointer]:
+                  - cell "Control Console" [ref=f3e1032]
+                  - cell [ref=f3e1035]
+                  - cell "3,850.00$" [ref=f3e1036]
+                - button [ref=f3e1038] [cursor=pointer]:
+                  - cell "VR Headset" [ref=f3e1039]
+                  - cell [ref=f3e1042]
+                  - cell "2,750.00$" [ref=f3e1043]
+                - button [ref=f3e1045] [cursor=pointer]:
+                  - cell "Advanced Processing Unit" [ref=f3e1046]
+                  - cell [ref=f3e1049]
+                  - cell "4,550.00$" [ref=f3e1050]
+                - button [ref=f3e1052] [cursor=pointer]:
+                  - cell "Mainframe" [ref=f3e1053]
+                  - cell [ref=f3e1056]
+                  - cell "16,000.00$" [ref=f3e1057]
+                - button [ref=f3e1059] [cursor=pointer]:
+                  - cell "Sensor Array" [ref=f3e1060]
+                  - cell [ref=f3e1063]
+                  - cell "8,200.00$" [ref=f3e1064]
+                - button [ref=f3e1066] [cursor=pointer]:
+                  - cell "FTL Field Controller" [ref=f3e1067]
+                  - cell [ref=f3e1070]
+                  - cell "18,500.00$" [ref=f3e1071]
+                - button [ref=f3e1073] [cursor=pointer]:
+                  - cell "Graphenium Wire" [ref=f3e1074]
+                  - cell [ref=f3e1077]
+                  - cell "1,150.00$" [ref=f3e1078]
+                - button [ref=f3e1080] [cursor=pointer]:
+                  - cell "Quantum Mainframe" [ref=f3e1081]
+                  - cell [ref=f3e1084]
+                  - cell "53,000.00$" [ref=f3e1085]
+                - button [ref=f3e1087] [cursor=pointer]:
+                  - cell "AICore" [ref=f3e1088]
+                  - cell [ref=f3e1091]
+                  - cell "115,000.00$" [ref=f3e1092]
+                - button [ref=f3e1094] [cursor=pointer]:
+                  - cell "Neural Interface" [ref=f3e1095]
+                  - cell [ref=f3e1098]
+                  - cell "17,500.00$" [ref=f3e1099]
+                - button [ref=f3e1101] [cursor=pointer]:
+                  - cell "Construction Tools" [ref=f3e1102]
+                  - cell [ref=f3e1105]
+                  - cell "190.00$" [ref=f3e1106]
+                - button [ref=f3e1108] [cursor=pointer]:
+                  - cell "Combustion Engine" [ref=f3e1109]
+                  - cell [ref=f3e1112]
+                  - cell "1,100.00$" [ref=f3e1113]
+                - button [ref=f3e1115] [cursor=pointer]:
+                  - cell "Construction Vehicle" [ref=f3e1116]
+                  - cell [ref=f3e1119]
+                  - cell "3,000.00$" [ref=f3e1120]
+                - button [ref=f3e1122] [cursor=pointer]:
+                  - cell "Drill" [ref=f3e1123]
+                  - cell [ref=f3e1126]
+                  - cell "770.00$" [ref=f3e1127]
+                - button [ref=f3e1129] [cursor=pointer]:
+                  - cell "Welding Kit" [ref=f3e1130]
+                  - cell [ref=f3e1133]
+                  - cell "510.00$" [ref=f3e1134]
+                - button [ref=f3e1136] [cursor=pointer]:
+                  - cell "Pump" [ref=f3e1137]
+                  - cell [ref=f3e1140]
+                  - cell "760.00$" [ref=f3e1141]
+                - button [ref=f3e1143] [cursor=pointer]:
+                  - cell "Electric Motor" [ref=f3e1144]
+                  - cell [ref=f3e1147]
+                  - cell "1,000.00$" [ref=f3e1148]
+                - button [ref=f3e1150] [cursor=pointer]:
+                  - cell "Cooling System" [ref=f3e1151]
+                  - cell [ref=f3e1154]
+                  - cell "1,550.00$" [ref=f3e1155]
+                - button [ref=f3e1157] [cursor=pointer]:
+                  - cell "Life Support System" [ref=f3e1158]
+                  - cell [ref=f3e1161]
+                  - cell "4,950.00$" [ref=f3e1162]
+                - button [ref=f3e1164] [cursor=pointer]:
+                  - cell "Mining Vehicle" [ref=f3e1165]
+                  - cell [ref=f3e1168]
+                  - cell "3,900.00$" [ref=f3e1169]
+                - button [ref=f3e1171] [cursor=pointer]:
+                  - cell "Drone" [ref=f3e1172]
+                  - cell [ref=f3e1175]
+                  - cell "3,600.00$" [ref=f3e1176]
+                - button [ref=f3e1178] [cursor=pointer]:
+                  - cell "Filtration System" [ref=f3e1179]
+                  - cell [ref=f3e1182]
+                  - cell "4,700.00$" [ref=f3e1183]
+                - button [ref=f3e1185] [cursor=pointer]:
+                  - cell "Molecular Fusion Kit" [ref=f3e1186]
+                  - cell [ref=f3e1189]
+                  - cell "2,100.00$" [ref=f3e1190]
+                - button [ref=f3e1192] [cursor=pointer]:
+                  - cell "Titanium Carbide Drill" [ref=f3e1193]
+                  - cell [ref=f3e1196]
+                  - cell "1,750.00$" [ref=f3e1197]
+                - button [ref=f3e1199] [cursor=pointer]:
+                  - cell "Field Cooling System" [ref=f3e1200]
+                  - cell [ref=f3e1203]
+                  - cell "28,500.00$" [ref=f3e1204]
+                - button [ref=f3e1206] [cursor=pointer]:
+                  - cell "Hydrogen Fuel" [ref=f3e1207]
+                  - cell [ref=f3e1210]
+                  - cell "115.00$" [ref=f3e1211]
+                - button [ref=f3e1213] [cursor=pointer]:
+                  - cell "Ship Repair Kit" [ref=f3e1214]
+                  - cell "7,895" [ref=f3e1217]
+                  - cell "1,600.00$" [ref=f3e1218]
+                - button [ref=f3e1220] [cursor=pointer]:
+                  - cell "Hull Plate" [ref=f3e1221]
+                  - cell [ref=f3e1224]
+                  - cell "3,550.00$" [ref=f3e1225]
+                - button [ref=f3e1227] [cursor=pointer]:
+                  - cell "Ship Interior Kit" [ref=f3e1228]
+                  - cell [ref=f3e1231]
+                  - cell "20,500.00$" [ref=f3e1232]
+                - button [ref=f3e2342] [cursor=pointer]:
+                  - cell "Cargo Bay Segment" [ref=f3e1235]
+                  - cell [ref=f3e1238]
+                  - cell "8,700.00$" [ref=f3e2343]
+                - button [ref=f3e1241] [cursor=pointer]:
+                  - cell "Fuel Tank Segment" [ref=f3e1242]
+                  - cell [ref=f3e1245]
+                  - cell "8,700.00$" [ref=f3e1246]
+                - button [ref=f3e1248] [cursor=pointer]:
+                  - cell "Heat Shielding" [ref=f3e1249]
+                  - cell [ref=f3e1252]
+                  - cell "5,500.00$" [ref=f3e1253]
+                - button [ref=f3e1255] [cursor=pointer]:
+                  - cell "Hydrogen Generator" [ref=f3e1256]
+                  - cell [ref=f3e1259]
+                  - cell "19,500.00$" [ref=f3e1260]
+                - button [ref=f3e1262] [cursor=pointer]:
+                  - cell "Shuttle Bridge" [ref=f3e1263]
+                  - cell [ref=f3e1266]
+                  - cell "29,500.00$" [ref=f3e1267]
+                - button [ref=f3e1269] [cursor=pointer]:
+                  - cell "Linear FTL Emitter" [ref=f3e1270]
+                  - cell [ref=f3e1273]
+                  - cell "34,000.00$" [ref=f3e1274]
+                - button [ref=f3e1276] [cursor=pointer]:
+                  - cell "Fission Fuel" [ref=f3e1277]
+                  - cell [ref=f3e1280]
+                  - cell "2,400.00$" [ref=f3e1281]
+                - button [ref=f3e1283] [cursor=pointer]:
+                  - cell "Radiation Shielding" [ref=f3e1284]
+                  - cell [ref=f3e1287]
+                  - cell "4,550.00$" [ref=f3e1288]
+                - button [ref=f3e1290] [cursor=pointer]:
+                  - cell "Tiridium Hull Plate" [ref=f3e1291]
+                  - cell [ref=f3e1294]
+                  - cell "10,500.00$" [ref=f3e1295]
+                - button [ref=f3e1297] [cursor=pointer]:
+                  - cell "Fission Reactor" [ref=f3e1298]
+                  - cell [ref=f3e1301]
+                  - cell "81,000.00$" [ref=f3e1302]
+                - button [ref=f3e1304] [cursor=pointer]:
+                  - cell "Hauler Bridge" [ref=f3e1305]
+                  - cell [ref=f3e1308]
+                  - cell "88,000.00$" [ref=f3e1309]
+                - button [ref=f3e1311] [cursor=pointer]:
+                  - cell "Quantum FTL Emitter" [ref=f3e1312]
+                  - cell [ref=f3e1315]
+                  - cell "36,000.00$" [ref=f3e1316]
+                - button [ref=f3e1318] [cursor=pointer]:
+                  - cell "Starglass Hull Plate" [ref=f3e1319]
+                  - cell [ref=f3e1322]
+                  - cell "28,500.00$" [ref=f3e1323]
+                - button [ref=f3e1325] [cursor=pointer]:
+                  - cell "Extra-dimensional FTL Emitter" [ref=f3e1326]
+                  - cell [ref=f3e1329]
+                  - cell "48,000.00$" [ref=f3e1330]
+                - button [ref=f3e1332] [cursor=pointer]:
+                  - cell "Starlifter Structural Elements" [ref=f3e1333]
+                  - cell [ref=f3e1336]
+                  - cell "62,000.00$" [ref=f3e1337]
+                - button [ref=f3e1339] [cursor=pointer]:
+                  - cell "Antimatter Reactor" [ref=f3e1340]
+                  - cell [ref=f3e1343]
+                  - cell "275,000.00$" [ref=f3e1344]
+                - button [ref=f3e1346] [cursor=pointer]:
+                  - cell "Freighter Bridge" [ref=f3e1347]
+                  - cell [ref=f3e1350]
+                  - cell "210,000.00$" [ref=f3e1351]
+                - button [ref=f3e1353] [cursor=pointer]:
+                  - cell "Research Data" [ref=f3e1354]
+                  - cell [ref=f3e1357]
+                  - cell "930.00$" [ref=f3e1358]
+                - button [ref=f3e1360] [cursor=pointer]:
+                  - cell "Advanced Research Data" [ref=f3e1361]
+                  - cell [ref=f3e1364]
+                  - cell "5,500.00$" [ref=f3e1365]
+                - button [ref=f3e1367] [cursor=pointer]:
+                  - cell "Apex Research Data" [ref=f3e1368]
+                  - cell [ref=f3e1371]
+                  - cell "10,500.00$" [ref=f3e1372]
+                - button [ref=f3e1374] [cursor=pointer]:
+                  - cell "AI Training Data" [ref=f3e1375]
+                  - cell [ref=f3e1378]
+                  - cell "6,900.00$" [ref=f3e1379]
+                - button [ref=f3e1381] [cursor=pointer]:
+                  - cell "Operating System" [ref=f3e1382]
+                  - cell [ref=f3e1385]
+                  - cell "2,850.00$" [ref=f3e1386]
+                - button [ref=f3e1388] [cursor=pointer]:
+                  - cell "Artificial Intelligence" [ref=f3e1389]
+                  - cell [ref=f3e1392]
+                  - cell "12,000.00$" [ref=f3e1393]
+                - button [ref=f3e1395] [cursor=pointer]:
+                  - cell "Quantum Research Data" [ref=f3e1396]
+                  - cell [ref=f3e1399]
+                  - cell "49,000.00$" [ref=f3e1400]
+                - button [ref=f3e1402] [cursor=pointer]:
+                  - cell "Amenities" [ref=f3e1403]
+                  - cell [ref=f3e1406]
+                  - cell "1,850.00$" [ref=f3e1407]
+                - button [ref=f3e1409] [cursor=pointer]:
+                  - cell "Construction Kit" [ref=f3e1410]
+                  - cell [ref=f3e1413]
+                  - cell "1,500.00$" [ref=f3e1414]
+                - button [ref=f3e1416] [cursor=pointer]:
+                  - cell "Prefab Kit" [ref=f3e1417]
+                  - cell [ref=f3e1420]
+                  - cell "1,750.00$" [ref=f3e1421]
+                - button [ref=f3e1423] [cursor=pointer]:
+                  - cell "Structural Elements" [ref=f3e1424]
+                  - cell [ref=f3e1427]
+                  - cell "9,400.00$" [ref=f3e1428]
+                - button [ref=f3e1430] [cursor=pointer]:
+                  - cell "Modern Prefab Kit" [ref=f3e1431]
+                  - cell [ref=f3e1434]
+                  - cell "7,000.00$" [ref=f3e1435]
+                - button [ref=f3e1437] [cursor=pointer]:
+                  - cell "Pressure Sealant Kit" [ref=f3e1438]
+                  - cell [ref=f3e1441]
+                  - cell "2,100.00$" [ref=f3e1442]
+                - button [ref=f3e1444] [cursor=pointer]:
+                  - cell "Advanced Amenities" [ref=f3e1445]
+                  - cell [ref=f3e1448]
+                  - cell "9,900.00$" [ref=f3e1449]
+                - button [ref=f3e1451] [cursor=pointer]:
+                  - cell "Advanced Construction Kit" [ref=f3e1452]
+                  - cell [ref=f3e1455]
+                  - cell "12,000.00$" [ref=f3e1456]
+                - button [ref=f3e1458] [cursor=pointer]:
+                  - cell "Advanced Prefab Kit" [ref=f3e1459]
+                  - cell [ref=f3e1462]
+                  - cell "11,500.00$" [ref=f3e1463]
+                - button [ref=f3e1465] [cursor=pointer]:
+                  - cell "Composite Shielding" [ref=f3e1466]
+                  - cell [ref=f3e1469]
+                  - cell "7,100.00$" [ref=f3e1470]
+                - button [ref=f3e1472] [cursor=pointer]:
+                  - cell "Industrial Machinery" [ref=f3e1473]
+                  - cell [ref=f3e1476]
+                  - cell "13,000.00$" [ref=f3e1477]
+                - button [ref=f3e1479] [cursor=pointer]:
+                  - cell "Nanoweave Shielding" [ref=f3e1480]
+                  - cell [ref=f3e1483]
+                  - cell "8,000.00$" [ref=f3e1484]
+                - button [ref=f3e1486] [cursor=pointer]:
+                  - cell "Apex Structural Elements" [ref=f3e1487]
+                  - cell [ref=f3e1490]
+                  - cell "13,000.00$" [ref=f3e1491]
+                - button [ref=f3e1493] [cursor=pointer]:
+                  - cell "Apex Prefab Kit" [ref=f3e1494]
+                  - cell [ref=f3e1497]
+                  - cell "18,000.00$" [ref=f3e1498]
+                - button [ref=f3e1500] [cursor=pointer]:
+                  - cell "Cotton" [ref=f3e1501]
+                  - cell [ref=f3e1504]
+                  - cell "45.00$" [ref=f3e1505]
+                - button [ref=f3e1507] [cursor=pointer]:
+                  - cell "Cows" [ref=f3e1508]
+                  - cell [ref=f3e1511]
+                  - cell "700.00$" [ref=f3e1512]
+                - button [ref=f3e1514] [cursor=pointer]:
+                  - cell "Fruits" [ref=f3e1515]
+                  - cell [ref=f3e1518]
+                  - cell "65.00$" [ref=f3e1519]
+                - button [ref=f3e1521] [cursor=pointer]:
+                  - cell "Grain" [ref=f3e1522]
+                  - cell [ref=f3e1525]
+                  - cell "16.50$" [ref=f3e1526]
+                - button [ref=f3e1528] [cursor=pointer]:
+                  - cell "Leather" [ref=f3e1529]
+                  - cell [ref=f3e1532]
+                  - cell "140.00$" [ref=f3e1533]
+                - button [ref=f3e1535] [cursor=pointer]:
+                  - cell "Meat" [ref=f3e1536]
+                  - cell [ref=f3e1539]
+                  - cell "115.00$" [ref=f3e1540]
+                - button [ref=f3e1542] [cursor=pointer]:
+                  - cell "Vegetables" [ref=f3e1543]
+                  - cell [ref=f3e1546]
+                  - cell "39.50$" [ref=f3e1547]
+                - button [ref=f3e1549] [cursor=pointer]:
+                  - cell "Wood" [ref=f3e1550]
+                  - cell [ref=f3e1553]
+                  - cell "48.00$" [ref=f3e1554]
+                - button [ref=f3e1556] [cursor=pointer]:
+                  - cell "Milk" [ref=f3e1557]
+                  - cell [ref=f3e1560]
+                  - cell "81.00$" [ref=f3e1561]
+                - button [ref=f3e1563] [cursor=pointer]:
+                  - cell "Sugar" [ref=f3e1564]
+                  - cell [ref=f3e1567]
+                  - cell "86.00$" [ref=f3e1568]
+                - button [ref=f3e1570] [cursor=pointer]:
+                  - cell "Coffee Beans" [ref=f3e1571]
+                  - cell [ref=f3e1574]
+                  - cell "76.00$" [ref=f3e1575]
+                - button [ref=f3e1577] [cursor=pointer]:
+                  - cell "Eggs" [ref=f3e1578]
+                  - cell [ref=f3e1581]
+                  - cell "94.00$" [ref=f3e1582]
+                - button [ref=f3e1584] [cursor=pointer]:
+                  - cell "Honeycaps" [ref=f3e1585]
+                  - cell [ref=f3e1588]
+                  - cell "67.00$" [ref=f3e1589]
+                - button [ref=f3e1591] [cursor=pointer]:
+                  - cell "Herbs" [ref=f3e1592]
+                  - cell [ref=f3e1595]
+                  - cell "83.00$" [ref=f3e1596]
+                - button [ref=f3e1598] [cursor=pointer]:
+                  - cell "Exotic Spices" [ref=f3e1599]
+                  - cell [ref=f3e1602]
+                  - cell "560.00$" [ref=f3e1603]
+                - button [ref=f3e1605] [cursor=pointer]:
+                  - cell "Lobster" [ref=f3e1606]
+                  - cell [ref=f3e1609]
+                  - cell "690.00$" [ref=f3e1610]
+                - button [ref=f3e1612] [cursor=pointer]:
+                  - cell "Drinking Water" [ref=f3e1613]
+                  - cell [ref=f3e1616]
+                  - cell "27.50$" [ref=f3e1617]
+                - button [ref=f3e1619] [cursor=pointer]:
+                  - cell "Rations" [ref=f3e1620]
+                  - cell [ref=f3e1623]
+                  - cell "48.50$" [ref=f3e1624]
+                - button [ref=f3e2338] [cursor=pointer]:
+                  - cell "Tools" [ref=f3e1627]
+                  - cell [ref=f3e1630]
+                  - cell "82.00$" [ref=f3e2339]
+                - button [ref=f3e1633] [cursor=pointer]:
+                  - cell "Ale" [ref=f3e1634]
+                  - cell [ref=f3e1637]
+                  - cell "91.00$" [ref=f3e1638]
+                - button [ref=f3e1640] [cursor=pointer]:
+                  - cell "Workwear" [ref=f3e1641]
+                  - cell [ref=f3e1644]
+                  - cell "135.00$" [ref=f3e1645]
+                - button [ref=f3e1647] [cursor=pointer]:
+                  - cell "Fine Rations" [ref=f3e1648]
+                  - cell [ref=f3e1651]
+                  - cell "110.00$" [ref=f3e1652]
+                - button [ref=f3e2340] [cursor=pointer]:
+                  - cell "Advanced Tools" [ref=f3e1655]
+                  - cell [ref=f3e1658]
+                  - cell "255.00$" [ref=f3e2341]
+                - button [ref=f3e1661] [cursor=pointer]:
+                  - cell "Coffee" [ref=f3e1662]
+                  - cell [ref=f3e1665]
+                  - cell "210.00$" [ref=f3e1666]
+                - button [ref=f3e1668] [cursor=pointer]:
+                  - cell "Exosuit" [ref=f3e1669]
+                  - cell [ref=f3e1672]
+                  - cell "1,050.00$" [ref=f3e1673]
+                - button [ref=f3e1675] [cursor=pointer]:
+                  - cell "Vitaqua" [ref=f3e1676]
+                  - cell [ref=f3e1679]
+                  - cell "88.00$" [ref=f3e1680]
+                - button [ref=f3e1682] [cursor=pointer]:
+                  - cell "Robot" [ref=f3e1683]
+                  - cell [ref=f3e1686]
+                  - cell "2,900.00$" [ref=f3e1687]
+                - button [ref=f3e1689] [cursor=pointer]:
+                  - cell "Spectra Modulator" [ref=f3e1690]
+                  - cell [ref=f3e1693]
+                  - cell "1,700.00$" [ref=f3e1694]
+                - button [ref=f3e1696] [cursor=pointer]:
+                  - cell "Rejuvaline" [ref=f3e1697]
+                  - cell [ref=f3e1700]
+                  - cell "820.00$" [ref=f3e1701]
+                - button [ref=f3e1703] [cursor=pointer]:
+                  - cell "Gourmet Rations" [ref=f3e1704]
+                  - cell [ref=f3e1707]
+                  - cell "300.00$" [ref=f3e1708]
+                - button [ref=f3e1710] [cursor=pointer]:
+                  - cell "Laboratory Suit" [ref=f3e1711]
+                  - cell [ref=f3e1714]
+                  - cell "1,300.00$" [ref=f3e1715]
+                - button [ref=f3e1717] [cursor=pointer]:
+                  - cell "Nanites" [ref=f3e1718]
+                  - cell [ref=f3e1721]
+                  - cell "1,800.00$" [ref=f3e1722]

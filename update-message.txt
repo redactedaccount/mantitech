@@ -1,0 +1,8 @@
+MantiTech updated to v{version}.
+Don't like the new theme? Settings → MantiTech → Theme → Mocha.
+
+Changelog:
+- Default theme is now Amberdark
+- Default font is now Orbitron
+- Emoji picker added to the message box
+- /tenor is deprecated — use /giphy or /klipy instead (add your free API key(s) in Settings → MantiTech → GIF Providers)

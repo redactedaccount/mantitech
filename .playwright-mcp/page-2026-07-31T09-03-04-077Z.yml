@@ -1,0 +1,73 @@
+- generic [ref=f3e2]:
+  - navigation [ref=f3e3]:
+    - generic [ref=f3e4]:
+      - generic [ref=f3e6]:
+        - generic [ref=f3e7] [cursor=pointer]: Base
+        - generic [ref=f3e10] [cursor=pointer]: Exchange
+        - generic [ref=f3e14] [cursor=pointer]: Galaxy
+      - group [ref=f3e33]:
+        - button "30,767,565" [ref=f3e34] [cursor=pointer]
+        - button "8" [ref=f3e37] [cursor=pointer]
+        - button "77" [ref=f3e40] [cursor=pointer]
+  - main [ref=f3e337]:
+    - generic [ref=f3e339]:
+      - list [ref=f3e341]:
+        - listitem [ref=f3e342]:
+          - tab "Exchange" [ref=f3e343] [cursor=pointer]
+        - listitem [ref=f3e346]:
+          - tab "My Offers" [active] [ref=f3e347] [cursor=pointer]
+        - listitem [ref=f3e350]:
+          - tab [ref=f3e351] [cursor=pointer]
+      - generic [ref=f3e355]:
+        - generic [ref=f3e2665]:
+          - generic [ref=f3e2666]: 5 active offers
+          - generic [ref=f3e2667]: "Total: 771,893,250$"
+        - table [ref=f3e2668]:
+          - rowgroup [ref=f3e2669]:
+            - row [ref=f3e2670] [cursor=pointer]:
+              - columnheader "Material" [ref=f3e2671]
+              - columnheader "Quantity" [ref=f3e2674]
+              - columnheader "Price / unit" [ref=f3e2675]
+              - columnheader "Total" [ref=f3e2676]
+              - columnheader [ref=f3e2677]
+          - rowgroup [ref=f3e2678]:
+            - row [ref=f3e2679]:
+              - cell [ref=f3e2680]:
+                - button "Chickens" [ref=f3e2681] [cursor=pointer]
+              - cell "554,296" [ref=f3e2684]
+              - cell "355.00$" [ref=f3e2685]
+              - cell "196,775,080$" [ref=f3e2686]
+              - cell [ref=f3e2687]:
+                - button [ref=f3e2688] [cursor=pointer]
+            - row [ref=f3e2691]:
+              - cell [ref=f3e2692]:
+                - button "Chickens" [ref=f3e2693] [cursor=pointer]
+              - cell "8,985" [ref=f3e2696]
+              - cell "330.00$" [ref=f3e2697]
+              - cell "2,965,050$" [ref=f3e2698]
+              - cell [ref=f3e2699]:
+                - button [ref=f3e2700] [cursor=pointer]
+            - row [ref=f3e2703]:
+              - cell [ref=f3e2704]:
+                - button "Hydrogen" [ref=f3e2705] [cursor=pointer]
+              - cell "271,080" [ref=f3e2708]
+              - cell "69.00$" [ref=f3e2709]
+              - cell "18,704,520$" [ref=f3e2710]
+              - cell [ref=f3e2711]:
+                - button [ref=f3e2712] [cursor=pointer]
+            - row [ref=f3e2715]:
+              - cell [ref=f3e2716]:
+                - button "Ship Repair Kit" [ref=f3e2717] [cursor=pointer]
+              - cell "7,895" [ref=f3e2720]
+              - cell "2,250.00$" [ref=f3e2721]
+              - cell "17,763,750$" [ref=f3e2722]
+              - cell [ref=f3e2723]:
+                - button [ref=f3e2724] [cursor=pointer]
+            - row [ref=f3e2727]:
+              - cell [ref=f3e2728]:
+                - button "Uranium Ore" [ref=f3e2729] [cursor=pointer]
+              - cell "1,139,755" [ref=f3e2732]
+              - cell "470.00$" [ref=f3e2733]
+              - cell "535,684,850$" [ref=f3e2734]
+              - cell [ref=f3e2735]:
+                - button [ref=f3e2736] [cursor=pointer]

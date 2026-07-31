@@ -1,4 +1,780 @@
-/* ── Exchange info box ─────────────────────────────────────────────────────── */
+/* ── Font overrides ─────────────────────────────────────────────────────────── */
+/* @font-face rules are injected by content.js via chrome.runtime.getURL()      */
+/* because relative url() in content-script CSS resolves against the page       */
+/* origin, not the extension package.                                            */
+
+html[data-mt-font="orbitron"] body,
+html[data-mt-font="orbitron"] body * {
+  font-family: 'Orbitron', sans-serif !important;
+}
+
+html[data-mt-font="sharetechmono"] body,
+html[data-mt-font="sharetechmono"] body * {
+  font-family: 'Share Tech Mono', monospace !important;
+}
+
+html[data-mt-font="exo2"] body,
+html[data-mt-font="exo2"] body * {
+  font-family: 'Exo 2', sans-serif !important;
+}
+
+html[data-mt-font="audiowide"] body,
+html[data-mt-font="audiowide"] body * {
+  font-family: 'Audiowide', sans-serif !important;
+}
+
+html[data-mt-font="chakrapetch"] body,
+html[data-mt-font="chakrapetch"] body * {
+  font-family: 'Chakra Petch', sans-serif !important;
+}
+
+html[data-mt-font="electrolize"] body,
+html[data-mt-font="electrolize"] body * {
+  font-family: 'Electrolize', sans-serif !important;
+}
+
+html[data-mt-font="michroma"] body,
+html[data-mt-font="michroma"] body * {
+  font-family: 'Michroma', sans-serif !important;
+}
+
+html[data-mt-font="oxanium"] body,
+html[data-mt-font="oxanium"] body * {
+  font-family: 'Oxanium', sans-serif !important;
+}
+
+html[data-mt-font="rajdhani"] body,
+html[data-mt-font="rajdhani"] body * {
+  font-family: 'Rajdhani', sans-serif !important;
+}
+
+html[data-mt-font="spacemono"] body,
+html[data-mt-font="spacemono"] body * {
+  font-family: 'Space Mono', monospace !important;
+}
+
+html[data-mt-font="teko"] body,
+html[data-mt-font="teko"] body * {
+  font-family: 'Teko', sans-serif !important;
+}
+
+html[data-mt-font="vt323"] body,
+html[data-mt-font="vt323"] body * {
+  font-family: 'VT323', monospace !important;
+}
+
+/* ── Theme tokens ────────────────────────────────────────────────────────────── */
+/* Mocha (Catppuccin) defaults — active when no data-mt-theme is set.           */
+/* Non-mocha themes inject overrides via a <style id="mt-theme-vars"> block.    */
+
+:root {
+  --mt-bg-base:   #1e1e2e;
+  --mt-bg-mantle: #181825;
+  --mt-surface0:  #313244;
+  --mt-surface1:  #45475a;
+  --mt-overlay0:  #6c7086;
+  --mt-text:      #cdd6f4;
+  --mt-text-hi:   #e6e9f4;
+  --mt-accent:    #89b4fa;
+  --mt-highlight: #f9e2af;
+  --mt-positive:  #a6e3a1;
+  --mt-negative:  #f38ba8;
+  --mt-planet-t1: #4a6080;
+  --mt-planet-t2: #6080a0;
+  --mt-planet-t3: #80a0c0;
+  --mt-planet-t4: #89dceb;
+}
+
+/* ── Generic Bootstrap var overrides (any themed mode) ───────────────────────
+   All values are driven by --mt-* tokens so any theme works automatically.   */
+
+html[data-mt-theme],
+html[data-mt-theme][data-bs-theme="dark"] {
+  /* ── Bootstrap body ──────────────────────────────────────────────────────── */
+  --bs-body-bg:             var(--mt-bg-base);
+  --bs-body-color:          var(--mt-text);
+  --bs-emphasis-color:      var(--mt-text-hi);
+  --bs-secondary-color:     color-mix(in srgb, var(--mt-text) 60%, transparent);
+  --bs-tertiary-color:      color-mix(in srgb, var(--mt-text) 38%, transparent);
+  --bs-secondary-bg:        var(--mt-bg-mantle);
+  --bs-tertiary-bg:         var(--mt-surface0);
+
+  /* ── Bootstrap primary ───────────────────────────────────────────────────── */
+  --bs-primary:                var(--mt-accent);
+  --bs-primary-text-emphasis:  var(--mt-text-hi);
+  --bs-primary-bg-subtle:      var(--mt-surface0);
+  --bs-primary-border-subtle:  var(--mt-surface1);
+
+  /* ── Bootstrap secondary ─────────────────────────────────────────────────── */
+  --bs-secondary:              var(--mt-surface1);
+  --bs-secondary-text-emphasis: var(--mt-text);
+  --bs-secondary-bg-subtle:    var(--mt-bg-mantle);
+  --bs-secondary-border-subtle: var(--mt-surface1);
+
+  /* ── Borders & links ─────────────────────────────────────────────────────── */
+  --bs-border-color:             var(--mt-surface1);
+  --bs-border-color-translucent: color-mix(in srgb, var(--mt-text) 8%, transparent);
+  --bs-link-color:               var(--mt-accent);
+  --bs-link-hover-color:         var(--mt-text-hi);
+
+  /* ── Cards ───────────────────────────────────────────────────────────────── */
+  --bs-card-bg:           var(--mt-bg-mantle);
+  --bs-card-cap-bg:       color-mix(in srgb, var(--mt-surface0) 50%, transparent);
+  --bs-card-border-color: color-mix(in srgb, var(--mt-surface1) 50%, transparent);
+  --bs-card-color:        var(--mt-text);
+
+  /* ── List group ──────────────────────────────────────────────────────────── */
+  --bs-list-group-bg:                  var(--mt-bg-mantle);
+  --bs-list-group-border-color:        color-mix(in srgb, var(--mt-surface1) 50%, transparent);
+  --bs-list-group-color:               var(--mt-text);
+  --bs-list-group-action-color:        var(--mt-text);
+  --bs-list-group-action-hover-color:  var(--mt-text-hi);
+  --bs-list-group-action-hover-bg:     var(--mt-surface0);
+  --bs-list-group-action-active-color: var(--mt-text);
+  --bs-list-group-action-active-bg:    var(--mt-surface1);
+  --bs-list-group-active-color:        var(--mt-bg-base);
+  --bs-list-group-active-bg:           var(--mt-accent);
+  --bs-list-group-active-border-color: var(--mt-accent);
+  --bs-list-group-disabled-color:      color-mix(in srgb, var(--mt-text) 38%, transparent);
+  --bs-list-group-disabled-bg:         var(--mt-bg-mantle);
+
+  /* ── Navbar ──────────────────────────────────────────────────────────────── */
+  --bs-navbar-color:          color-mix(in srgb, var(--mt-text) 85%, transparent);
+  --bs-navbar-hover-color:    var(--mt-text);
+  --bs-navbar-active-color:   var(--mt-text-hi);
+  --bs-navbar-disabled-color: color-mix(in srgb, var(--mt-text) 30%, transparent);
+  --bs-nav-link-color:        color-mix(in srgb, var(--mt-text) 85%, transparent);
+  --bs-nav-link-hover-color:  var(--mt-text-hi);
+  --bs-nav-underline-link-active-color: var(--mt-accent);
+
+  /* ── Dropdowns ───────────────────────────────────────────────────────────── */
+  --bs-dropdown-bg:               var(--mt-bg-mantle);
+  --bs-dropdown-border-color:     var(--mt-surface1);
+  --bs-dropdown-color:            var(--mt-text);
+  --bs-dropdown-link-color:       var(--mt-text);
+  --bs-dropdown-link-hover-color: var(--mt-text-hi);
+  --bs-dropdown-link-hover-bg:    var(--mt-surface0);
+  --bs-dropdown-link-active-color: var(--mt-bg-base);
+  --bs-dropdown-link-active-bg:   var(--mt-accent);
+  --bs-dropdown-link-disabled-color: color-mix(in srgb, var(--mt-text) 38%, transparent);
+  --bs-dropdown-divider-bg:       var(--mt-surface1);
+  --bs-dropdown-header-color:     var(--mt-overlay0);
+  --bs-dropdown-box-shadow:       0 8px 24px rgba(0, 0, 0, 0.6);
+
+  /* ── Buttons ─────────────────────────────────────────────────────────────── */
+  --bs-btn-color: var(--mt-bg-base);
+
+  /* ── Form controls ───────────────────────────────────────────────────────── */
+  --bs-form-control-bg:           var(--mt-bg-mantle);
+  --bs-form-control-color:        var(--mt-text);
+  --bs-form-control-border-color: var(--mt-surface1);
+  --bs-input-bg:                  var(--mt-bg-mantle);
+  --bs-input-color:               var(--mt-text);
+  --bs-input-border-color:        var(--mt-surface1);
+  --bs-input-focus-border-color:  var(--mt-accent);
+  --bs-input-placeholder-color:   color-mix(in srgb, var(--mt-text) 40%, transparent);
+
+  /* ── Badges ──────────────────────────────────────────────────────────────── */
+  --bs-badge-color: var(--mt-bg-base);
+
+  /* ── Semantic ────────────────────────────────────────────────────────────── */
+  --bs-info:    var(--mt-highlight);
+  --bs-warning: var(--mt-planet-t4);
+  --bs-light:   var(--mt-text-hi);
+  --bs-dark:    var(--mt-surface0);
+
+  /* ── Modal ───────────────────────────────────────────────────────────────── */
+  --bs-modal-bg:                   var(--mt-bg-mantle);
+  --bs-modal-color:                var(--mt-text);
+  --bs-modal-border-color:         var(--mt-surface1);
+  --bs-modal-header-border-color:  var(--mt-surface1);
+  --bs-modal-footer-border-color:  var(--mt-surface1);
+  --bs-modal-content-bg:           var(--mt-bg-mantle);
+  --bs-modal-content-border-color: var(--mt-surface1);
+  --bs-modal-backdrop-bg:          var(--mt-bg-base);
+
+  /* ── Accordion ───────────────────────────────────────────────────────────── */
+  --bs-accordion-bg:           var(--mt-bg-mantle);
+  --bs-accordion-color:        var(--mt-text);
+  --bs-accordion-border-color: var(--mt-surface1);
+  --bs-accordion-btn-color:    var(--mt-text);
+  --bs-accordion-btn-bg:       var(--mt-bg-mantle);
+  --bs-accordion-active-color: var(--mt-accent);
+  --bs-accordion-active-bg:    var(--mt-surface0);
+
+  /* ── Tables ──────────────────────────────────────────────────────────────── */
+  --bs-table-bg:            transparent;
+  --bs-table-color:         var(--mt-text);
+  --bs-table-border-color:  var(--mt-surface1);
+  --bs-table-striped-bg:    color-mix(in srgb, var(--mt-surface1) 20%, transparent);
+  --bs-table-striped-color: var(--mt-text);
+  --bs-table-hover-bg:      color-mix(in srgb, var(--mt-surface1) 35%, transparent);
+  --bs-table-hover-color:   var(--mt-text);
+  --bs-table-active-bg:     color-mix(in srgb, var(--mt-surface1) 50%, transparent);
+
+  /* ── Toasts ──────────────────────────────────────────────────────────────── */
+  --bs-toast-bg:                  color-mix(in srgb, var(--mt-bg-mantle) 92%, transparent);
+  --bs-toast-color:               var(--mt-text);
+  --bs-toast-border-color:        var(--mt-surface1);
+  --bs-toast-header-bg:           color-mix(in srgb, var(--mt-surface0) 85%, transparent);
+  --bs-toast-header-color:        var(--mt-overlay0);
+  --bs-toast-header-border-color: var(--mt-surface1);
+
+  /* ── Progress ────────────────────────────────────────────────────────────── */
+  --bs-progress-bg:     var(--mt-surface0);
+  --bs-progress-bar-bg: var(--mt-accent);
+
+  /* ── Pagination ──────────────────────────────────────────────────────────── */
+  --bs-pagination-bg:                  var(--mt-bg-mantle);
+  --bs-pagination-color:               var(--mt-text);
+  --bs-pagination-border-color:        var(--mt-surface1);
+  --bs-pagination-hover-bg:            var(--mt-surface0);
+  --bs-pagination-hover-color:         var(--mt-text-hi);
+  --bs-pagination-hover-border-color:  var(--mt-surface1);
+  --bs-pagination-active-bg:           var(--mt-accent);
+  --bs-pagination-active-color:        var(--mt-bg-base);
+  --bs-pagination-active-border-color: var(--mt-accent);
+  --bs-pagination-disabled-bg:         var(--mt-bg-mantle);
+  --bs-pagination-disabled-color:      color-mix(in srgb, var(--mt-text) 38%, transparent);
+
+  /* ── Misc ────────────────────────────────────────────────────────────────── */
+  --bs-heading-color: var(--mt-text-hi);
+  --bs-code-color:    var(--mt-highlight);
+  --bs-hr-color:      var(--mt-surface1);
+  --bs-hr-opacity:    1;
+}
+
+/* ── Amberdark: token values ─────────────────────────────────────────────────
+   Specificity 0,1,1 beats :root (0,1,0) so these always win.                */
+
+html[data-mt-theme="amberdark"] {
+  --mt-bg-base:   #100805;
+  --mt-bg-mantle: #1a0e06;
+  --mt-surface0:  #251508;
+  --mt-surface1:  #3d2410;
+  --mt-overlay0:  #8a5e28;
+  --mt-text:      #e8c060;
+  --mt-text-hi:   #f0d090;
+  --mt-accent:    #c8a020;
+  --mt-highlight: #f0a010;
+  --mt-positive:  #c89030;
+  --mt-negative:  #c83010;
+  --mt-planet-t1: #7a5530;
+  --mt-planet-t2: #a87828;
+  --mt-planet-t3: #d09a18;
+  --mt-planet-t4: #f5c815;
+}
+
+/* ── Amberdark-only: RGB vars + data-URI SVGs (CSS vars can't go inside url()) */
+
+html[data-mt-theme="amberdark"],
+html[data-mt-theme="amberdark"][data-bs-theme="dark"] {
+  --bs-body-bg-rgb:         16, 8, 5;
+  --bs-body-color-rgb:      232, 192, 96;
+  --bs-emphasis-color-rgb:  240, 208, 144;
+  --bs-secondary-color-rgb: 232, 192, 96;
+  --bs-tertiary-color-rgb:  232, 192, 96;
+  --bs-secondary-bg-rgb:    26, 14, 6;
+  --bs-tertiary-bg-rgb:     37, 21, 8;
+  --bs-primary-rgb:         200, 160, 32;
+  --bs-secondary-rgb:       61, 36, 16;
+  --bs-link-color-rgb:      200, 160, 32;
+  --bs-link-hover-color-rgb: 212, 176, 48;
+  --bs-light-rgb:           245, 224, 176;
+  --bs-dark-rgb:            37, 21, 8;
+  --bs-info-rgb:            212, 168, 64;
+  --bs-warning-rgb:         245, 197, 24;
+
+  --bs-success-text-emphasis:   var(--mt-positive);
+  --bs-success-bg-subtle:       #1a1000;
+  --bs-success-border-subtle:   #3d2c00;
+  --bs-info-text-emphasis:      var(--mt-highlight);
+  --bs-info-bg-subtle:          #1a1200;
+  --bs-info-border-subtle:      #403200;
+  --bs-warning-text-emphasis:   var(--mt-planet-t4);
+  --bs-warning-bg-subtle:       #1a1400;
+  --bs-warning-border-subtle:   #403800;
+  --bs-danger-text-emphasis:    var(--mt-negative);
+  --bs-danger-bg-subtle:        #1a0500;
+  --bs-danger-border-subtle:    #401000;
+  --bs-primary-text-emphasis:   var(--mt-accent);
+  --bs-secondary-text-emphasis: color-mix(in srgb, var(--mt-accent) 75%, var(--mt-text));
+
+  --bs-accordion-btn-active-icon: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='%23c8a020'%3e%3cpath fill-rule='evenodd' d='M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z'/%3e%3c/svg%3e");
+  --bs-form-select-bg-img: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='%23e8c060' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='m2 5 6 6 6-6'/%3e%3c/svg%3e");
+}
+
+/* ── Body background ─────────────────────────────────────────────────────────── */
+
+html[data-mt-theme] body {
+  background-color: var(--mt-bg-base) !important;
+}
+
+html[data-mt-theme="amberdark"] body {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='400' viewBox='0 0 800 800'%3E%3Cg fill='none' stroke='%232a1a08'%3E%3Cpath d='m769 229 268 31.9M927 880 731 737l-211-77-211-122-269 61 255 165-168.5 115.5L40 599l-237-106 299-111-133-153L126.5 79.5-69-63'/%3E%3Cpath d='m-31 229 268 32 153 121 213 111-294.5 44.5-207-156M370 905l-75-141'/%3E%3Cpath d='m520 660 58 182 153-105 109-138-237-106-83 167-225 104 14-226 81-156 149-113 230-40L577.5 41.5 370 105 295-36 126.5 79.5 237 261 102 382 40 599-69 737l196 143'/%3E%3Cpath d='m520-140 58.5 182.5L731-63M603 493l-64-224-302-8 133-156m532 277L539 269M390 382H102'/%3E%3Cpath d='m-222 42 348.5 37.5L370 105l169 164 38.5-227.5L927 80 769 229l133 153-299 111 128 244M295-36l282.5 77.5M578 842l-283-78M40-201l87 281m-25 302-363-113'/%3E%3C/g%3E%3Cg fill='%233d2410'%3E%3Ccircle cx='769' cy='229' r='5'/%3E%3Ccircle cx='539' cy='269' r='5'/%3E%3Ccircle cx='603' cy='493' r='5'/%3E%3Ccircle cx='731' cy='737' r='5'/%3E%3Ccircle cx='520' cy='660' r='5'/%3E%3Ccircle cx='309' cy='538' r='5'/%3E%3Ccircle cx='295' cy='764' r='5'/%3E%3Ccircle cx='40' cy='599' r='5'/%3E%3Ccircle cx='102' cy='382' r='5'/%3E%3Ccircle cx='127' cy='80' r='5'/%3E%3Ccircle cx='370' cy='105' r='5'/%3E%3Ccircle cx='578' cy='42' r='5'/%3E%3Ccircle cx='237' cy='261' r='5'/%3E%3Ccircle cx='390' cy='382' r='5'/%3E%3C/g%3E%3C/svg%3E") !important;
+}
+
+/* ── border-left-* ───────────────────────────────────────────────────────────── */
+
+html[data-mt-theme] .border-left-primary   { border-left-color: var(--mt-accent)    !important; }
+html[data-mt-theme] .border-left-secondary { border-left-color: var(--mt-surface1)  !important; }
+html[data-mt-theme] .border-left-success   { border-left-color: var(--mt-positive)  !important; }
+html[data-mt-theme] .border-left-info      { border-left-color: var(--mt-highlight) !important; }
+html[data-mt-theme] .border-left-warning   { border-left-color: var(--mt-planet-t4) !important; }
+html[data-mt-theme] .border-left-danger    { border-left-color: var(--mt-negative)  !important; }
+
+/* ── Scrollbars ──────────────────────────────────────────────────────────────── */
+
+html[data-mt-theme] * {
+  scrollbar-color: var(--mt-surface1) var(--mt-bg-base);
+  scrollbar-width: thin;
+}
+
+/* ── Button variants ─────────────────────────────────────────────────────────── */
+
+html[data-mt-theme] .btn-outline-success {
+  --bs-btn-color:              var(--mt-positive);
+  --bs-btn-border-color:       var(--mt-positive);
+  --bs-btn-hover-color:        var(--mt-bg-base);
+  --bs-btn-hover-bg:           var(--mt-positive);
+  --bs-btn-hover-border-color: var(--mt-positive);
+  --bs-btn-active-color:       var(--mt-bg-base);
+  --bs-btn-active-bg:          var(--mt-positive);
+  --bs-btn-active-border-color: var(--mt-positive);
+  --bs-btn-disabled-color:     var(--mt-positive);
+  --bs-btn-disabled-border-color: var(--mt-positive);
+}
+
+html[data-mt-theme] .btn-outline-info {
+  --bs-btn-color:              var(--mt-highlight);
+  --bs-btn-border-color:       var(--mt-highlight);
+  --bs-btn-hover-color:        var(--mt-bg-base);
+  --bs-btn-hover-bg:           var(--mt-highlight);
+  --bs-btn-hover-border-color: var(--mt-highlight);
+  --bs-btn-active-color:       var(--mt-bg-base);
+  --bs-btn-active-bg:          var(--mt-highlight);
+  --bs-btn-active-border-color: var(--mt-highlight);
+  --bs-btn-disabled-color:     var(--mt-highlight);
+  --bs-btn-disabled-border-color: var(--mt-highlight);
+}
+
+html[data-mt-theme] .btn-outline-warning {
+  --bs-btn-color:              var(--mt-planet-t4);
+  --bs-btn-border-color:       var(--mt-planet-t4);
+  --bs-btn-hover-color:        var(--mt-bg-base);
+  --bs-btn-hover-bg:           var(--mt-planet-t4);
+  --bs-btn-hover-border-color: var(--mt-planet-t4);
+  --bs-btn-active-color:       var(--mt-bg-base);
+  --bs-btn-active-bg:          var(--mt-planet-t4);
+  --bs-btn-active-border-color: var(--mt-planet-t4);
+  --bs-btn-disabled-color:     var(--mt-planet-t4);
+}
+
+html[data-mt-theme] .btn-outline-danger {
+  --bs-btn-color:              var(--mt-negative);
+  --bs-btn-border-color:       var(--mt-negative);
+  --bs-btn-hover-color:        var(--mt-text-hi);
+  --bs-btn-hover-bg:           var(--mt-negative);
+  --bs-btn-hover-border-color: var(--mt-negative);
+  --bs-btn-active-color:       var(--mt-text-hi);
+  --bs-btn-active-bg:          var(--mt-negative);
+  --bs-btn-active-border-color: var(--mt-negative);
+  --bs-btn-disabled-color:     var(--mt-negative);
+}
+
+html[data-mt-theme] .btn-primary {
+  --bs-btn-color:              var(--mt-bg-base);
+  --bs-btn-bg:                 var(--mt-accent);
+  --bs-btn-border-color:       var(--mt-accent);
+  --bs-btn-hover-color:        var(--mt-bg-base);
+  --bs-btn-hover-bg:           color-mix(in srgb, var(--mt-accent) 80%, black);
+  --bs-btn-hover-border-color: color-mix(in srgb, var(--mt-accent) 80%, black);
+  --bs-btn-active-color:       var(--mt-bg-base);
+  --bs-btn-active-bg:          color-mix(in srgb, var(--mt-accent) 80%, black);
+  --bs-btn-active-border-color: color-mix(in srgb, var(--mt-accent) 70%, black);
+  --bs-btn-disabled-color:     var(--mt-bg-base);
+  --bs-btn-disabled-bg:        var(--mt-accent);
+}
+
+html[data-mt-theme] .btn-secondary {
+  --bs-btn-color:              var(--mt-text);
+  --bs-btn-bg:                 var(--mt-surface0);
+  --bs-btn-border-color:       var(--mt-surface1);
+  --bs-btn-hover-color:        var(--mt-text-hi);
+  --bs-btn-hover-bg:           var(--mt-surface1);
+  --bs-btn-hover-border-color: color-mix(in srgb, var(--mt-surface1) 80%, white);
+  --bs-btn-active-color:       var(--mt-text-hi);
+  --bs-btn-active-bg:          var(--mt-surface1);
+  --bs-btn-active-border-color: color-mix(in srgb, var(--mt-surface1) 80%, white);
+  --bs-btn-disabled-color:     color-mix(in srgb, var(--mt-text) 50%, transparent);
+  --bs-btn-disabled-bg:        var(--mt-surface0);
+}
+
+html[data-mt-theme] .btn-outline-primary {
+  --bs-btn-color:              var(--mt-accent);
+  --bs-btn-border-color:       var(--mt-accent);
+  --bs-btn-hover-color:        var(--mt-bg-base);
+  --bs-btn-hover-bg:           var(--mt-accent);
+  --bs-btn-hover-border-color: var(--mt-accent);
+  --bs-btn-active-color:       var(--mt-bg-base);
+  --bs-btn-active-bg:          var(--mt-accent);
+  --bs-btn-active-border-color: color-mix(in srgb, var(--mt-accent) 80%, black);
+  --bs-btn-disabled-color:     var(--mt-accent);
+  --bs-btn-disabled-border-color: var(--mt-accent);
+}
+
+html[data-mt-theme] .btn-outline-secondary {
+  --bs-btn-color:              var(--mt-overlay0);
+  --bs-btn-border-color:       var(--mt-surface1);
+  --bs-btn-hover-color:        var(--mt-text);
+  --bs-btn-hover-bg:           var(--mt-surface0);
+  --bs-btn-hover-border-color: var(--mt-surface1);
+  --bs-btn-active-color:       var(--mt-text);
+  --bs-btn-active-bg:          var(--mt-surface1);
+  --bs-btn-active-border-color: var(--mt-surface1);
+  --bs-btn-disabled-color:     color-mix(in srgb, var(--mt-overlay0) 50%, transparent);
+  --bs-btn-disabled-border-color: var(--mt-surface1);
+}
+
+html[data-mt-theme] .btn-success {
+  --bs-btn-color:              var(--mt-bg-base);
+  --bs-btn-bg:                 var(--mt-positive);
+  --bs-btn-border-color:       var(--mt-positive);
+  --bs-btn-hover-color:        var(--mt-bg-base);
+  --bs-btn-hover-bg:           color-mix(in srgb, var(--mt-positive) 80%, black);
+  --bs-btn-hover-border-color: color-mix(in srgb, var(--mt-positive) 75%, black);
+  --bs-btn-active-color:       var(--mt-bg-base);
+  --bs-btn-active-bg:          color-mix(in srgb, var(--mt-positive) 75%, black);
+  --bs-btn-active-border-color: color-mix(in srgb, var(--mt-positive) 70%, black);
+  --bs-btn-disabled-color:     var(--mt-bg-base);
+  --bs-btn-disabled-bg:        var(--mt-positive);
+}
+
+html[data-mt-theme] .btn-info {
+  --bs-btn-color:              var(--mt-bg-base);
+  --bs-btn-bg:                 var(--mt-highlight);
+  --bs-btn-border-color:       var(--mt-highlight);
+  --bs-btn-hover-color:        var(--mt-bg-base);
+  --bs-btn-hover-bg:           color-mix(in srgb, var(--mt-highlight) 80%, black);
+  --bs-btn-hover-border-color: color-mix(in srgb, var(--mt-highlight) 75%, black);
+  --bs-btn-active-color:       var(--mt-bg-base);
+  --bs-btn-active-bg:          color-mix(in srgb, var(--mt-highlight) 75%, black);
+  --bs-btn-active-border-color: color-mix(in srgb, var(--mt-highlight) 70%, black);
+  --bs-btn-disabled-color:     var(--mt-bg-base);
+  --bs-btn-disabled-bg:        var(--mt-highlight);
+}
+
+html[data-mt-theme] .btn-warning {
+  --bs-btn-color:              var(--mt-bg-base);
+  --bs-btn-bg:                 var(--mt-planet-t4);
+  --bs-btn-border-color:       var(--mt-planet-t4);
+  --bs-btn-hover-color:        var(--mt-bg-base);
+  --bs-btn-hover-bg:           color-mix(in srgb, var(--mt-planet-t4) 80%, black);
+  --bs-btn-hover-border-color: color-mix(in srgb, var(--mt-planet-t4) 75%, black);
+  --bs-btn-active-color:       var(--mt-bg-base);
+  --bs-btn-active-bg:          color-mix(in srgb, var(--mt-planet-t4) 75%, black);
+  --bs-btn-active-border-color: color-mix(in srgb, var(--mt-planet-t4) 70%, black);
+  --bs-btn-disabled-color:     var(--mt-bg-base);
+  --bs-btn-disabled-bg:        var(--mt-planet-t4);
+}
+
+html[data-mt-theme] .btn-danger {
+  --bs-btn-color:              var(--mt-text-hi);
+  --bs-btn-bg:                 var(--mt-negative);
+  --bs-btn-border-color:       var(--mt-negative);
+  --bs-btn-hover-color:        var(--mt-text-hi);
+  --bs-btn-hover-bg:           color-mix(in srgb, var(--mt-negative) 80%, black);
+  --bs-btn-hover-border-color: color-mix(in srgb, var(--mt-negative) 75%, black);
+  --bs-btn-active-color:       var(--mt-text-hi);
+  --bs-btn-active-bg:          color-mix(in srgb, var(--mt-negative) 75%, black);
+  --bs-btn-active-border-color: color-mix(in srgb, var(--mt-negative) 70%, black);
+  --bs-btn-disabled-color:     var(--mt-text-hi);
+  --bs-btn-disabled-bg:        var(--mt-negative);
+}
+
+html[data-mt-theme] .btn-light {
+  --bs-btn-color:              var(--mt-bg-base);
+  --bs-btn-bg:                 var(--mt-text-hi);
+  --bs-btn-border-color:       var(--mt-text-hi);
+  --bs-btn-hover-color:        var(--mt-bg-base);
+  --bs-btn-hover-bg:           color-mix(in srgb, var(--mt-text-hi) 85%, black);
+  --bs-btn-hover-border-color: color-mix(in srgb, var(--mt-text-hi) 80%, black);
+  --bs-btn-active-color:       var(--mt-bg-base);
+  --bs-btn-active-bg:          color-mix(in srgb, var(--mt-text-hi) 80%, black);
+}
+
+html[data-mt-theme] .btn-dark {
+  --bs-btn-color:              var(--mt-text);
+  --bs-btn-bg:                 var(--mt-surface0);
+  --bs-btn-border-color:       var(--mt-surface1);
+  --bs-btn-hover-color:        var(--mt-text-hi);
+  --bs-btn-hover-bg:           var(--mt-surface1);
+  --bs-btn-hover-border-color: color-mix(in srgb, var(--mt-surface1) 80%, white);
+  --bs-btn-active-color:       var(--mt-text-hi);
+  --bs-btn-active-bg:          var(--mt-surface1);
+}
+
+/* ── Navbar ──────────────────────────────────────────────────────────────────── */
+
+html[data-mt-theme] .navbar.bg-primary,
+html[data-mt-theme] .navbar {
+  background-color: var(--mt-bg-mantle) !important;
+  border-bottom: 1px solid var(--mt-surface1);
+}
+
+html[data-mt-theme] .navbar-dark,
+html[data-mt-theme] .navbar[data-bs-theme="dark"] {
+  --bs-navbar-color:             color-mix(in srgb, var(--mt-text) 75%, transparent);
+  --bs-navbar-hover-color:       var(--mt-text);
+  --bs-navbar-active-color:      var(--mt-text-hi);
+  --bs-navbar-disabled-color:    color-mix(in srgb, var(--mt-text) 30%, transparent);
+  --bs-navbar-brand-color:       var(--mt-accent);
+  --bs-navbar-brand-hover-color: var(--mt-text-hi);
+}
+
+/* ── Nav pills ───────────────────────────────────────────────────────────────── */
+
+html[data-mt-theme] .nav-pills {
+  --bs-nav-pills-link-active-color: var(--mt-bg-base);
+  --bs-nav-pills-link-active-bg:    var(--mt-accent);
+}
+
+/* ── Comms: own messages ─────────────────────────────────────────────────────── */
+
+html[data-mt-theme] .com-header.bg-primary,
+html[data-mt-theme] .com-msg.bg-primary {
+  --bs-body-color-rgb: 16, 8, 5;
+  --bs-light-rgb:      16, 8, 5;
+  color: var(--mt-bg-base);
+}
+
+html[data-mt-theme] .com-msg.bg-primary .mt-chat-link,
+html[data-mt-theme] .com-msg.bg-primary .mt-chat-link:hover {
+  color: color-mix(in srgb, var(--mt-bg-base) 85%, transparent);
+}
+
+/* ── Guild tag badges ────────────────────────────────────────────────────────── */
+
+html[data-mt-theme] .badge-button-light {
+  background-color: color-mix(in srgb, var(--mt-surface1) 60%, transparent);
+  color: var(--mt-text);
+}
+
+/* ── Cards ───────────────────────────────────────────────────────────────────── */
+
+html[data-mt-theme] .card {
+  --bs-card-cap-bg: var(--mt-surface0);
+  --bs-card-bg:     var(--mt-bg-mantle);
+  background-color: var(--mt-bg-mantle) !important;
+  border-color:     color-mix(in srgb, var(--mt-surface1) 50%, transparent);
+}
+html[data-mt-theme] .card .card-header,
+html[data-mt-theme] .card-header {
+  background-color:    color-mix(in srgb, var(--mt-surface0) 90%, transparent) !important;
+  border-bottom-color: var(--mt-surface1);
+  color:               color-mix(in srgb, var(--mt-text) 60%, transparent);
+}
+html[data-mt-theme] .card .card-footer,
+html[data-mt-theme] .card-footer {
+  background-color: color-mix(in srgb, var(--mt-surface0) 90%, transparent) !important;
+  border-top-color: var(--mt-surface1);
+}
+
+/* ── List group ──────────────────────────────────────────────────────────────── */
+
+html[data-mt-theme] .list-group-item {
+  background-color: var(--mt-bg-mantle);
+  border-color:     color-mix(in srgb, var(--mt-surface1) 50%, transparent);
+  color:            var(--mt-text);
+}
+html[data-mt-theme] .list-group-item-action:hover,
+html[data-mt-theme] .list-group-item-action:focus {
+  background-color: var(--mt-surface0);
+  color:            var(--mt-text-hi);
+}
+html[data-mt-theme] .list-group-item.active {
+  background-color: var(--mt-accent) !important;
+  border-color:     var(--mt-accent) !important;
+  color:            var(--mt-bg-base) !important;
+}
+
+/* ── Form controls ───────────────────────────────────────────────────────────── */
+
+html[data-mt-theme] .form-control {
+  background-color: var(--mt-bg-mantle) !important;
+  color:            var(--mt-text) !important;
+}
+html[data-mt-theme] .form-control:focus {
+  background-color: var(--mt-bg-mantle) !important;
+  border-color:     var(--mt-accent) !important;
+  box-shadow:       0 0 0 0.25rem color-mix(in srgb, var(--mt-accent) 25%, transparent) !important;
+  color:            var(--mt-text) !important;
+}
+html[data-mt-theme] .form-control::placeholder {
+  color: color-mix(in srgb, var(--mt-text) 40%, transparent) !important;
+}
+
+/* ── bg-* utilities ──────────────────────────────────────────────────────────── */
+
+html[data-mt-theme] .bg-info      { background-color: var(--mt-highlight) !important; }
+html[data-mt-theme] .bg-success   { background-color: var(--mt-positive)  !important; }
+html[data-mt-theme] .bg-warning   { background-color: var(--mt-planet-t4) !important; }
+html[data-mt-theme] .bg-danger    { background-color: var(--mt-negative)  !important; }
+html[data-mt-theme] .bg-primary   { background-color: var(--mt-accent)    !important; }
+html[data-mt-theme] .bg-secondary { background-color: var(--mt-surface1)  !important; }
+html[data-mt-theme] .bg-dark      { background-color: var(--mt-bg-mantle) !important; }
+
+html[data-mt-theme] .bg-warning-subtle  { background-color: color-mix(in srgb, var(--mt-planet-t4) 20%, var(--mt-bg-base)) !important; }
+html[data-mt-theme] .bg-secondary-subtle { background-color: color-mix(in srgb, var(--mt-surface0) 60%, var(--mt-bg-base)) !important; }
+html[data-mt-theme] .bg-primary-subtle  { background-color: color-mix(in srgb, var(--mt-accent) 15%, var(--mt-bg-base)) !important; }
+
+html[data-mt-theme] .link-primary {
+  color: var(--mt-accent) !important;
+  text-decoration-color: var(--mt-accent) !important;
+}
+html[data-mt-theme] .link-primary:hover,
+html[data-mt-theme] .link-primary:focus {
+  color: var(--mt-text-hi) !important;
+}
+
+/* ── Base building ───────────────────────────────────────────────────────────── */
+
+html[data-mt-theme] .box-section {
+  background-color: var(--mt-bg-mantle) !important;
+  border-color:     color-mix(in srgb, var(--mt-surface1) 50%, transparent);
+}
+
+html[data-mt-theme] .btn-mat-psm {
+  background-color: var(--mt-surface0);
+  color:            var(--mt-text);
+}
+
+html[data-mt-theme] .caption-lr-start {
+  color: color-mix(in srgb, var(--mt-text) 55%, transparent);
+}
+
+html[data-mt-theme] .caption-small {
+  color: color-mix(in srgb, var(--mt-text) 45%, transparent);
+}
+
+html[data-mt-theme] .btn-building {
+  background-color: var(--mt-surface0) !important;
+  border-color:     var(--mt-surface1) !important;
+  color:            var(--mt-text) !important;
+}
+html[data-mt-theme] .btn-building:hover,
+html[data-mt-theme] .btn-building:focus {
+  background-color: var(--mt-surface1) !important;
+  border-color:     color-mix(in srgb, var(--mt-surface1) 80%, white) !important;
+  color:            var(--mt-text-hi) !important;
+}
+html[data-mt-theme] .btn-building:active {
+  background-color: var(--mt-surface1) !important;
+  border-color:     color-mix(in srgb, var(--mt-surface1) 70%, white) !important;
+  color:            var(--mt-text-hi) !important;
+}
+
+/* ── R&D: completed tiles — bg-body chips inherit btn-success text color ──────
+   resulting in dark text on dark bg → override to readable text color         */
+
+html[data-mt-theme] .btn-success .bg-body {
+  color: var(--mt-text);
+}
+
+/* ── Galaxy map: planet tier circles ────────────────────────────────────────── */
+
+html[data-mt-theme] circle.t1 { fill: var(--mt-planet-t1); }
+html[data-mt-theme] circle.t2 { fill: var(--mt-planet-t2); }
+html[data-mt-theme] circle.t3 { fill: var(--mt-planet-t3); }
+html[data-mt-theme] circle.t4 { fill: var(--mt-planet-t4); }
+
+html[data-mt-theme] circle.base {
+  stroke:       var(--mt-text-hi);
+  stroke-width: 2;
+}
+
+/* Hex cell background tiles */
+html[data-mt-theme] .mapHolder g use {
+  fill: color-mix(in srgb, var(--mt-bg-base) 95%, black);
+}
+
+/* ── Exchange: material name column ─────────────────────────────────────────── */
+
+html[data-mt-theme] .table tbody td:first-child {
+  color: var(--mt-accent);
+}
+
+/* ── Exchange: nav tabs ──────────────────────────────────────────────────────── */
+
+html[data-mt-theme] .nav-tabs {
+  --bs-nav-tabs-border-color:            var(--mt-surface1);
+  --bs-nav-tabs-link-hover-border-color: color-mix(in srgb, var(--mt-surface1) 50%, transparent) color-mix(in srgb, var(--mt-surface1) 50%, transparent) transparent;
+  --bs-nav-tabs-link-active-color:       var(--mt-text-hi);
+  --bs-nav-tabs-link-active-bg:          var(--mt-bg-base);
+  --bs-nav-tabs-link-active-border-color: var(--mt-surface1) var(--mt-surface1) var(--mt-bg-base);
+  border-bottom-color: var(--mt-surface1);
+}
+html[data-mt-theme] .nav-tabs .nav-link {
+  color:            color-mix(in srgb, var(--mt-text) 50%, transparent);
+  background-color: transparent !important;
+  border-color:     transparent;
+}
+html[data-mt-theme] .nav-tabs .nav-link:hover,
+html[data-mt-theme] .nav-tabs .nav-link:focus {
+  color:        var(--mt-text);
+  border-color: color-mix(in srgb, var(--mt-surface1) 50%, transparent) color-mix(in srgb, var(--mt-surface1) 50%, transparent) transparent;
+}
+html[data-mt-theme] .nav-tabs .nav-link.active,
+html[data-mt-theme] .nav-tabs .nav-item.show .nav-link {
+  color:            var(--mt-text-hi);
+  background-color: var(--mt-bg-base) !important;
+  border-color:     var(--mt-surface1) var(--mt-surface1) var(--mt-bg-base);
+}
+
+/* ── Exchange: input-group-text ──────────────────────────────────────────────── */
+
+html[data-mt-theme] .input-group-text {
+  background-color: var(--mt-bg-mantle);
+  border-color:     var(--mt-surface1);
+  color:            color-mix(in srgb, var(--mt-text) 50%, transparent);
+}
+
+/* ── Exchange: form-select ───────────────────────────────────────────────────── */
+
+html[data-mt-theme] .form-select {
+  background-color: var(--mt-bg-mantle) !important;
+  color:            var(--mt-text) !important;
+  border-color:     var(--mt-surface1) !important;
+}
+html[data-mt-theme] .form-select:focus {
+  border-color: var(--mt-accent) !important;
+  box-shadow:   0 0 0 0.25rem color-mix(in srgb, var(--mt-accent) 25%, transparent) !important;
+}
+
+/* ── Encyclopedia: modal ─────────────────────────────────────────────────────── */
+
+html[data-mt-theme] .modal-content {
+  background-color: var(--mt-bg-mantle) !important;
+  border-color:     var(--mt-surface1);
+  color:            var(--mt-text);
+}
+html[data-mt-theme] .modal-header {
+  background-color:    var(--mt-surface0) !important;
+  border-bottom-color: var(--mt-surface1);
+}
+html[data-mt-theme] .modal-body {
+  background-color: var(--mt-bg-mantle) !important;
+}
+html[data-mt-theme] .modal-footer {
+  background-color: var(--mt-surface0) !important;
+  border-top-color: var(--mt-surface1);
+}
+
+html[data-mt-theme] .thv {
+  color: color-mix(in srgb, var(--mt-text) 55%, transparent);
+}
+
+/* ── Exchange info box ─────────────────────────────────────────────────────────── */
 
 .mt-exchange-info {
   display: flex;
@@ -6,8 +782,8 @@
   gap: 6px;
   padding: 8px 10px;
   margin: 4px 0 2px;
-  background: #181825;
-  border: 1px solid #313244;
+  background: var(--mt-bg-mantle);
+  border: 1px solid var(--mt-surface0);
   border-radius: 6px;
   font-family: 'Titillium Web', system-ui, sans-serif;
 }
@@ -26,7 +802,7 @@
 
 .mt-price-label {
   font-size: 10px;
-  color: #6c7086;
+  color: var(--mt-overlay0);
   text-transform: uppercase;
   font-weight: 600;
   letter-spacing: 0.05em;
@@ -34,7 +810,7 @@
 
 .mt-price-val {
   font-size: 13px;
-  color: #cdd6f4;
+  color: var(--mt-text);
 }
 
 .mt-exchange-top {
@@ -57,18 +833,18 @@
   padding: 3px 5px;
   cursor: pointer;
   border-radius: 4px;
-  color: #6c7086;
+  color: var(--mt-overlay0);
   line-height: 1;
   transition: color 0.15s, background 0.15s;
 }
 
 .mt-exchange-btn:hover {
-  color: #cdd6f4;
-  background: #313244;
+  color: var(--mt-text);
+  background: var(--mt-surface0);
 }
 
 .mt-exchange-btn.mt-note-btn--active {
-  color: #f9e2af;
+  color: var(--mt-highlight);
 }
 
 .mt-exchange-note {
@@ -86,12 +862,12 @@
 .mt-exchange-note-hr {
   margin: 0;
   border: none;
-  border-top: 1px solid #45475a;
+  border-top: 1px solid var(--mt-surface1);
   opacity: 1;
 }
 
 .mt-exchange-note-text {
-  color: #f9e2af;
+  color: var(--mt-highlight);
   font-size: 12px;
   line-height: 1.5;
   white-space: pre-wrap;
@@ -102,7 +878,7 @@
 /* ── Note display (legacy standalone, unused after info box refactor) ───────── */
 
 .mt-note-display {
-  color: #f9e2af;
+  color: var(--mt-highlight);
   font-size: 12px;
   line-height: 1.5;
   padding: 4px 8px 6px;
@@ -135,7 +911,7 @@
 }
 
 .mt-note-btn--active {
-  color: #f9e2af !important;  /* amber — note exists */
+  color: var(--mt-highlight) !important;
   opacity: 1;
 }
 
@@ -154,7 +930,7 @@
 
 .mt-ledger-loading,
 .mt-ledger-empty {
-  color: #6c7086;
+  color: var(--mt-overlay0);
   font-size: 12px;
   padding: 12px 0;
   text-align: center;
@@ -164,30 +940,30 @@
   width: 100%;
   border-collapse: collapse;
   font-size: 11px;
-  color: #cdd6f4;
+  color: var(--mt-text);
   margin-top: 6px;
 }
 
 .mt-ledger-table th {
-  color: #6c7086;
+  color: var(--mt-overlay0);
   font-weight: 600;
   padding: 0 6px 6px;
-  border-bottom: 1px solid #313244;
+  border-bottom: 1px solid var(--mt-surface0);
   white-space: nowrap;
 }
 
 .mt-ledger-table td {
   padding: 4px 6px;
-  border-bottom: 1px solid #1e1e2e;
+  border-bottom: 1px solid var(--mt-bg-base);
   white-space: nowrap;
 }
 
 .mt-ledger-table tbody tr:hover td {
-  background: #313244;
+  background: var(--mt-surface0);
 }
 
-.mt-buy  { color: #a6e3a1; }
-.mt-sell { color: #f38ba8; }
+.mt-buy  { color: var(--mt-positive); }
+.mt-sell { color: var(--mt-negative); }
 
 .text-end { text-align: right; }
 
@@ -199,28 +975,28 @@
 .mt-ledger-change-key {
   background: none;
   border: none;
-  color: #6c7086;
+  color: var(--mt-overlay0);
   font-size: 11px;
   cursor: pointer;
   padding: 0;
 }
 
-.mt-ledger-change-key:hover { color: #cdd6f4; }
+.mt-ledger-change-key:hover { color: var(--mt-text); }
 
 /* ── API key prompt ────────────────────────────────────────────────────────── */
 
 .mt-api-info {
   font-size: 12px;
-  color: #6c7086;
+  color: var(--mt-overlay0);
   margin: 0 0 8px;
 }
 
 .mt-api-input {
   width: 100%;
-  background: #181825;
-  border: 1px solid #45475a;
+  background: var(--mt-bg-mantle);
+  border: 1px solid var(--mt-surface1);
   border-radius: 5px;
-  color: #cdd6f4;
+  color: var(--mt-text);
   padding: 7px 9px;
   font-size: 12px;
   font-family: inherit;
@@ -229,7 +1005,7 @@
   margin-bottom: 2px;
 }
 
-.mt-api-input:focus { border-color: #89b4fa; }
+.mt-api-input:focus { border-color: var(--mt-accent); }
 
 /* ── Modal ─────────────────────────────────────────────────────────────────── */
 
@@ -237,14 +1013,14 @@
   position: fixed;
   z-index: 999999;
   width: 270px;
-  background: #1e1e2e;
-  border: 1px solid #45475a;
+  background: var(--mt-bg-base);
+  border: 1px solid var(--mt-surface1);
   border-radius: 8px;
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.65);
   padding: 14px;
   font-family: 'Titillium Web', system-ui, sans-serif;
   font-size: 13px;
-  color: #cdd6f4;
+  color: var(--mt-text);
   box-sizing: border-box;
 }
 
@@ -267,7 +1043,7 @@
 .mt-modal-close {
   background: none;
   border: none;
-  color: #6c7086;
+  color: var(--mt-overlay0);
   cursor: pointer;
   padding: 0 2px;
   font-size: 12px;
@@ -275,15 +1051,15 @@
   flex-shrink: 0;
 }
 
-.mt-modal-close:hover { color: #cdd6f4; }
+.mt-modal-close:hover { color: var(--mt-text); }
 
 .mt-modal-ta {
   width: 100%;
   min-height: 80px;
-  background: #181825;
-  border: 1px solid #45475a;
+  background: var(--mt-bg-mantle);
+  border: 1px solid var(--mt-surface1);
   border-radius: 5px;
-  color: #cdd6f4;
+  color: var(--mt-text);
   padding: 7px 9px;
   font-size: 12px;
   font-family: inherit;
@@ -292,35 +1068,35 @@
   outline: none;
 }
 
-.mt-modal-ta:focus { border-color: #89b4fa; }
+.mt-modal-ta:focus { border-color: var(--mt-accent); }
 
 .mt-btn {
   padding: 4px 13px;
   border-radius: 5px;
-  border: 1px solid #45475a;
+  border: 1px solid var(--mt-surface1);
   cursor: pointer;
   font-size: 12px;
   font-family: inherit;
-  color: #cdd6f4;
-  background: #313244;
+  color: var(--mt-text);
+  background: var(--mt-surface0);
   transition: opacity 0.1s;
 }
 
 .mt-btn:hover { opacity: 0.85; }
 
-.mt-save   { background: #89b4fa; color: #1e1e2e; border-color: #89b4fa; font-weight: 600; }
-.mt-delete { background: #f38ba8; color: #1e1e2e; border-color: #f38ba8; }
+.mt-save   { background: var(--mt-accent);   color: var(--mt-bg-base); border-color: var(--mt-accent);   font-weight: 600; }
+.mt-delete { background: var(--mt-negative); color: var(--mt-bg-base); border-color: var(--mt-negative); }
 
 /* ── Chat links ────────────────────────────────────────────────────────────── */
 
 a.mt-chat-link {
-  color: #89b4fa;
+  color: var(--mt-accent);
   text-decoration: underline;
   word-break: break-all;
 }
 
 a.mt-chat-link:hover {
-  color: #b4d0fa;
+  color: var(--mt-text);
 }
 
 /* ── Scroll-to-bottom bar ──────────────────────────────────────────────────── */
@@ -329,10 +1105,10 @@ a.mt-chat-link:hover {
   display: block;
   width: 100%;
   padding: 7px 12px;
-  background: #313244;
-  color: #89b4fa;
+  background: var(--mt-surface0);
+  color: var(--mt-accent);
   border: none;
-  border-top: 1px solid #45475a;
+  border-top: 1px solid var(--mt-surface1);
   font-size: 12px;
   font-family: inherit;
   cursor: pointer;
@@ -341,7 +1117,7 @@ a.mt-chat-link:hover {
 }
 
 .mt-scroll-bar:hover {
-  background: #45475a;
+  background: var(--mt-surface1);
 }
 
 img.mt-chat-img {
@@ -400,8 +1176,8 @@ img.mt-chat-img {
 .mt-tenor-picker {
   position: fixed;
   z-index: 999999;
-  background: #1e1e2e;
-  border: 1px solid #45475a;
+  background: var(--mt-bg-base);
+  border: 1px solid var(--mt-surface1);
   border-radius: 8px;
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.65);
   padding: 8px;
@@ -409,8 +1185,14 @@ img.mt-chat-img {
   overflow-y: auto;
   font-family: 'Titillium Web', system-ui, sans-serif;
   font-size: 12px;
-  color: #6c7086;
+  color: var(--mt-overlay0);
   box-sizing: border-box;
+}
+
+.mt-tenor-deprecation-warning {
+  color: #e0c020;
+  font-size: 22px;
+  padding: 2px 4px 6px;
 }
 
 .mt-tenor-grid {
@@ -430,7 +1212,7 @@ img.mt-chat-img {
 
 .mt-tenor-thumb:hover {
   opacity: 0.85;
-  outline: 2px solid #89b4fa;
+  outline: 2px solid var(--mt-accent);
 }
 
 /* ── Suno preview ──────────────────────────────────────────────────────────── */
@@ -443,7 +1225,7 @@ img.mt-chat-img {
   border-radius: 6px;
   overflow: hidden;
   line-height: 0;
-  background: #181825;
+  background: var(--mt-bg-mantle);
   width: fit-content;
 }
 
@@ -483,9 +1265,9 @@ img.mt-chat-img {
   padding: 0 16px;
   width: min(100%, 400px);
   height: 80px;
-  background: #181825;
+  background: var(--mt-bg-mantle);
   border-radius: 6px;
-  color: #cdd6f4;
+  color: var(--mt-text);
   text-decoration: none;
   font-family: 'Titillium Web', system-ui, sans-serif;
   font-size: 13px;
@@ -493,8 +1275,8 @@ img.mt-chat-img {
 }
 
 .mt-suno-placeholder:hover {
-  background: #313244;
-  color: #cdd6f4;
+  background: var(--mt-surface0);
+  color: var(--mt-text);
 }
 
 /* ── Emoji picker button ───────────────────────────────────────────────────── */
@@ -513,8 +1295,8 @@ img.mt-chat-img {
 .mt-copy-toast {
   position: fixed;
   z-index: 999999;
-  background: #313244;
-  color: #a6e3a1;
+  background: var(--mt-surface0);
+  color: var(--mt-positive);
   font-size: 11px;
   font-family: 'Titillium Web', system-ui, sans-serif;
   padding: 3px 8px;
@@ -528,6 +1310,51 @@ img.mt-chat-img {
   0%   { opacity: 1; transform: translateX(-50%) translateY(0); }
   50%  { opacity: 1; transform: translateX(-50%) translateY(-10px); }
   100% { opacity: 0; transform: translateX(-50%) translateY(-18px); }
+}
+
+/* ── Update toast ──────────────────────────────────────────────────────────── */
+
+.mt-update-toast {
+  position: fixed;
+  z-index: 999999;
+  right: 16px;
+  bottom: 16px;
+  max-width: 420px;
+  background: var(--mt-bg-mantle);
+  border: 1px solid var(--mt-surface1);
+  color: var(--mt-text);
+  font-size: 19.5px;
+  font-family: 'Titillium Web', system-ui, sans-serif;
+  padding: 10px 12px;
+  border-radius: 6px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+}
+
+.mt-update-toast-text {
+  flex: 1;
+  line-height: 1.5;
+  white-space: pre-line;
+}
+
+.mt-update-toast-text strong {
+  color: var(--mt-text-hi);
+}
+
+.mt-update-toast-dismiss {
+  background: none;
+  border: none;
+  color: var(--mt-overlay0);
+  cursor: pointer;
+  font-size: 14px;
+  line-height: 1;
+  padding: 0;
+}
+
+.mt-update-toast-dismiss:hover {
+  color: var(--mt-text);
 }
 
 /* ── Lightbox ──────────────────────────────────────────────────────────────── */
@@ -551,3 +1378,79 @@ img.mt-chat-img {
   box-shadow: 0 8px 48px rgba(0, 0, 0, 0.8);
   cursor: default;
 }
+
+/* ── Theme engine: color pickers in settings ───────────────────────────────── */
+
+.mt-token-groups {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+.mt-token-group-label {
+  font-size: 10px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--mt-overlay0);
+  margin-bottom: 5px;
+}
+
+.mt-token-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 6px;
+}
+
+.mt-token-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3px;
+  cursor: pointer;
+}
+
+.mt-token-item span {
+  font-size: 10px;
+  color: var(--mt-overlay0);
+  white-space: nowrap;
+}
+
+.mt-color-swatch {
+  width: 36px;
+  height: 24px;
+  border: 1px solid var(--mt-surface1);
+  border-radius: 4px;
+  padding: 1px 2px;
+  cursor: pointer;
+  background: none;
+}
+
+.mt-theme-io {
+  display: flex;
+  gap: 6px;
+  margin-top: 8px;
+}
+
+.mt-import-area {
+  margin-top: 6px;
+}
+
+.mt-import-ta {
+  width: 100%;
+  min-height: 60px;
+  background: var(--mt-bg-mantle);
+  border: 1px solid var(--mt-surface1);
+  border-radius: 4px;
+  color: var(--mt-text);
+  padding: 6px 8px;
+  font-size: 11px;
+  font-family: monospace;
+  resize: vertical;
+  box-sizing: border-box;
+  outline: none;
+  margin-bottom: 4px;
+}
+
+.mt-import-ta:focus { border-color: var(--mt-accent); }

@@ -1,0 +1,6 @@
+[    2103ms] [WARNING] [DEPRECATED] Use `createWithEqualityFn` instead of `create` or use `useStoreWithEqualityFn` instead of `useStore`. They can be imported from 'zustand/traditional'. https://github.com/pmndrs/zustand/discussions/1937 @ https://docs.klipy.com/_next/static/chunks/pages/_app-deb2db0da4ef6c99.js:0
+[    2159ms] [LOG] testing @ https://docs.klipy.com/_next/static/chunks/pages/_app-deb2db0da4ef6c99.js:0
+[    2503ms] [INFO] Slow network is detected. See https://www.chromestatus.com/feature/5636954674692096 for more details. Fallback font will be used while loading: https://docs.klipy.com/_next/static/media/Menlo-Regular.84776b98.woff @ https://docs.klipy.com/_next/static/chunks/96785-ee2cac01372bb0cc.js:0
+[    2879ms] [LOG] Deprecated as of 10.7.0. highlight(lang, code, ...args) has been deprecated. @ https://docs.klipy.com/_next/static/chunks/pages/_app-deb2db0da4ef6c99.js:0
+[    2879ms] [LOG] Deprecated as of 10.7.0. Please use highlight(code, options) instead.
+https://github.com/highlightjs/highlight.js/issues/2277 @ https://docs.klipy.com/_next/static/chunks/pages/_app-deb2db0da4ef6c99.js:0

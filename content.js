@@ -3,10 +3,43 @@
 
   console.log('[MantiTech] content script loaded');
 
-  const NOTE_PREFIX    = 'mt_note__mat_';
-  const API_KEY_STORE  = 'mt_api_key';
-  const SETTINGS_STORE = 'mt_settings';
-  const API_BASE       = 'https://api.g2.galactictycoons.com';
+  // ── Font face injection ────────────────────────────────────────────────────
+  // Relative url() in content-script CSS resolves against the page origin, not
+  // the extension. Build @font-face rules here with absolute extension URLs.
+
+  (function () {
+    const base = chrome.runtime.getURL('fonts/');
+    const faces = [
+      ["'Orbitron'",        '400 900', 'orbitron.woff2'],
+      ["'Share Tech Mono'", '400',     'sharetechmono.woff2'],
+      ["'Exo 2'",           '400 700', 'exo2.woff2'],
+      ["'Audiowide'",       '400',     'audiowide.woff2'],
+      ["'Chakra Petch'",    '400',     'chakrapetch-400.woff2'],
+      ["'Chakra Petch'",    '700',     'chakrapetch-700.woff2'],
+      ["'Electrolize'",     '400',     'electrolize.woff2'],
+      ["'Michroma'",        '400',     'michroma.woff2'],
+      ["'Oxanium'",         '400 700', 'oxanium.woff2'],
+      ["'Rajdhani'",        '400',     'rajdhani-400.woff2'],
+      ["'Rajdhani'",        '600',     'rajdhani-600.woff2'],
+      ["'Rajdhani'",        '700',     'rajdhani-700.woff2'],
+      ["'Space Mono'",      '400',     'spacemono-400.woff2'],
+      ["'Space Mono'",      '700',     'spacemono-700.woff2'],
+      ["'Teko'",            '400 700', 'teko.woff2'],
+      ["'VT323'",           '400',     'vt323.woff2'],
+    ].map(function (f) {
+      return '@font-face{font-family:' + f[0] + ';font-style:normal;font-weight:' + f[1] +
+             ';font-display:swap;src:url("' + base + f[2] + '")format("woff2")}';
+    }).join('');
+    const style = document.createElement('style');
+    style.textContent = faces;
+    (document.head || document.documentElement).appendChild(style);
+  }());;
+
+  const NOTE_PREFIX     = 'mt_note__mat_';
+  const API_KEY_STORE   = 'mt_api_key';
+  const SETTINGS_STORE  = 'mt_settings';
+  const SEEN_VER_STORE  = 'mt_seen_version';
+  const API_BASE        = 'https://api.g2.galactictycoons.com';
   let activeModal      = null;
   let debounceTimer    = null;
   let marketPriceCache = null; // { ts: Date, prices: { matName.toLowerCase() → cents } }
@@ -24,6 +57,47 @@
     guildContent:       true,
     wishlistCopy:       true,
     cheapestIndicator:  true,
+    theme:              'amberdark',
+    font:               'orbitron',
+    customTheme:        null,
+  };
+
+  const THEME_TOKENS = [
+    { key: '--mt-bg-base',   label: 'Background', group: 'Base' },
+    { key: '--mt-bg-mantle', label: 'Panel',       group: 'Base' },
+    { key: '--mt-surface0',  label: 'Surface',     group: 'Base' },
+    { key: '--mt-surface1',  label: 'Border',      group: 'Base' },
+    { key: '--mt-text',      label: 'Text',        group: 'Text' },
+    { key: '--mt-text-hi',   label: 'Emphasis',    group: 'Text' },
+    { key: '--mt-overlay0',  label: 'Muted',       group: 'Text' },
+    { key: '--mt-accent',    label: 'Accent',      group: 'Accent' },
+    { key: '--mt-highlight', label: 'Highlight',   group: 'Accent' },
+    { key: '--mt-positive',  label: 'Positive',    group: 'Accent' },
+    { key: '--mt-negative',  label: 'Negative',    group: 'Accent' },
+    { key: '--mt-planet-t1', label: 'T1',          group: 'Galaxy' },
+    { key: '--mt-planet-t2', label: 'T2',          group: 'Galaxy' },
+    { key: '--mt-planet-t3', label: 'T3',          group: 'Galaxy' },
+    { key: '--mt-planet-t4', label: 'T4',          group: 'Galaxy' },
+  ];
+
+  const THEME_PRESETS = {
+    amberdark: {
+      '--mt-bg-base':   '#100805',
+      '--mt-bg-mantle': '#1a0e06',
+      '--mt-surface0':  '#251508',
+      '--mt-surface1':  '#3d2410',
+      '--mt-overlay0':  '#8a5e28',
+      '--mt-text':      '#e8c060',
+      '--mt-text-hi':   '#f0d090',
+      '--mt-accent':    '#c8a020',
+      '--mt-highlight': '#f0a010',
+      '--mt-positive':  '#c89030',
+      '--mt-negative':  '#c83010',
+      '--mt-planet-t1': '#7a5530',
+      '--mt-planet-t2': '#a87828',
+      '--mt-planet-t3': '#d09a18',
+      '--mt-planet-t4': '#f5c815',
+    },
   };
 
   let settings = Object.assign({}, SETTINGS_DEFAULTS);
@@ -33,6 +107,43 @@
       settings = Object.assign({}, SETTINGS_DEFAULTS, result[SETTINGS_STORE] || {});
       if (cb) cb();
     });
+  }
+
+  function injectThemeVars(tokens, themeName) {
+    var old = document.getElementById('mt-theme-vars');
+    if (old) old.remove();
+    if (!tokens) return;
+    var selector = 'html[data-mt-theme="' + themeName + '"]';
+    var vars = Object.keys(tokens).map(function(k) {
+      return '  ' + k + ': ' + tokens[k] + ';';
+    }).join('\n');
+    var style = document.createElement('style');
+    style.id = 'mt-theme-vars';
+    style.textContent = selector + ' {\n' + vars + '\n}';
+    (document.head || document.documentElement).appendChild(style);
+  }
+
+  function applyTheme(name) {
+    var old = document.getElementById('mt-theme-vars');
+    if (old) old.remove();
+    if (!name || name === 'mocha') {
+      delete document.documentElement.dataset.mtTheme;
+      return;
+    }
+    document.documentElement.dataset.mtTheme = name;
+    // Built-in themes have their tokens in style.css — only inject for custom themes
+    if (!THEME_PRESETS[name]) {
+      var tokens = name === 'custom' ? settings.customTheme : null;
+      if (tokens) injectThemeVars(tokens, name);
+    }
+  }
+
+  function applyFont(name) {
+    if (name && name !== 'default') {
+      document.documentElement.dataset.mtFont = name;
+    } else {
+      delete document.documentElement.dataset.mtFont;
+    }
   }
 
   function saveSetting(key, value) {
@@ -564,9 +675,11 @@
     });
   }
 
-  // ── Tenor slash command ────────────────────────────────────────────────────
+  // ── GIF picker slash commands (/giphy, /klipy, /tenor) ─────────────────────
 
-  const TENOR_KEY = 'LIVDSRZULELA';
+  const GIPHY_KEY_STORE       = 'mt_giphy_api_key';
+  const KLIPY_KEY_STORE       = 'mt_klipy_api_key';
+  const KLIPY_CUSTOMER_STORE  = 'mt_klipy_customer_id';
   let tenorPicker   = null;
   let tenorDebounce = null;
 
@@ -581,7 +694,15 @@
     picker.style.bottom = (window.innerHeight - r.top + 6) + 'px';
   }
 
-  function showTenorPicker(input, query) {
+  function getKlipyCustomerId(cb) {
+    chrome.storage.local.get(KLIPY_CUSTOMER_STORE, function (result) {
+      if (result[KLIPY_CUSTOMER_STORE]) { cb(result[KLIPY_CUSTOMER_STORE]); return; }
+      const id = crypto.randomUUID();
+      chrome.storage.local.set({ [KLIPY_CUSTOMER_STORE]: id }, function () { cb(id); });
+    });
+  }
+
+  function showGifPicker(input, query, command) {
     closeTenorPicker();
     if (!query.trim()) return;
 
@@ -591,64 +712,112 @@
     tenorPicker = picker;
     positionTenorPicker(picker, input);
 
-    let grid      = null;
-    let nextPos   = '';
-    let isLoading = false;
+    if (command === 'tenor') {
+      const warning = document.createElement('div');
+      warning.className = 'mt-tenor-deprecation-warning';
+      warning.textContent = 'Tenor is deprecated, use giphy or klipy. Go to settings to input your API key(s)';
+      picker.appendChild(warning);
+      return;
+    }
 
-    function appendResults(results) {
-      results.forEach(function (result) {
-        const url   = result.media?.[0]?.gif?.url;
-        const thumb = result.media?.[0]?.tinygif?.url || url;
-        if (!url) return;
-        const img = document.createElement('img');
-        img.className = 'mt-tenor-thumb';
-        img.src = thumb;
-        img.alt = result.content_description || '';
-        img.addEventListener('click', function () {
-          input.value = input.value.replace(/\/tenor\s+.+$/, url);
-          input.dispatchEvent(new Event('input', { bubbles: true }));
-          closeTenorPicker();
-          input.focus();
+    const keyStore = command === 'giphy' ? GIPHY_KEY_STORE : KLIPY_KEY_STORE;
+
+    chrome.storage.local.get(keyStore, function (result) {
+      const apiKey = result[keyStore];
+      if (!apiKey) {
+        const empty = document.createElement('div');
+        empty.className = 'mt-tenor-deprecation-warning';
+        empty.textContent = 'No ' + (command === 'giphy' ? 'GIPHY' : 'KLIPY') + ' API key set. Add one in Settings.';
+        picker.appendChild(empty);
+        return;
+      }
+
+      const resultsWrap = document.createElement('div');
+      picker.appendChild(resultsWrap);
+
+      let grid           = null;
+      let isLoading      = false;
+      let more           = true;
+      let giphyOffset    = 0;
+      let giphyTotal     = Infinity;
+      let klipyPage      = 1;
+      let klipyCustomer  = null;
+
+      function appendResults(items) {
+        items.forEach(function (item) {
+          if (!item.url) return;
+          const img = document.createElement('img');
+          img.className = 'mt-tenor-thumb';
+          img.src = item.thumb;
+          img.alt = item.alt;
+          img.addEventListener('click', function () {
+            input.value = input.value.replace(new RegExp('\\/' + command + '\\s+.+$'), item.url);
+            input.dispatchEvent(new Event('input', { bubbles: true }));
+            closeTenorPicker();
+            input.focus();
+          });
+          grid.appendChild(img);
         });
-        grid.appendChild(img);
+      }
+
+      function handlePage(data) {
+        isLoading = false;
+        let items;
+        if (command === 'giphy') {
+          items = (data.data || []).map(function (r) {
+            return { url: r.images?.original?.url, thumb: r.images?.fixed_height_small?.url || r.images?.original?.url, alt: r.title || '' };
+          });
+          giphyTotal  = data.pagination?.total_count ?? giphyTotal;
+          giphyOffset += (data.data ? data.data.length : 0);
+          more = giphyOffset < giphyTotal;
+        } else {
+          const d    = data.data || {};
+          const list = d.data || [];
+          items = list.map(function (r) {
+            const f    = r.file || {};
+            const full = f.hd?.gif?.url || f.md?.gif?.url;
+            return { url: full, thumb: f.sm?.gif?.url || f.xs?.gif?.url || full, alt: r.title || '' };
+          });
+          klipyPage += 1;
+          more = !!d.has_next;
+        }
+
+        if (!grid) {
+          resultsWrap.textContent = '';
+          if (!items.length) { resultsWrap.textContent = 'No results.'; return; }
+          grid = document.createElement('div');
+          grid.className = 'mt-tenor-grid';
+          resultsWrap.appendChild(grid);
+        }
+        appendResults(items);
+      }
+
+      function onError() {
+        isLoading = false;
+        if (!grid) resultsWrap.textContent = 'Error loading GIFs.';
+      }
+
+      function fetchPage() {
+        if (isLoading || !more) return;
+        isLoading = true;
+        const url = command === 'giphy'
+          ? 'https://api.giphy.com/v1/gifs/search?q=' + encodeURIComponent(query) +
+            '&api_key=' + encodeURIComponent(apiKey) + '&limit=16&offset=' + giphyOffset
+          : 'https://api.klipy.com/api/v1/' + encodeURIComponent(apiKey) + '/gifs/search?page=' + klipyPage +
+            '&per_page=16&q=' + encodeURIComponent(query) + '&customer_id=' + encodeURIComponent(klipyCustomer);
+        fetch(url).then(function (r) { return r.json(); }).then(handlePage).catch(onError);
+      }
+
+      picker.addEventListener('scroll', function () {
+        if (more && picker.scrollTop + picker.clientHeight >= picker.scrollHeight - 60) fetchPage();
       });
-    }
 
-    function fetchPage(pos) {
-      if (isLoading) return;
-      isLoading = true;
-      var url = 'https://api.tenor.com/v1/search?q=' + encodeURIComponent(query) +
-                '&key=' + TENOR_KEY + '&limit=16' + (pos ? '&pos=' + pos : '');
-      fetch(url)
-        .then(function (r) { return r.json(); })
-        .then(function (data) {
-          isLoading = false;
-          if (!grid) {
-            picker.textContent = '';
-            if (!data.results || !data.results.length) {
-              picker.textContent = 'No results.';
-              return;
-            }
-            grid = document.createElement('div');
-            grid.className = 'mt-tenor-grid';
-            picker.appendChild(grid);
-          }
-          nextPos = data.next || '';
-          appendResults(data.results || []);
-        })
-        .catch(function () {
-          isLoading = false;
-          if (!grid) picker.textContent = 'Error loading GIFs.';
-        });
-    }
-
-    picker.addEventListener('scroll', function () {
-      if (nextPos && picker.scrollTop + picker.clientHeight >= picker.scrollHeight - 60) {
-        fetchPage(nextPos);
+      if (command === 'klipy') {
+        getKlipyCustomerId(function (id) { klipyCustomer = id; fetchPage(); });
+      } else {
+        fetchPage();
       }
     });
-
-    fetchPage('');
   }
 
   function setupTenorInput(input) {
@@ -657,10 +826,11 @@
     if (!settings.gifPicker) return;
     input.addEventListener('input', function () {
       clearTimeout(tenorDebounce);
-      const m = input.value.match(/\/tenor\s+(.+)$/);
+      const m = input.value.match(/\/(tenor|giphy|klipy)\s+(.+)$/);
       if (!m) { closeTenorPicker(); return; }
-      const query = m[1];
-      tenorDebounce = setTimeout(function () { showTenorPicker(input, query); }, 400);
+      const command = m[1];
+      const query   = m[2];
+      tenorDebounce = setTimeout(function () { showGifPicker(input, query, command); }, 400);
     });
   }
 
@@ -703,18 +873,24 @@
         'position:fixed;z-index:999999;' +
         'bottom:' + (window.innerHeight - rect.top + 6) + 'px;' +
         'left:' + Math.max(4, rect.right - 350) + 'px;';
-      picker.style.setProperty('--background',                   '#1e1e2e');
-      picker.style.setProperty('--border-color',                 '#45475a');
-      picker.style.setProperty('--indicator-color',              '#89b4fa');
-      picker.style.setProperty('--input-border-color',           '#45475a');
-      picker.style.setProperty('--input-font-color',             '#cdd6f4');
-      picker.style.setProperty('--input-placeholder-color',      '#6c7086');
-      picker.style.setProperty('--outline-color',                '#89b4fa');
-      picker.style.setProperty('--category-button-active-color', '#89b4fa');
-      picker.style.setProperty('--button-hover-background',      '#313244');
-      picker.style.setProperty('--text-color',                   '#cdd6f4');
-      picker.style.setProperty('--emoji-size',                   '1.5rem');
-      picker.style.setProperty('--num-columns',                  '8');
+      var cs = getComputedStyle(document.documentElement);
+      var g = function(v) { return cs.getPropertyValue(v).trim(); };
+      var epVars = {
+        '--background':                   g('--mt-bg-base'),
+        '--border-color':                 g('--mt-surface1'),
+        '--button-hover-background':      g('--mt-surface0'),
+        '--text-color':                   g('--mt-text'),
+        '--input-border-color':           g('--mt-surface1'),
+        '--input-font-color':             g('--mt-text'),
+        '--input-placeholder-color':      g('--mt-overlay0'),
+        '--outline-color':                g('--mt-accent'),
+        '--category-button-active-color': g('--mt-accent'),
+        '--emoji-size':                   '1.5rem',
+        '--num-columns':                  '8',
+      };
+      Object.keys(epVars).forEach(function(prop) {
+        picker.style.setProperty(prop, epVars[prop]);
+      });
 
       picker.addEventListener('emoji-click', function (ev) {
         const unicode = ev.detail.unicode;
@@ -1083,6 +1259,190 @@
     const header = makeEl('div', 'card-header', 'MantiTech');
     const body   = makeEl('div', 'card-body');
 
+    // ── Theme selector ────────────────────────────────────────────────────────
+    body.appendChild(makeEl('div', 'fw-semibold small mb-2', 'Theme'));
+    const themeRow = makeEl('div', 'd-flex gap-2 flex-wrap mb-2');
+
+    function setThemeActive(name) {
+      themeRow.querySelectorAll('button').forEach(function (b) {
+        b.className = 'btn btn-sm btn-outline-secondary';
+      });
+      const active = themeRow.querySelector('[data-theme="' + name + '"]');
+      if (active) active.className = 'btn btn-sm btn-primary';
+      customSection.style.display = name === 'custom' ? '' : 'none';
+    }
+
+    [['mocha', 'Mocha'], ['amberdark', 'Amberdark'], ['custom', 'Custom']].forEach(function (pair) {
+      const themeName = pair[0], themeLabel = pair[1];
+      const btn = makeEl('button', 'btn btn-sm ' + (settings.theme === themeName ? 'btn-primary' : 'btn-outline-secondary'), themeLabel);
+      btn.type = 'button';
+      btn.dataset.theme = themeName;
+      btn.addEventListener('click', function () {
+        if (themeName === 'custom' && !settings.customTheme) {
+          settings.customTheme = Object.assign({}, THEME_PRESETS.amberdark);
+          saveSetting('customTheme', settings.customTheme);
+          refreshPickerValues(settings.customTheme);
+        }
+        saveSetting('theme', themeName);
+        applyTheme(themeName);
+        setThemeActive(themeName);
+      });
+      themeRow.appendChild(btn);
+    });
+    body.appendChild(themeRow);
+
+    // ── Custom theme editor ───────────────────────────────────────────────────
+    const customSection = makeEl('div', 'mb-3');
+    customSection.style.display = settings.theme === 'custom' ? '' : 'none';
+
+    // Color picker groups
+    const groups = ['Base', 'Text', 'Accent', 'Galaxy'];
+    const groupsWrap = makeEl('div', 'mt-token-groups');
+    const swatches = {};
+
+    groups.forEach(function (groupName) {
+      const groupTokens = THEME_TOKENS.filter(function (t) { return t.group === groupName; });
+      const groupDiv = document.createElement('div');
+
+      const lbl = makeEl('div', 'mt-token-group-label', groupName);
+      groupDiv.appendChild(lbl);
+
+      const grid = makeEl('div', 'mt-token-grid');
+      groupTokens.forEach(function (token) {
+        const item = makeEl('label', 'mt-token-item');
+        const input = document.createElement('input');
+        input.type = 'color';
+        input.className = 'mt-color-swatch';
+        input.dataset.token = token.key;
+        input.value = (settings.customTheme && settings.customTheme[token.key]) || THEME_PRESETS.amberdark[token.key] || '#888888';
+        swatches[token.key] = input;
+
+        input.addEventListener('input', function () {
+          if (!settings.customTheme) settings.customTheme = Object.assign({}, THEME_PRESETS.amberdark);
+          settings.customTheme[token.key] = input.value;
+          if (settings.theme === 'custom') injectThemeVars(settings.customTheme, 'custom');
+        });
+        input.addEventListener('change', function () {
+          if (!settings.customTheme) settings.customTheme = Object.assign({}, THEME_PRESETS.amberdark);
+          settings.customTheme[token.key] = input.value;
+          saveSetting('customTheme', settings.customTheme);
+          if (settings.theme === 'custom') {
+            injectThemeVars(settings.customTheme, 'custom');
+          } else {
+            saveSetting('theme', 'custom');
+            applyTheme('custom');
+            setThemeActive('custom');
+          }
+        });
+
+        item.appendChild(input);
+        item.appendChild(makeEl('span', '', token.label));
+        grid.appendChild(item);
+      });
+      groupDiv.appendChild(grid);
+      groupsWrap.appendChild(groupDiv);
+    });
+    customSection.appendChild(groupsWrap);
+
+    // Import / Export
+    const ioRow = makeEl('div', 'mt-theme-io');
+
+    const exportBtn = makeEl('button', 'btn btn-sm btn-outline-secondary', 'Export JSON');
+    exportBtn.type = 'button';
+    exportBtn.addEventListener('click', function () {
+      const tokens = settings.customTheme || THEME_PRESETS.amberdark;
+      const json = JSON.stringify({ name: 'Custom', tokens: tokens }, null, 2);
+      navigator.clipboard.writeText(json).then(function () {
+        const r = exportBtn.getBoundingClientRect();
+        const toast = document.createElement('div');
+        toast.className = 'mt-copy-toast';
+        toast.textContent = 'Copied!';
+        toast.style.left = (r.left + r.width / 2) + 'px';
+        toast.style.top  = (r.top - 8) + 'px';
+        document.body.appendChild(toast);
+        toast.addEventListener('animationend', function () { toast.remove(); });
+      });
+    });
+
+    const importBtn = makeEl('button', 'btn btn-sm btn-outline-secondary', 'Import JSON');
+    importBtn.type = 'button';
+
+    const importArea = makeEl('div', 'mt-import-area');
+    importArea.style.display = 'none';
+    const importTa = makeEl('textarea', 'mt-import-ta');
+    importTa.placeholder = 'Paste theme JSON here…';
+    const applyImportBtn = makeEl('button', 'btn btn-sm btn-primary', 'Apply');
+    applyImportBtn.type = 'button';
+    applyImportBtn.addEventListener('click', function () {
+      try {
+        const parsed = JSON.parse(importTa.value.trim());
+        const tokens = parsed.tokens || parsed;
+        const valid = THEME_TOKENS.every(function (t) { return typeof tokens[t.key] === 'string'; });
+        if (!valid) throw new Error('Missing tokens');
+        settings.customTheme = tokens;
+        saveSetting('customTheme', tokens);
+        saveSetting('theme', 'custom');
+        applyTheme('custom');
+        setThemeActive('custom');
+        refreshPickerValues(tokens);
+        importArea.style.display = 'none';
+        importTa.value = '';
+      } catch (e) {
+        importTa.style.borderColor = 'var(--mt-negative)';
+        setTimeout(function () { importTa.style.borderColor = ''; }, 1500);
+      }
+    });
+    importArea.append(importTa, applyImportBtn);
+
+    importBtn.addEventListener('click', function () {
+      importArea.style.display = importArea.style.display === 'none' ? '' : 'none';
+    });
+
+    ioRow.append(exportBtn, importBtn);
+    customSection.append(ioRow, importArea);
+    body.appendChild(customSection);
+
+    function refreshPickerValues(tokens) {
+      THEME_TOKENS.forEach(function (t) {
+        if (swatches[t.key] && tokens[t.key]) swatches[t.key].value = tokens[t.key];
+      });
+    }
+
+    // Font selector
+    body.appendChild(makeEl('div', 'fw-semibold small mb-2 mt-2', 'Font'));
+    const fontRow = makeEl('div', 'd-flex gap-2 flex-wrap mb-3');
+    [
+      ['default',      'Default'],
+      ['orbitron',     'Orbitron'],
+      ['sharetechmono','Share Tech Mono'],
+      ['exo2',         'Exo 2'],
+      ['audiowide',    'Audiowide'],
+      ['chakrapetch',  'Chakra Petch'],
+      ['electrolize',  'Electrolize'],
+      ['michroma',     'Michroma'],
+      ['oxanium',      'Oxanium'],
+      ['rajdhani',     'Rajdhani'],
+      ['spacemono',    'Space Mono'],
+      ['teko',         'Teko'],
+      ['vt323',        'VT323'],
+    ].forEach(function (pair) {
+      const fontKey = pair[0], fontLabel = pair[1];
+      const btn = makeEl('button', 'btn btn-sm ' + (settings.font === fontKey ? 'btn-primary' : 'btn-outline-secondary'), fontLabel);
+      btn.type = 'button';
+      btn.addEventListener('click', function () {
+        saveSetting('font', fontKey);
+        applyFont(fontKey);
+        fontRow.querySelectorAll('button').forEach(function (b) { b.className = 'btn btn-sm btn-outline-secondary'; });
+        btn.className = 'btn btn-sm btn-primary';
+      });
+      fontRow.appendChild(btn);
+    });
+    body.appendChild(fontRow);
+
+    const themeHr = document.createElement('hr');
+    themeHr.className = 'opacity-20 my-3';
+    body.appendChild(themeHr);
+
     // Toggle Features table
     const features = [
       ['inlineImages',    'Inline image previews'],
@@ -1125,6 +1485,33 @@
     });
 
     body.appendChild(table);
+
+    // Update message dismissed indicator
+    const updateRow = makeEl('div', 'd-flex align-items-center justify-content-between mb-3');
+    const updateLabel = makeEl('span', 'small', 'Update message dismissed');
+    const updateCb = document.createElement('input');
+    updateCb.type = 'checkbox';
+    updateCb.className = 'form-check-input cursor-pointer';
+
+    const currentVersion = chrome.runtime.getManifest().version;
+    chrome.storage.local.get(SEEN_VER_STORE, function (result) {
+      updateCb.checked = result[SEEN_VER_STORE] === currentVersion;
+    });
+
+    updateCb.addEventListener('change', function () {
+      if (updateCb.checked) {
+        chrome.storage.local.set({ [SEEN_VER_STORE]: currentVersion });
+        const toast = document.querySelector('.mt-update-toast');
+        if (toast) toast.remove();
+      } else {
+        chrome.storage.local.remove(SEEN_VER_STORE, function () {
+          checkForUpdate();
+        });
+      }
+    });
+
+    updateRow.append(updateLabel, updateCb);
+    body.appendChild(updateRow);
 
     // API Key section
     const hr = document.createElement('hr');
@@ -1170,6 +1557,63 @@
     inputGroup.append(apiInput, saveBtn, clearBtn);
     body.appendChild(inputGroup);
 
+    // GIF provider keys
+    const gifHr = document.createElement('hr');
+    gifHr.className = 'opacity-20 my-3';
+    body.appendChild(gifHr);
+
+    body.appendChild(makeEl('div', 'fw-semibold small mb-1', 'GIF Providers'));
+    body.appendChild(makeEl('p', 'text-body-tertiary small mb-2',
+      'Needed for the /giphy and /klipy chat commands. Tenor is deprecated.'));
+
+    function buildKeyField(title, storeKey, linkUrl, linkLabel) {
+      const wrap = makeEl('div', 'mb-2');
+      wrap.appendChild(makeEl('div', 'small mb-1', title));
+
+      const info = makeEl('p', 'text-body-tertiary small mb-1', '');
+      info.innerHTML = 'Get a free key at <a href="' + linkUrl + '" target="_blank" rel="noopener noreferrer">' + linkLabel + '</a>.';
+      wrap.appendChild(info);
+
+      const group = makeEl('div', 'input-group input-group-sm');
+      const input = document.createElement('input');
+      input.type        = 'password';
+      input.className   = 'form-control';
+      input.placeholder = 'Paste API key…';
+
+      const save  = makeEl('button', 'btn btn-primary btn-sm', 'Save');
+      save.type   = 'button';
+      const clear = makeEl('button', 'btn btn-outline-secondary btn-sm', 'Clear');
+      clear.type  = 'button';
+
+      chrome.storage.local.get(storeKey, function (result) {
+        if (result[storeKey]) input.placeholder = '(key saved)';
+      });
+
+      save.addEventListener('click', function () {
+        const key = input.value.trim();
+        if (!key) return;
+        chrome.storage.local.set({ [storeKey]: key }, function () {
+          input.value       = '';
+          input.placeholder = '(key saved)';
+        });
+      });
+
+      clear.addEventListener('click', function () {
+        chrome.storage.local.remove(storeKey, function () {
+          input.placeholder = 'Paste API key…';
+        });
+      });
+
+      group.append(input, save, clear);
+      wrap.appendChild(group);
+      return wrap;
+    }
+
+    body.appendChild(buildKeyField('GIPHY API Key', GIPHY_KEY_STORE,
+      'https://developers.giphy.com/dashboard/', 'developers.giphy.com'));
+    body.appendChild(buildKeyField('KLIPY API Key', KLIPY_KEY_STORE,
+      'https://klipy.com/developers', 'klipy.com/developers'));
+
     body.appendChild(makeEl('p', 'text-body-tertiary small mt-3 mb-0', 'Some changes apply after navigating to a new page.'));
 
     card.append(header, body);
@@ -1179,6 +1623,50 @@
     const lastCard = cards[cards.length - 1];
     if (lastCard) modalBody.insertBefore(card, lastCard);
     else modalBody.appendChild(card);
+  }
+
+  // ── Update toast ───────────────────────────────────────────────────────────
+
+  function checkForUpdate() {
+    const currentVersion = chrome.runtime.getManifest().version;
+    chrome.storage.local.get(SEEN_VER_STORE, function (result) {
+      if (result[SEEN_VER_STORE] === currentVersion) return;
+      showUpdateToast(currentVersion);
+    });
+  }
+
+  function showUpdateToast(version) {
+    if (!document.body) {
+      document.addEventListener('DOMContentLoaded', function () { showUpdateToast(version); }, { once: true });
+      return;
+    }
+
+    fetch(chrome.runtime.getURL('update-message.txt'))
+      .then(function (r) { return r.text(); })
+      .then(function (msg) { renderUpdateToast(msg.trim().replace('{version}', version), version); })
+      .catch(function () { renderUpdateToast('MantiTech updated to v' + version + '.', version); });
+  }
+
+  function renderUpdateToast(message, version) {
+    const toast = document.createElement('div');
+    toast.className = 'mt-update-toast';
+
+    const text = document.createElement('div');
+    text.className = 'mt-update-toast-text';
+    text.textContent = message;
+
+    const dismissBtn = document.createElement('button');
+    dismissBtn.type = 'button';
+    dismissBtn.className = 'mt-update-toast-dismiss';
+    dismissBtn.textContent = '✕';
+    dismissBtn.setAttribute('aria-label', 'Dismiss');
+    dismissBtn.addEventListener('click', function () {
+      chrome.storage.local.set({ [SEEN_VER_STORE]: version });
+      toast.remove();
+    });
+
+    toast.append(text, dismissBtn);
+    document.body.appendChild(toast);
   }
 
   // ── Dismiss on outside click ───────────────────────────────────────────────
@@ -1228,6 +1716,8 @@
   }).observe(document.documentElement, { childList: true, subtree: true });
 
   loadSettings(function () {
+    applyTheme(settings.theme);
+    applyFont(settings.font);
     setupExchangeInfoBox();
     linkifyMessages();
     linkifyGuildContent();
@@ -1236,5 +1726,6 @@
     setupEmojiPickers();
     setupWishlistCopy();
     setupMyOffers();
+    checkForUpdate();
   });
 })();

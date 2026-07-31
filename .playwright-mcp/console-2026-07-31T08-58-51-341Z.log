@@ -1,0 +1,44 @@
+[     728ms] [LOG] User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Safari/537.36 @ https://galactictycoons.com/assets/app-BMB8xKDk.js:1
+[     729ms] [LOG] Platform detection data: {referrer: , ancestorOrigins: Array(0), isInIframe: false, parentExists: false, frameElement: null} @ https://galactictycoons.com/assets/app-BMB8xKDk.js:1
+[     746ms] [LOG] SM.OnRouteChanged() fullPath: /, path: / @ https://galactictycoons.com/assets/app-BMB8xKDk.js:1
+[     764ms] [LOG] App.onMounted() @ https://galactictycoons.com/assets/app-BMB8xKDk.js:1
+[     764ms] [LOG] Direct navigation - no referrer @ https://galactictycoons.com/assets/app-BMB8xKDk.js:1
+[     765ms] [LOG] App.vue: Using prefetched token validation @ https://galactictycoons.com/assets/app-BMB8xKDk.js:1
+[     765ms] [LOG] App.RefreshRouting() route.fullPath: /, route.path: /, User: 0, checkingToken: true @ https://galactictycoons.com/assets/app-BMB8xKDk.js:1
+[    1067ms] [LOG] InvalidateToken() @ https://galactictycoons.com/assets/app-BMB8xKDk.js:1
+[    1068ms] [LOG] App.RefreshRouting() route.fullPath: /, route.path: /, User: 0, checkingToken: false @ https://galactictycoons.com/assets/app-BMB8xKDk.js:1
+[    1118ms] [WARNING] <meta name="apple-mobile-web-app-capable" content="yes"> is deprecated. Please include <meta name="mobile-web-app-capable" content="yes"> @ https://galactictycoons.com/:0
+[    8436ms] [LOG] SM.OnRouteChanged() fullPath: /login, path: /login @ https://galactictycoons.com/assets/app-BMB8xKDk.js:1
+[    8530ms] [LOG] App.RefreshRouting() route.fullPath: /login, route.path: /login, User: 0, checkingToken: false @ https://galactictycoons.com/assets/app-BMB8xKDk.js:1
+[   11526ms] [ERROR] Cross-Origin-Opener-Policy policy would block the window.closed call. @ https://galactictycoons.com/assets/LoginView-zLf-9z1z.js:0
+[   11526ms] [ERROR] Cross-Origin-Opener-Policy policy would block the window.closed call. @ https://galactictycoons.com/assets/LoginView-zLf-9z1z.js:0
+[   84140ms] [ERROR] Cross-Origin-Opener-Policy policy would block the window.close call. @ https://galactictycoons.com/assets/LoginView-zLf-9z1z.js:0
+[   84141ms] [ERROR] Cross-Origin-Opener-Policy policy would block the window.close call. @ https://galactictycoons.com/assets/LoginView-zLf-9z1z.js:0
+[   84141ms] [LOG] GoogleLoginCallback() response received; redirectUri: https://galactictycoons.com/google-oauth-callback.html @ https://galactictycoons.com/assets/LoginView-zLf-9z1z.js:0
+[   84142ms] [LOG] Signing in with google; verifKey provided: no; providerData: Proxy(Object) @ https://galactictycoons.com/assets/LoginView-zLf-9z1z.js:0
+[   84143ms] [LOG] App.RefreshRouting() route.fullPath: /login, route.path: /login, User: 0, checkingToken: false @ https://galactictycoons.com/assets/app-BMB8xKDk.js:1
+[   85098ms] [LOG] App.RefreshRouting() route.fullPath: /login, route.path: /login, User: 6018, checkingToken: false @ https://galactictycoons.com/assets/app-BMB8xKDk.js:1
+[   85100ms] [LOG] SM.OnRouteChanged() fullPath: /lobby, path: /lobby @ https://galactictycoons.com/assets/app-BMB8xKDk.js:1
+[   85106ms] [LOG] App.RefreshRouting() route.fullPath: /login, route.path: /login, User: 6018, checkingToken: false @ https://galactictycoons.com/assets/app-BMB8xKDk.js:1
+[   85197ms] [LOG] App.RefreshRouting() route.fullPath: /lobby, route.path: /lobby, User: 6018, checkingToken: false @ https://galactictycoons.com/assets/app-BMB8xKDk.js:1
+[   85197ms] [LOG] App.RefreshRouting() route.fullPath: /lobby, route.path: /lobby, User: 6018, checkingToken: false @ https://galactictycoons.com/assets/app-BMB8xKDk.js:1
+[   88853ms] [LOG] ConnectionHandler.ts started; Api url: https://api.g2.galactictycoons.com/, pageLoadedDate: Fri Jul 31 2026 16:00:20 GMT+0700 (Indochina Time) @ https://g2.galactictycoons.com/assets/main-mgHDVNc0.js:1
+[   88861ms] [LOG] GetInitData() retryCount: 0 @ https://g2.galactictycoons.com/assets/main-mgHDVNc0.js:1
+[   88861ms] [LOG] Using prefetched init data @ https://g2.galactictycoons.com/assets/main-mgHDVNc0.js:1
+[   88870ms] [LOG] App.vue loaded Fri Jul 31 2026 16:00:20 GMT+0700 (Indochina Time) @ https://g2.galactictycoons.com/assets/index-BtnOMxO9.js:0
+[   88873ms] [LOG] CH.Connect(); connection.state: Disconnected, caller: App.vue module load, gameDataLoaded: false  @ https://g2.galactictycoons.com/assets/main-mgHDVNc0.js:1
+[   88874ms] [LOG] CH.Connect() starting connection... @ https://g2.galactictycoons.com/assets/main-mgHDVNc0.js:1
+[   88885ms] [INFO] App.onMounted() route @ https://g2.galactictycoons.com/assets/index-BtnOMxO9.js:0
+[   88894ms] [LOG] GetInitData() received @ https://g2.galactictycoons.com/assets/main-mgHDVNc0.js:1
+[   88895ms] [LOG] DH.ResetData() @ https://g2.galactictycoons.com/assets/main-mgHDVNc0.js:1
+[   89053ms] [WARNING] <meta name="apple-mobile-web-app-capable" content="yes"> is deprecated. Please include <meta name="mobile-web-app-capable" content="yes"> @ https://g2.galactictycoons.com/base:0
+[   89520ms] [LOG] SendQueuedMessages() sending queued messages: 0 @ https://g2.galactictycoons.com/assets/main-mgHDVNc0.js:1
+[   89757ms] [INFO] [2026-07-31T09:00:21.097Z] Information: WebSocket connected to wss://api.g2.galactictycoons.com/mainHub?id=bnm3hDzUfu2whkuYwAyZHg. @ https://g2.galactictycoons.com/assets/vendor2-RIcf_zuT.js:0
+[   89757ms] [INFO] [2026-07-31T09:00:21.098Z] Information: Using HubProtocol 'json'. @ https://g2.galactictycoons.com/assets/vendor2-RIcf_zuT.js:0
+[   89827ms] [LOG] CH.Connect() connection established. state: Connected @ https://g2.galactictycoons.com/assets/main-mgHDVNc0.js:1
+[   89831ms] [LOG] SendQueuedMessages() sending queued messages: 0 @ https://g2.galactictycoons.com/assets/main-mgHDVNc0.js:1
+[   89832ms] [LOG] App.RefreshRouting() DH.companyData.id == 0, waiting for company. @ https://g2.galactictycoons.com/assets/index-BtnOMxO9.js:0
+[   89832ms] [LOG] App.RefreshRouting() DH.companyData.id == 0, waiting for company. @ https://g2.galactictycoons.com/assets/index-BtnOMxO9.js:0
+[   89935ms] [LOG] App mainDataLoaded @ https://g2.galactictycoons.com/assets/index-BtnOMxO9.js:0
+[  143628ms] [LOG] gtag setCookie: ga-ac=granted @ https://g2.galactictycoons.com/assets/main-mgHDVNc0.js:1
+[  143629ms] [LOG] gtag Updating Google consent state to: granted @ https://g2.galactictycoons.com/assets/main-mgHDVNc0.js:1
